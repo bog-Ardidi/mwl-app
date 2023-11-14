@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
 
 interface Props {
   children: React.ReactNode;
@@ -12,8 +12,6 @@ interface Context {
 const AuthContext = createContext<Context>({ user: null });
 
 const AuthProvider = ({ children }: Props) => {
-  const auth = getAuth();
-
   // user null = loading
   const [user, setUser] = useState<boolean | null>(null);
 
@@ -22,7 +20,7 @@ const AuthProvider = ({ children }: Props) => {
   }, []);
 
   function checkLogin() {
-    onAuthStateChanged(auth, (res) => (res ? setUser(true) : setUser(false)));
+    auth.onAuthStateChanged((res) => (res ? setUser(true) : setUser(false)));
   }
 
   return (

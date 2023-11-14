@@ -6,6 +6,7 @@ import { AuthContext } from "./Authentication";
 import Home from "../Screens/Home";
 import SecondScreen from "../Screens/SecondScreen";
 import Loading from "../Components/Loading";
+import Login from "../Screens/Login";
 
 const AuthStack = createNativeStackNavigator();
 

@@ -1,11 +1,12 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { initializeApp, getApps } from "firebase/app";
+
 import {
   FIREBASE_API_KEY,
   FIREBASE_APP_ID,
   FIREBASE_MEASUREMENT_ID,
   FIREBASE_MESSAGING_SENDER_ID,
 } from "@env";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: FIREBASE_API_KEY,
@@ -18,5 +19,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+if (getApps().length === 0) {
+  initializeApp(firebaseConfig);
+}
+
+export const auth = getAuth();
