@@ -14,7 +14,7 @@ import defaultStyles from "../Utils/styles";
 
 function IconTextInput({ icon, width = "100%", style, ...otherProps }: any) {
   return (
-    <View style={[styles.container, style]}>
+    <View style={[styles.container, defaultStyles.textInput, style]}>
       {icon && (
         <MaterialCommunityIcons
           name={icon}
@@ -23,22 +23,16 @@ function IconTextInput({ icon, width = "100%", style, ...otherProps }: any) {
           style={styles.icon}
         />
       )}
-      <TextInput
-        placeholderTextColor={colors.medium}
-        // style={[defaultStyles.textInput]}
-        {...otherProps}
-      />
+      <TextInput placeholderTextColor={colors.medium} {...otherProps} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.light,
-    borderRadius: 25,
     flexDirection: "row",
-    padding: 15,
-    marginVertical: 10,
+    padding: 10,
+    margin: 10,
     borderWidth: 0.1,
     borderColor: colors.dark,
   },

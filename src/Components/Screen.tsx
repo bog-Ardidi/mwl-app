@@ -8,7 +8,7 @@ import Constants from "expo-constants";
 import { StyleSheet, SafeAreaView, View, StyleProp } from "react-native";
 
 interface ScreenProps {
-  style: StyleProp<any>;
+  style?: StyleProp<any>;
   children: any;
 }
 

@@ -5,8 +5,8 @@ import colors from "../Utils/colors";
 interface ButtonProps {
   title: string;
   onPress: any;
-  style: any;
-  color: string;
+  style?: any;
+  color?: string;
 }
 
 function Button({
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     width: "70%",
     height: 45,
     marginVertical: 10,
-    borderRadius: 20,
     alignSelf: "center",
     backgroundColor: colors.midnightBlue,
   },

@@ -7,5 +7,8 @@ export default {
     fontSize: 18,
     fontFamily: Platform.OS == "android" ? "Roboto" : "Avenir",
   },
+  textInput: {
+    backgroundColor: colors.white,
+  },
   colors,
 };

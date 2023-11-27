@@ -1,25 +1,13 @@
 import React, { useState } from "react";
-import {
-  ScrollView,
-  TouchableOpacity,
-  View,
-  KeyboardAvoidingView,
-  Image,
-} from "react-native";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import {
-  Layout,
-  Text,
-  TextInput,
-  Button,
-  useTheme,
-  themeColor,
-} from "react-native-rapi-ui";
+import { StyleSheet, Image, View } from "react-native";
+
 import { FirebaseSignIn } from "../../Controllers/AuthenticationController";
+import Screen from "../../Components/Screen";
+import IconTextInput from "../../Components/IconTextInput";
+import colors from "../../Utils/colors";
+import Button from "../../Components/Button";
 
 export default function ({ navigation }: any) {
-  const { isDarkmode, setTheme } = useTheme();
-  const auth = getAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -30,151 +18,57 @@ export default function ({ navigation }: any) {
   }
 
   return (
-    <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
-      <Layout>
-        <ScrollView
-          contentContainerStyle={{
-            flexGrow: 1,
+    <Screen style={styles.screenContainer}>
+      <Image
+        resizeMode="contain"
+        source={require("../../../assets/login.png")}
+        style={styles.logo}
+      />
+      <View style={styles.loginContainer}>
+        <IconTextInput
+          icon="account"
+          placeholder="Enter your password"
+          value={email}
+          autoCapitalize="none"
+          autoCompleteType="off"
+          autoCorrect={false}
+          onChangeText={(text: string) => setEmail(text)}
+        />
+        <IconTextInput
+          icon="lock"
+          placeholder="Enter your password"
+          value={password}
+          autoCapitalize="none"
+          autoCompleteType="off"
+          autoCorrect={false}
+          secureTextEntry={true}
+          onChangeText={(text: string) => setPassword(text)}
+        />
+
+        <Button
+          title="Login"
+          onPress={() => {
+            login();
           }}
-        >
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: isDarkmode ? "#17171E" : themeColor.white100,
-            }}
-          >
-            <Image
-              resizeMode="contain"
-              style={{
-                height: 220,
-                width: 220,
-              }}
-              source={require("../../assets/login.png")}
-            />
-          </View>
-          <View
-            style={{
-              flex: 3,
-              paddingHorizontal: 20,
-              paddingBottom: 20,
-              backgroundColor: isDarkmode ? themeColor.dark : themeColor.white,
-            }}
-          >
-            <Text
-              fontWeight="bold"
-              style={{
-                alignSelf: "center",
-                padding: 30,
-              }}
-              size="h3"
-            >
-              Login
-            </Text>
-            <Text>Email</Text>
-            <TextInput
-              containerStyle={{ marginTop: 15 }}
-              placeholder="Enter your email"
-              value={email}
-              autoCapitalize="none"
-              autoComplete="off"
-              autoCorrect={false}
-              keyboardType="email-address"
-              onChangeText={(text) => setEmail(text)}
-            />
-
-            <Text style={{ marginTop: 15 }}>Password</Text>
-            <TextInput
-              containerStyle={{ marginTop: 15 }}
-              placeholder="Enter your password"
-              value={password}
-              autoCapitalize="none"
-              autoComplete="off"
-              autoCorrect={false}
-              secureTextEntry={true}
-              onChangeText={(text) => setPassword(text)}
-            />
-            <Button
-              text={loading ? "Loading" : "Continue"}
-              onPress={() => {
-                login();
-              }}
-              style={{
-                marginTop: 20,
-              }}
-              disabled={loading}
-            />
-
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 15,
-                justifyContent: "center",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("Register");
-                }}
-              >
-                <Text
-                  size="md"
-                  fontWeight="bold"
-                  style={{
-                    marginLeft: 5,
-                  }}
-                >
-                  Register here
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 10,
-                justifyContent: "center",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("ForgetPassword");
-                }}
-              >
-                <Text size="md" fontWeight="bold">
-                  Forget password
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 30,
-                justifyContent: "center",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  isDarkmode ? setTheme("light") : setTheme("dark");
-                }}
-              >
-                <Text
-                  size="md"
-                  fontWeight="bold"
-                  style={{
-                    marginLeft: 5,
-                  }}
-                >
-                  {isDarkmode ? "☀️ light theme" : "🌑 dark theme"}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ScrollView>
-      </Layout>
-    </KeyboardAvoidingView>
+        />
+      </View>
+    </Screen>
   );
 }
+
+const styles = StyleSheet.create({
+  screenContainer: {
+    backgroundColor: colors.white100,
+  },
+  logo: {
+    width: 300,
+    height: 300,
+    alignSelf: "center",
+  },
+  loginContainer: {
+    backgroundColor: colors.white,
+    flex: 1,
+    borderTopStartRadius: 20,
+    borderTopEndRadius: 20,
+  },
+});
