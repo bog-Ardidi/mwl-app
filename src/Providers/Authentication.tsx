@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
 import { auth } from "../Config/firebase";
-
 interface Props {
   children: React.ReactNode;
 }
@@ -16,7 +15,9 @@ const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<boolean | null>(null);
 
   useEffect(() => {
-    auth.onAuthStateChanged((res) => (res ? setUser(true) : setUser(false)));
+    auth.onAuthStateChanged((res: any) =>
+      res ? setUser(true) : setUser(false)
+    );
   }, []);
 
   return (

@@ -1,11 +1,4 @@
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-
-const auth = getAuth();
+import { auth } from "../Config/firebase";
 
 interface AuthProps {
   email: string;
@@ -13,17 +6,17 @@ interface AuthProps {
 }
 
 export const FirebaseSignIn = ({ email, password }: AuthProps) => {
-  signInWithEmailAndPassword(auth, email, password).catch((error) =>
-    alert(error.message)
-  );
+  auth
+    .signInWithEmailAndPassword(email, password)
+    .catch((error: any) => alert(error.message));
 };
 
 export const FirebaseRegister = ({ email, password }: AuthProps) => {
-  createUserWithEmailAndPassword(auth, email, password).catch((error) =>
-    alert(error.message)
-  );
+  auth
+    .createUserWithEmailAndPassword(email, password)
+    .catch((error: any) => alert(error.message));
 };
 
 export const FirebaseSignOut = () => {
-  signOut(auth).catch((error) => alert(error.message));
+  auth.signOut().catch((error: any) => alert(error.message));
 };
