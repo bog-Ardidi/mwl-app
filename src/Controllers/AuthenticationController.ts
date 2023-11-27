@@ -24,6 +24,6 @@ export const FirebaseRegister = ({ email, password }: AuthProps) => {
   );
 };
 
-export const FirebaseLogOut = () => {
+export const FirebaseSignOut = () => {
   signOut(auth).catch((error) => alert(error.message));
 };

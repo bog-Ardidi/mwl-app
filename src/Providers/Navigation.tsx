@@ -3,10 +3,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AuthContext } from "./Authentication";
 
-import Home from "../Screens/Home";
-import SecondScreen from "../Screens/SecondScreen";
 import Loading from "../Components/Loading";
 import Login from "../Screens/Auth/Login";
+import HomeScreen from "../Screens/HomeScreen";
+import SubmitScreen from "../Screens/SubmitScreen";
+import GraphScreen from "../Screens/GraphScreen";
 
 const AuthStack = createNativeStackNavigator();
 
@@ -33,8 +34,9 @@ const Main = () => {
         headerShown: false,
       }}
     >
-      <MainStack.Screen name="Home" component={Home} />
-      <MainStack.Screen name="SecondScreen" component={SecondScreen} />
+      <MainStack.Screen name="Home" component={HomeScreen} />
+      <MainStack.Screen name="Submit" component={SubmitScreen} />
+      <MainStack.Screen name="Graph" component={GraphScreen} />
     </MainStack.Navigator>
   );
 };
