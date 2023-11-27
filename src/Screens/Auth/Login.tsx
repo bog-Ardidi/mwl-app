@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { StyleSheet, Image, View } from "react-native";
+import { StyleSheet, Image, View, Text } from "react-native";
 
 import { FirebaseSignIn } from "../../Controllers/AuthenticationController";
 import Screen from "../../Components/Screen";
 import IconTextInput from "../../Components/IconTextInput";
-import colors from "../../Utils/colors";
+import colors from "../../Config/colors";
+import { fontSize } from "../../Config/typography";
 import Button from "../../Components/Button";
+import { hex2rgba } from "../../Utils/hex2rgba";
+import { Divider } from "../../Components/Divider";
 
 export default function ({ navigation }: any) {
   const [email, setEmail] = useState("");
@@ -25,6 +28,7 @@ export default function ({ navigation }: any) {
         style={styles.logo}
       />
       <View style={styles.loginContainer}>
+        <Text style={styles.titleText}>Mental Workload Tracker</Text>
         <IconTextInput
           icon="account"
           placeholder="Enter your password"
@@ -47,10 +51,16 @@ export default function ({ navigation }: any) {
 
         <Button
           title="Login"
+          style={styles.button}
           onPress={() => {
             login();
           }}
         />
+
+        <Divider text="More options" />
+
+        <Text style={styles.optionsText}>Register</Text>
+        <Text style={styles.optionsText}>Forgotten password</Text>
       </View>
     </Screen>
   );
@@ -58,17 +68,32 @@ export default function ({ navigation }: any) {
 
 const styles = StyleSheet.create({
   screenContainer: {
-    backgroundColor: colors.white100,
+    backgroundColor: hex2rgba(colors.palette5, 0.3),
   },
   logo: {
     width: 300,
     height: 300,
     alignSelf: "center",
+    flex: 2,
   },
   loginContainer: {
     backgroundColor: colors.white,
-    flex: 1,
+    flex: 3,
     borderTopStartRadius: 20,
     borderTopEndRadius: 20,
+  },
+  titleText: {
+    textAlign: "center",
+    fontSize: fontSize["h3"],
+    fontWeight: "500",
+    marginVertical: 40,
+  },
+  optionsText: {
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 10,
+  },
+  button: {
+    marginTop: 40,
   },
 });

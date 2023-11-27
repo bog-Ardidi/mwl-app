@@ -9,12 +9,12 @@ import React from "react";
 import { TextInput, View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import colors from "../Utils/colors";
-import defaultStyles from "../Utils/styles";
+import colors from "../Config/colors";
+import defaultStyles from "../Config/styles";
 
 function IconTextInput({ icon, width = "100%", style, ...otherProps }: any) {
   return (
-    <View style={[styles.container, defaultStyles.textInput, style]}>
+    <View style={[styles.container, style]}>
       {icon && (
         <MaterialCommunityIcons
           name={icon}
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 10,
     margin: 10,
-    borderWidth: 0.1,
-    borderColor: colors.dark,
+    borderWidth: 0.5,
+    borderColor: colors.grayBorder,
   },
   icon: {
     alignSelf: "center",

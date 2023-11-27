@@ -1,5 +1,6 @@
 import { Platform } from "react-native";
 import colors from "./colors";
+import { fontSize } from "./typography";
 
 export default {
   text: {
@@ -7,8 +8,6 @@ export default {
     fontSize: 18,
     fontFamily: Platform.OS == "android" ? "Roboto" : "Avenir",
   },
-  textInput: {
-    backgroundColor: colors.white,
-  },
   colors,
+  fontSize,
 };

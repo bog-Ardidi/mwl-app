@@ -14,6 +14,7 @@ export default {
   purple: "#5B2C6F",
   lightPurple: "#EBDEF0",
 
+  // base colours
   black: "#050505",
   black100: "#2e2e2e",
   black200: "#242424",
@@ -32,4 +33,13 @@ export default {
   dark: "#191921",
   dark100: "#383b4d",
   dark200: "#262834",
+
+  grayBorder: "#d8d8d8",
+
+  // palette
+  palette1: "#3333cc",
+  palette2: "#9999ff",
+  palette3: "#c0dfff",
+  palette4: "#60b0c0",
+  palette5: "#008080",
 };
