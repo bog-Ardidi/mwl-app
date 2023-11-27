@@ -1,4 +1,4 @@
-import { auth, db, fbfs, timestamp } from "../Config/firebase";
+import { auth, db, timestamp } from "../Config/firebase";
 
 interface submitProps {
   rating: number;
@@ -15,6 +15,9 @@ export const SubmitWorkload = async (props: submitProps) => {
 
   db.collection("mentalworkload")
     .add(docData)
+    .then((docRef: any) => {
+      console.log("Document written with ID: ", docRef.id);
+    })
     .catch((error: any) => {
       console.error("Error adding document: ", error);
       alert("There was a problem with your submission");
