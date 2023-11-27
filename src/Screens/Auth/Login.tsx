@@ -15,7 +15,7 @@ import {
   useTheme,
   themeColor,
 } from "react-native-rapi-ui";
-import { FirebaseSignIn } from "../Controllers/AuthenticationController";
+import { FirebaseSignIn } from "../../Controllers/AuthenticationController";
 
 export default function ({ navigation }: any) {
   const { isDarkmode, setTheme } = useTheme();
