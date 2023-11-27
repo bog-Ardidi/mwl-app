@@ -16,12 +16,8 @@ const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<boolean | null>(null);
 
   useEffect(() => {
-    checkLogin();
-  }, []);
-
-  function checkLogin() {
     auth.onAuthStateChanged((res) => (res ? setUser(true) : setUser(false)));
-  }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>

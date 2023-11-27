@@ -15,6 +15,7 @@ import {
   useTheme,
   themeColor,
 } from "react-native-rapi-ui";
+import { FirebaseSignIn } from "../Controllers/AuthenticationController";
 
 export default function ({ navigation }: any) {
   const { isDarkmode, setTheme } = useTheme();
@@ -24,17 +25,8 @@ export default function ({ navigation }: any) {
   const [loading, setLoading] = useState(false);
 
   async function login() {
-    setLoading(true);
-    await signInWithEmailAndPassword(auth, email, password).catch(function (
-      error
-    ) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-      setLoading(false);
-      alert(errorMessage);
-    });
+    //setLoading(true);
+    FirebaseSignIn({ email, password });
   }
 
   return (

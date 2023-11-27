@@ -1,43 +1,12 @@
 import React from "react";
 import { View } from "react-native";
-import {
-  Layout,
-  TopNav,
-  Text,
-  themeColor,
-  useTheme,
-} from "react-native-rapi-ui";
-import { Ionicons } from "@expo/vector-icons";
+import { Layout, Text } from "react-native-rapi-ui";
+import Header from "../Components/Header";
 
 export default function ({ navigation }: any) {
-  const { isDarkmode, setTheme } = useTheme();
   return (
     <Layout>
-      <TopNav
-        middleContent="Second Screen"
-        leftContent={
-          <Ionicons
-            name="chevron-back"
-            size={20}
-            color={isDarkmode ? themeColor.white100 : themeColor.dark}
-          />
-        }
-        leftAction={() => navigation.goBack()}
-        rightContent={
-          <Ionicons
-            name={isDarkmode ? "sunny" : "moon"}
-            size={20}
-            color={isDarkmode ? themeColor.white100 : themeColor.dark}
-          />
-        }
-        rightAction={() => {
-          if (isDarkmode) {
-            setTheme("light");
-          } else {
-            setTheme("dark");
-          }
-        }}
-      />
+      <Header />
       <View
         style={{
           flex: 1,
