@@ -18,6 +18,7 @@ const HomeScreen = () => {
         title="Go to graph page"
         onPress={() => navigation.navigate("Graph")}
       />
+      <Button title="Scores" onPress={() => navigation.navigate("Scores")} />
       <Button
         title="Log Out"
         onPress={() => FirebaseSignOut()}
