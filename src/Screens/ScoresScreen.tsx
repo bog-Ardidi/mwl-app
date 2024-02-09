@@ -3,7 +3,7 @@ import Icon from "../Components/Icon";
 import colors from "../Config/colors";
 import { useNavigation } from "@react-navigation/native";
 import { useState, useEffect } from "react";
-import { getWorkloadForToday } from "../Controllers/WorkloadController";
+import { getAllWorkloadForUser } from "../Controllers/WorkloadController";
 import { Text, View, StyleSheet } from "react-native";
 
 const ScoresScreen = () => {
@@ -12,7 +12,7 @@ const ScoresScreen = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await getWorkloadForToday();
+      const res = await getAllWorkloadForUser();
       setData(res?.docs?.map((e: any) => e.data()));
     }
     fetchData();
@@ -32,7 +32,12 @@ const ScoresScreen = () => {
             <Text>Task name: {e.name ?? "No name provided"}</Text>
             <Text>Rating: {e.rating ?? "No rating provided"}</Text>
             <Text>Duration: {e.duration ?? "No rating provided"}</Text>
-            <Text>Date: {e.timestamp.seconds ?? "No date provided"}</Text>
+            <Text>
+              Date:{" "}
+              {e.timestamp.seconds
+                ? e.timestamp.toDate().toString()
+                : "No date provided"}
+            </Text>
           </View>
         ))
       ) : (

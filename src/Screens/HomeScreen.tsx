@@ -20,6 +20,10 @@ const HomeScreen = () => {
       />
       <Button title="Scores" onPress={() => navigation.navigate("Scores")} />
       <Button
+        title="Calendar"
+        onPress={() => navigation.navigate("Calendar")}
+      />
+      <Button
         title="Log Out"
         onPress={() => FirebaseSignOut()}
         style={{ backgroundColor: "red" }}

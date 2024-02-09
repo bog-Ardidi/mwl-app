@@ -9,6 +9,7 @@ import HomeScreen from "../Screens/HomeScreen";
 import SubmitScreen from "../Screens/SubmitScreen";
 import GraphScreen from "../Screens/GraphScreen";
 import ScoresScreen from "../Screens/ScoresScreen";
+import CalendarScreen from "../Screens/CalendarScreen";
 
 const AuthStack = createNativeStackNavigator();
 
@@ -39,6 +40,7 @@ const Main = () => {
       <MainStack.Screen name="Submit" component={SubmitScreen} />
       <MainStack.Screen name="Graph" component={GraphScreen} />
       <MainStack.Screen name="Scores" component={ScoresScreen} />
+      <MainStack.Screen name="Calendar" component={CalendarScreen} />
     </MainStack.Navigator>
   );
 };
