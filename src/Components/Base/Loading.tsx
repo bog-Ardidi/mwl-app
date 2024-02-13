@@ -1,6 +1,6 @@
 import React from "react";
 import { View, ActivityIndicator } from "react-native";
-import colors from "../Config/colors";
+import colors from "../../Config/colors";
 
 export default function ({ navigation }: any) {
   return (

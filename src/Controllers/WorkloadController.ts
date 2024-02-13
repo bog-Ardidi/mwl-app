@@ -1,4 +1,4 @@
-import { auth, db, timestamp } from "../Config/firebase";
+import { auth, db, timestamp, fbfs } from "../Config/firebase";
 
 export interface workloadProps {
   rating: number;
@@ -14,7 +14,7 @@ export const SubmitWorkload = async (props: workloadProps) => {
     rating: props.rating,
     duration: props.duration,
     user_id: auth.currentUser.uid,
-    timestamp: timestamp,
+    timestamp: fbfs.Timestamp.fromDate(new Date("2024-01-14")),
   };
 
   db.collection(MWL_COLLECTION)
@@ -29,7 +29,7 @@ export const SubmitWorkload = async (props: workloadProps) => {
     });
 };
 
-export const getWorkloadForToday = async (currentDate: string) => {
+export const getWorkloadForDay = async (currentDate: string) => {
   const startOfDay = new Date(currentDate);
   const endOfDay = new Date(currentDate);
   endOfDay.setHours(23, 59, 59);

@@ -1,10 +1,11 @@
-import Screen from "../Components/Screen";
-import Icon from "../Components/Icon";
+import Screen from "../Components/Base/Screen";
+import Icon from "../Components/Base/Icon";
 import colors from "../Config/colors";
 import { useNavigation } from "@react-navigation/native";
 import { useState, useEffect } from "react";
 import { getAllWorkloadForUser } from "../Controllers/WorkloadController";
-import { Text, View, StyleSheet } from "react-native";
+import FeedbackList from "../Components/FeedbackList";
+import { Text } from "react-native";
 
 const ScoresScreen = () => {
   const navigation = useNavigation();
@@ -26,34 +27,9 @@ const ScoresScreen = () => {
         backgroundColor="transparent"
         onClick={() => navigation.goBack()}
       />
-      {data !== null ? (
-        data.map((e, idx) => (
-          <View style={styles.scores} key={idx}>
-            <Text>Task name: {e.name ?? "No name provided"}</Text>
-            <Text>Rating: {e.rating ?? "No rating provided"}</Text>
-            <Text>Duration: {e.duration ?? "No rating provided"}</Text>
-            <Text>
-              Date:{" "}
-              {e.timestamp.seconds
-                ? e.timestamp.toDate().toString()
-                : "No date provided"}
-            </Text>
-          </View>
-        ))
-      ) : (
-        <Text>Loading</Text>
-      )}
+      <FeedbackList data={data} />
     </Screen>
   );
 };
-
-const styles = StyleSheet.create({
-  scores: {
-    padding: 10,
-    borderWidth: 1,
-    borderColor: colors.grayBorder,
-    margin: 10,
-  },
-});
 
 export default ScoresScreen;

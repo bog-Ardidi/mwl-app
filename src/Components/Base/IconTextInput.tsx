@@ -9,8 +9,8 @@ import React from "react";
 import { TextInput, View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import colors from "../Config/colors";
-import defaultStyles from "../Config/styles";
+import colors from "../../Config/colors";
+import defaultStyles from "../../Config/styles";
 
 function IconTextInput({ icon, width = "100%", style, ...otherProps }: any) {
   return (

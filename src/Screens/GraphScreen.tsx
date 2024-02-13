@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
-import Screen from "../Components/Screen";
-import Icon from "../Components/Icon";
+import Screen from "../Components/Base/Screen";
+import Icon from "../Components/Base/Icon";
 import colors from "../Config/colors";
 import { useNavigation } from "@react-navigation/native";
 import {

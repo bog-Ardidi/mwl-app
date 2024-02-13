@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AuthContext } from "./Authentication";
 
-import Loading from "../Components/Loading";
+import Loading from "../Components/Base/Loading";
 import Login from "../Screens/Auth/Login";
 import HomeScreen from "../Screens/HomeScreen";
 import SubmitScreen from "../Screens/SubmitScreen";

@@ -1,8 +1,8 @@
 import React from "react";
 import { FirebaseSignOut } from "../Controllers/AuthenticationController";
-import Screen from "../Components/Screen";
+import Screen from "../Components/Base/Screen";
 import { useNavigation } from "@react-navigation/native";
-import Button from "../Components/Button";
+import Button from "../Components/Base/Button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const HomeScreen = () => {
