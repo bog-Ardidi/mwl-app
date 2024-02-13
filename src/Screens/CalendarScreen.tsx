@@ -6,49 +6,41 @@ import { Fragment, useState, useMemo, useCallback, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { Calendar, CalendarUtils } from "react-native-calendars";
 import { useDidMount } from "../Utils/useIsMount";
-import { getWorkloadForToday } from "../Controllers/WorkloadController";
+import { getWorkloadForMonth } from "../Controllers/WorkloadController";
 
 const INITIAL_DATE = new Date().toString();
 
 const CalendarScreen = () => {
   const navigation = useNavigation();
   const didMount = useDidMount();
-
-  const [selected, setSelected] = useState(INITIAL_DATE);
+  const [data, setData] = useState<any>(null);
+  const [marked, setMarked] = useState<any>(null);
 
   const onDayPress = useCallback((day: any) => {
-    setSelected(day.dateString);
+    console.log("pressed");
   }, []);
-
-  const [data, setData] = useState<any>(null);
 
   useEffect(() => {
     async function fetchData() {
-      const res = await getWorkloadForToday(selected);
+      const res = await getWorkloadForMonth(INITIAL_DATE);
       setData(res?.docs?.map((e: any) => e.data()));
     }
     fetchData();
-  }, [selected]);
+  }, []);
 
   useEffect(() => {
-    console.log("data is: ", data);
-
-    if (data)
-      data?.map((e) => console.log(new Date(e?.timestamp.toDate().toString())));
+    if (didMount)
+      setMarked(
+        Object.fromEntries(
+          data.map((e) => [
+            [CalendarUtils.getCalendarDateString(e.timestamp.toDate())],
+            {
+              selected: true,
+            },
+          ])
+        )
+      );
   }, [data]);
-
-  const marked = useMemo(() => {
-    return {
-      [CalendarUtils.getCalendarDateString(new Date())]: {
-        marked: true,
-        selected: true,
-      },
-      [CalendarUtils.getCalendarDateString(new Date("February 2, 2024"))]: {
-        marked: true,
-        selected: true,
-      },
-    };
-  }, [selected]);
 
   return (
     <Screen>
