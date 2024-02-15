@@ -8,6 +8,7 @@ import Login from "../Screens/Auth/Login";
 import HomeScreen from "../Screens/HomeScreen";
 import SubmitScreen from "../Screens/SubmitScreen";
 import GraphScreen from "../Screens/GraphScreen";
+import ScoresScreen from "../Screens/ScoresScreen";
 
 const AuthStack = createNativeStackNavigator();
 
@@ -37,6 +38,7 @@ const Main = () => {
       <MainStack.Screen name="Home" component={HomeScreen} />
       <MainStack.Screen name="Submit" component={SubmitScreen} />
       <MainStack.Screen name="Graph" component={GraphScreen} />
+      <MainStack.Screen name="Scores" component={ScoresScreen} />
     </MainStack.Navigator>
   );
 };

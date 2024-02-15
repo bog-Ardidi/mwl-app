@@ -68,7 +68,7 @@ export default function ({ navigation }: any) {
 
 const styles = StyleSheet.create({
   screenContainer: {
-    backgroundColor: hex2rgba(colors.palette5, 0.3),
+    backgroundColor: hex2rgba(colors.palette5, 0.1),
   },
   logo: {
     width: 300,
