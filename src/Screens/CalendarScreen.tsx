@@ -86,7 +86,10 @@ const CalendarScreen = () => {
         />
       </Fragment>
       {selected ? (
-        <FeedbackList data={selectedData} />
+        <>
+          <Text>Showing data for: {selected}</Text>
+          <FeedbackList data={selectedData} />
+        </>
       ) : (
         <Text> No data selected</Text>
       )}
