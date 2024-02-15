@@ -36,7 +36,7 @@ export default {
 
   grayBorder: "#d8d8d8",
 
-  // palette
+  // palette 1
   palette1: "#3333cc",
   palette2: "#9999ff",
   palette3: "#c0dfff",

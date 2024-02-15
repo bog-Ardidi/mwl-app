@@ -9,7 +9,7 @@ import {
   VictoryScatter,
 } from "victory-native";
 import { useState, useEffect } from "react";
-import { getWorkloadForToday } from "../Controllers/WorkloadController";
+import { getWorkloadForDay } from "../Controllers/WorkloadController";
 
 const data = [
   { x: 5, y: 28, size: 36 },
@@ -34,7 +34,7 @@ const GraphScreen = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await getWorkloadForToday();
+      const res = await getWorkloadForDay(new Date().toString());
       setData(res?.docs?.map((e: any) => e.data()));
     }
     fetchData();
