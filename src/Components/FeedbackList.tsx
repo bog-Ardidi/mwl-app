@@ -23,7 +23,6 @@ const FeedbackList = ({ data }: any) => {
 
 const style = StyleSheet.create({
   container: {
-    flex: 1,
     flexGrow: 1,
   },
 });
