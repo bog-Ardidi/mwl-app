@@ -11,7 +11,7 @@ export default function ({ navigation }: any) {
         justifyContent: "center",
       }}
     >
-      <ActivityIndicator size="large" color={colors.midnightBlue} />
+      <ActivityIndicator size="large" color={colors.purple} />
     </View>
   );
 }

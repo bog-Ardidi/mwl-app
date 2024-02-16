@@ -9,7 +9,7 @@ import {
   VictoryScatter,
 } from "victory-native";
 import { useState, useEffect } from "react";
-import { getWorkloadForDay } from "../Controllers/WorkloadController";
+import { getWorkloadForDay } from "../Controllers/Workload/ReadController";
 
 const data = [
   { x: 5, y: 28, size: 36 },

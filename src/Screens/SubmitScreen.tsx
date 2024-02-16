@@ -6,7 +6,7 @@ import Button from "../Components/Base/Button";
 import {
   SubmitWorkload,
   workloadProps,
-} from "../Controllers/WorkloadController";
+} from "../Controllers/Workload/ReadController";
 import IconTextInput from "../Components/Base/IconTextInput";
 import { useState } from "react";
 

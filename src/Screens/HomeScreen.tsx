@@ -6,29 +6,13 @@ import { auth } from "../Config/firebase";
 import { Text } from "react-native";
 import Button from "../Components/Base/Button";
 import routes from "../Config/routes";
+import Loading from "../Components/Base/Loading";
 
 const HomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   return (
     <Screen>
-      {/* <Button
-        title="Submit workload rating"
-        onPress={() => navigation.navigate(routes.SUBMIT_SCREEN)}
-      />
-      <Button
-        title="Go to graph page"
-        onPress={() => navigation.navigate(routes.GRAPH_SCREEN)}
-      />
-      <Button
-        title="Calendar"
-        onPress={() => navigation.navigate(routes.CALENDAR_SCREEN)}
-      />
-      <Button
-        title="Log Out"
-        onPress={() => FirebaseSignOut()}
-        style={{ backgroundColor: "red" }}
-      /> */}
       <Text>Welcome back, {auth.currentUser?.email}</Text>
       <Button
         title="Scores"

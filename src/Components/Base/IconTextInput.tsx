@@ -22,7 +22,11 @@ function IconTextInput({ icon, width = "100%", style, ...otherProps }: any) {
           style={styles.icon}
         />
       )}
-      <TextInput placeholderTextColor={colors.medium} {...otherProps} />
+      <TextInput
+        style={styles.input}
+        placeholderTextColor={colors.medium}
+        {...otherProps}
+      />
     </View>
   );
 }
@@ -38,6 +42,9 @@ const styles = StyleSheet.create({
   icon: {
     alignSelf: "center",
     marginRight: 10,
+  },
+  input: {
+    flex: 1,
   },
 });
 

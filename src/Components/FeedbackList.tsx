@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-import colors from "../Config/colors";
+import { Text, ScrollView, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
+import WorkloadCard from "./WorkloadCard";
+import Loading from "./Base/Loading";
 
 const FeedbackList = ({ data }: any) => {
   const [feedback, setFeedback] = useState<any>([]);
@@ -10,35 +11,20 @@ const FeedbackList = ({ data }: any) => {
   }, [data]);
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={style.container}>
       {feedback ? (
-        feedback?.map((e, idx) => (
-          <View style={styles.scores} key={idx}>
-            <Text>Task name: {e.name ?? "No name provided"}</Text>
-            <Text>Rating: {e.rating ?? "No rating provided"}</Text>
-            <Text>Duration: {e.duration ?? "No rating provided"}</Text>
-            <Text>
-              {" "}
-              Date:{" "}
-              {e.timestamp.seconds
-                ? e.timestamp.toDate().toString()
-                : "No date provided"}
-            </Text>
-          </View>
-        ))
+        feedback?.map((e, idx) => <WorkloadCard data={e} key={idx} />)
       ) : (
-        <Text>Loading</Text>
+        <Loading />
       )}
     </ScrollView>
   );
 };
 
-const styles = StyleSheet.create({
-  scores: {
-    padding: 10,
-    borderWidth: 1,
-    borderColor: colors.grayBorder,
-    margin: 10,
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexGrow: 1,
   },
 });
 

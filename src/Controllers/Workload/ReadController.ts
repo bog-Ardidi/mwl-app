@@ -1,33 +1,6 @@
-import { auth, db, timestamp, fbfs } from "../Config/firebase";
-
-export interface workloadProps {
-  rating: number;
-  duration: string;
-  name: string;
-}
+import { auth, db } from "../../Config/firebase";
 
 const MWL_COLLECTION = "mentalworkload";
-
-export const SubmitWorkload = async (props: workloadProps) => {
-  const docData = {
-    name: props.name,
-    rating: props.rating,
-    duration: props.duration,
-    user_id: auth.currentUser.uid,
-    timestamp: fbfs.Timestamp.fromDate(new Date("2024-01-14")),
-  };
-
-  db.collection(MWL_COLLECTION)
-    .add(docData)
-    .then((docRef: any) => {
-      console.log("Document written with ID: ", docRef.id);
-      alert("Score submitted successfully");
-    })
-    .catch((error: any) => {
-      console.error("Error adding document: ", error);
-      alert("There was a problem with your submission");
-    });
-};
 
 export const getWorkloadForDay = async (currentDate: string) => {
   const startOfDay = new Date(currentDate);

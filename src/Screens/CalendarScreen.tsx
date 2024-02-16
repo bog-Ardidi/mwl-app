@@ -9,7 +9,7 @@ import { useDidMount } from "../Utils/useIsMount";
 import {
   getWorkloadForDay,
   getWorkloadForMonth,
-} from "../Controllers/WorkloadController";
+} from "../Controllers/Workload/ReadController";
 import FeedbackList from "../Components/FeedbackList";
 
 const CalendarScreen = () => {

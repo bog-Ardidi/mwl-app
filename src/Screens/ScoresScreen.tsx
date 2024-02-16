@@ -3,9 +3,8 @@ import Icon from "../Components/Base/Icon";
 import colors from "../Config/colors";
 import { useNavigation } from "@react-navigation/native";
 import { useState, useEffect } from "react";
-import { getAllWorkloadForUser } from "../Controllers/WorkloadController";
+import { getAllWorkloadForUser } from "../Controllers/Workload/ReadController";
 import FeedbackList from "../Components/FeedbackList";
-import { Text } from "react-native";
 
 const ScoresScreen = () => {
   const navigation = useNavigation();

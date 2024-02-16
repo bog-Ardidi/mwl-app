@@ -31,7 +31,7 @@ export default function ({ navigation }: any) {
         <Text style={styles.titleText}>Mental Workload Tracker</Text>
         <IconTextInput
           icon="account"
-          placeholder="Enter your password"
+          placeholder="Enter your email"
           value={email}
           autoCapitalize="none"
           autoCompleteType="off"
@@ -48,7 +48,6 @@ export default function ({ navigation }: any) {
           secureTextEntry={true}
           onChangeText={(text: string) => setPassword(text)}
         />
-
         <Button
           title="Login"
           style={styles.button}
