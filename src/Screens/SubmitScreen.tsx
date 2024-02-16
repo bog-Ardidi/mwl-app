@@ -1,13 +1,13 @@
-import Screen from "../Components/Screen";
-import Icon from "../Components/Icon";
+import Screen from "../Components/Base/Screen";
+import Icon from "../Components/Base/Icon";
 import colors from "../Config/colors";
 import { useNavigation } from "@react-navigation/native";
-import Button from "../Components/Button";
+import Button from "../Components/Base/Button";
 import {
   SubmitWorkload,
   workloadProps,
-} from "../Controllers/WorkloadController";
-import IconTextInput from "../Components/IconTextInput";
+} from "../Controllers/Workload/ReadController";
+import IconTextInput from "../Components/Base/IconTextInput";
 import { useState } from "react";
 
 const SubmitScreen = () => {

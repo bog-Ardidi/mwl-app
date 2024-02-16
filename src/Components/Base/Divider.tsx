@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import colors from "../Config/colors";
+import colors from "../../Config/colors";
 
 interface DividerProps {
   text: string;

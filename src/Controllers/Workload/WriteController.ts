@@ -1,4 +1,4 @@
-import { auth, db, timestamp } from "../Config/firebase";
+import { auth, db, timestamp, fbfs } from "../../Config/firebase";
 
 export interface workloadProps {
   rating: number;
@@ -27,13 +27,4 @@ export const SubmitWorkload = async (props: workloadProps) => {
       console.error("Error adding document: ", error);
       alert("There was a problem with your submission");
     });
-};
-
-export const getWorkloadForToday = async () => {
-  const today = new Date();
-
-  return db
-    .collection(MWL_COLLECTION)
-    .where("user_id", "==", auth.currentUser.uid)
-    .get();
 };

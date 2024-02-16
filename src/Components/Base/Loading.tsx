@@ -1,6 +1,6 @@
 import React from "react";
 import { View, ActivityIndicator } from "react-native";
-import colors from "../Config/colors";
+import colors from "../../Config/colors";
 
 export default function ({ navigation }: any) {
   return (
@@ -11,7 +11,7 @@ export default function ({ navigation }: any) {
         justifyContent: "center",
       }}
     >
-      <ActivityIndicator size="large" color={colors.midnightBlue} />
+      <ActivityIndicator size="large" color={colors.purple} />
     </View>
   );
 }

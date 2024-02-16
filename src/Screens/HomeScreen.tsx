@@ -1,28 +1,22 @@
 import React from "react";
-import { FirebaseSignOut } from "../Controllers/AuthenticationController";
-import Screen from "../Components/Screen";
+import Screen from "../Components/Base/Screen";
 import { useNavigation } from "@react-navigation/native";
-import Button from "../Components/Button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { auth } from "../Config/firebase";
+import { Text } from "react-native";
+import Button from "../Components/Base/Button";
+import routes from "../Config/routes";
+import Loading from "../Components/Base/Loading";
 
 const HomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   return (
     <Screen>
+      <Text>Welcome back, {auth.currentUser?.email}</Text>
       <Button
-        title="Submit workload rating"
-        onPress={() => navigation.navigate("Submit")}
-      />
-      <Button
-        title="Go to graph page"
-        onPress={() => navigation.navigate("Graph")}
-      />
-      <Button title="Scores" onPress={() => navigation.navigate("Scores")} />
-      <Button
-        title="Log Out"
-        onPress={() => FirebaseSignOut()}
-        style={{ backgroundColor: "red" }}
+        title="Scores"
+        onPress={() => navigation.navigate(routes.SCORES_SCREEN)}
       />
     </Screen>
   );

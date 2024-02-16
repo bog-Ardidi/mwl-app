@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { StyleSheet, Image, View, Text } from "react-native";
 
 import { FirebaseSignIn } from "../../Controllers/AuthenticationController";
-import Screen from "../../Components/Screen";
-import IconTextInput from "../../Components/IconTextInput";
+import Screen from "../../Components/Base/Screen";
+import IconTextInput from "../../Components/Base/IconTextInput";
 import colors from "../../Config/colors";
 import { fontSize } from "../../Config/typography";
-import Button from "../../Components/Button";
+import Button from "../../Components/Base/Button";
 import { hex2rgba } from "../../Utils/hex2rgba";
-import { Divider } from "../../Components/Divider";
+import { Divider } from "../../Components/Base/Divider";
 
 export default function ({ navigation }: any) {
   const [email, setEmail] = useState("");
@@ -31,7 +31,7 @@ export default function ({ navigation }: any) {
         <Text style={styles.titleText}>Mental Workload Tracker</Text>
         <IconTextInput
           icon="account"
-          placeholder="Enter your password"
+          placeholder="Enter your email"
           value={email}
           autoCapitalize="none"
           autoCompleteType="off"
@@ -48,7 +48,6 @@ export default function ({ navigation }: any) {
           secureTextEntry={true}
           onChangeText={(text: string) => setPassword(text)}
         />
-
         <Button
           title="Login"
           style={styles.button}

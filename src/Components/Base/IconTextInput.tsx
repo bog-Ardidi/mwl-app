@@ -9,8 +9,7 @@ import React from "react";
 import { TextInput, View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import colors from "../Config/colors";
-import defaultStyles from "../Config/styles";
+import colors from "../../Config/colors";
 
 function IconTextInput({ icon, width = "100%", style, ...otherProps }: any) {
   return (
@@ -23,7 +22,11 @@ function IconTextInput({ icon, width = "100%", style, ...otherProps }: any) {
           style={styles.icon}
         />
       )}
-      <TextInput placeholderTextColor={colors.medium} {...otherProps} />
+      <TextInput
+        style={styles.input}
+        placeholderTextColor={colors.medium}
+        {...otherProps}
+      />
     </View>
   );
 }
@@ -39,6 +42,9 @@ const styles = StyleSheet.create({
   icon: {
     alignSelf: "center",
     marginRight: 10,
+  },
+  input: {
+    flex: 1,
   },
 });
 
