@@ -31,7 +31,12 @@ const CalendarScreen = () => {
     if (didMount) {
       async function fetchData() {
         const res = await getWorkloadForDay(selected);
-        setSelectedData(res?.docs?.map((e: any) => e.data()));
+        setSelectedData(
+          res?.docs?.map((e: any) => ({
+            docId: e.id,
+            data: e.data(),
+          }))
+        );
       }
       fetchData();
     }
@@ -41,7 +46,12 @@ const CalendarScreen = () => {
   useEffect(() => {
     async function fetchData() {
       const res = await getWorkloadForMonth(initialDate);
-      setData(res?.docs?.map((e: any) => e.data()));
+      setData(
+        res?.docs?.map((e: any) => ({
+          docId: e.id,
+          data: e.data(),
+        }))
+      );
     }
     fetchData();
   }, [initialDate]);
@@ -52,7 +62,7 @@ const CalendarScreen = () => {
       setMarked(
         Object.fromEntries(
           data.map((e) => [
-            [CalendarUtils.getCalendarDateString(e.timestamp.toDate())],
+            [CalendarUtils.getCalendarDateString(e.data.timestamp.toDate())],
             {
               selected: true,
             },

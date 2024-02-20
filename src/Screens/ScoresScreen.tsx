@@ -13,7 +13,12 @@ const ScoresScreen = () => {
   useEffect(() => {
     async function fetchData() {
       const res = await getAllWorkloadForUser();
-      setData(res?.docs?.map((e: any) => e.data()));
+      setData(
+        res?.docs?.map((e: any) => ({
+          docId: e.id,
+          data: e.data(),
+        }))
+      );
     }
     fetchData();
   }, []);

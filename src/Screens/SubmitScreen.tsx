@@ -6,7 +6,7 @@ import Button from "../Components/Base/Button";
 import {
   SubmitWorkload,
   workloadProps,
-} from "../Controllers/Workload/ReadController";
+} from "../Controllers/Workload/WriteController";
 import IconTextInput from "../Components/Base/IconTextInput";
 import { useState } from "react";
 
@@ -20,7 +20,6 @@ const SubmitScreen = () => {
 
   const submitData = () => {
     SubmitWorkload(data);
-    console.log("submitted");
   };
 
   return (

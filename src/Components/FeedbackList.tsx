@@ -1,4 +1,4 @@
-import { Text, ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
 import WorkloadCard from "./WorkloadCard";
 import Loading from "./Base/Loading";

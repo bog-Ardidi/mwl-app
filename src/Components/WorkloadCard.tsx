@@ -1,14 +1,18 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Alert } from "react-native";
 import colors from "../Config/colors";
 import { fontSize } from "../Config/typography";
 import Icon from "./Base/Icon";
+import { DeleteWorkload } from "../Controllers/Workload/DeleteController";
 
 interface WorkloadCard {
   data: {
-    name: string;
-    rating: string;
-    duration: string;
-    timestamp: any;
+    docId: string;
+    data: {
+      name: string;
+      rating: string;
+      duration: string;
+      timestamp: any;
+    };
   };
 }
 
@@ -19,33 +23,54 @@ const dateOptions = {
   day: "numeric",
 };
 
+const DeleteItem = (docId: string) => {
+  Alert.alert(
+    "Delete document",
+    "Are you sure you want to delete this document?",
+    [
+      {
+        text: "Yes",
+        onPress: () => {
+          DeleteWorkload(docId);
+        },
+      },
+      {
+        text: "No",
+      },
+    ]
+  );
+};
+
 const WorkloadCard = ({ data }: WorkloadCard) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.cardTitle}>{data.name ?? "No name provided"}</Text>
+        <Text style={styles.cardTitle}>
+          {data.data.name ?? "No name provided"}
+        </Text>
         <Text style={styles.cardText}>
-          {data.timestamp.seconds
-            ? new Date(data.timestamp.toDate()).toLocaleDateString(
+          {data.data.timestamp.seconds
+            ? new Date(data.data.timestamp.toDate()).toLocaleDateString(
                 "en-gb",
                 dateOptions
               )
             : "No date provided"}
         </Text>
         <Text style={styles.cardText}>
-          Mental Workload Rating: {data.rating ?? "No rating provided"}
+          Mental Workload Rating: {data.data.rating ?? "No rating provided"}
         </Text>
         <Text style={styles.cardText}>
-          Duration: {data.duration ?? "No rating provided"}
+          Duration: {data.data.duration ?? "No rating provided"}
         </Text>
       </View>
       <View style={styles.deleteButton}>
-        {/* <Icon
+        <Icon
           name="trash-can-outline"
           backgroundColor={colors.transparent}
           iconColor={colors.primaryRed}
           size={50}
-        /> */}
+          onClick={() => DeleteItem(data.docId)}
+        />
       </View>
     </View>
   );

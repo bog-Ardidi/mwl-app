@@ -7,7 +7,7 @@ import LogoutComponent from "../../Components/LogoutComponent";
 import GraphScreen from "../../Screens/GraphScreen";
 import { StyleSheet } from "react-native";
 import colors from "../../Config/colors";
-import TabItem from "../../Components/TabItem";
+import TabItem from "../../Components/TabNavigatorItem";
 
 const Tab = createBottomTabNavigator();
 
