@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import colors from "../../Config/colors";
 
 interface IconProps {
   name: any;
@@ -13,8 +14,8 @@ interface IconProps {
 function Icon({
   name,
   size = 40,
-  backgroundColor = "#000",
-  iconColor = "#fff",
+  backgroundColor = colors.transparent,
+  iconColor = colors.black,
   onClick,
 }: IconProps) {
   return (

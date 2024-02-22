@@ -10,14 +10,9 @@ import {
 } from "victory-native";
 import { useState, useEffect } from "react";
 import { getWorkloadForDay } from "../Controllers/Workload/ReadController";
-
-const data = [
-  { x: 5, y: 28, size: 36 },
-  { x: 28, y: 5, size: 25 },
-  { x: 14, y: 15, size: 16 },
-  { x: 23, y: 32, size: 15 },
-  { x: 56, y: 48, size: 18 },
-];
+import { useDidMount } from "../Utils/useIsMount";
+import Loading from "../Components/Base/Loading";
+import FeedbackList from "../Components/FeedbackList";
 
 //date options
 var options = {
@@ -27,30 +22,46 @@ var options = {
   day: "numeric",
 };
 
-const GraphScreen = () => {
-  const navigation = useNavigation();
+const GraphScreen = ({ navigation, route }: any) => {
   const [data, setData] = useState<any>(null);
   const [chartData, setChartData] = useState<any>(null);
+  const [selectedDate, setSelectedDate] = useState<Date>(
+    route?.params?.initialDate ? new Date(route.params.initialDate) : new Date()
+  );
 
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const res = await getWorkloadForDay(new Date().toString());
+  //     setData(res?.docs?.map((e: any) => e.data()));
+  //   }
+  //   fetchData();
+  // }, []);
+
+  // useEffect(() => {
+  //   if (!data) return;
+
+  //   setChartData(
+  //     data.map((e: ChartEntry) => ({
+  //       x: Number(e.duration),
+  //       y: e.rating,
+  //       size: e.rating * Number(e.duration),
+  //     }))
+  //   );
+  // }, [data]);
+
+  // updates the feedback list on date click
   useEffect(() => {
     async function fetchData() {
-      const res = await getWorkloadForDay(new Date().toString());
-      setData(res?.docs?.map((e: any) => e.data()));
+      const res = await getWorkloadForDay(selectedDate.toString());
+      setData(
+        res?.docs?.map((e: any) => ({
+          docId: e.id,
+          data: e.data(),
+        }))
+      );
     }
     fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (!data) return;
-
-    setChartData(
-      data.map((e: ChartEntry) => ({
-        x: Number(e.duration),
-        y: e.rating,
-        size: e.rating * Number(e.duration),
-      }))
-    );
-  }, [data]);
+  }, [selectedDate]);
 
   return (
     <Screen>
@@ -62,27 +73,37 @@ const GraphScreen = () => {
       />
       <View
         style={{
-          flex: 1,
+          flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Icon
-            name="arrow-left"
-            iconColor={colors.black}
-            backgroundColor="transparent"
-            onClick={() => console.log("change date")}
-          />
-          <Text>{new Date().toLocaleString("en-gb", options)}</Text>
-          <Icon
-            name="arrow-right"
-            iconColor={colors.black}
-            backgroundColor="transparent"
-            onClick={() => console.log("change date")}
-          />
-        </View>
-        {data && (
+        <Icon
+          name="arrow-left"
+          iconColor={colors.black}
+          backgroundColor="transparent"
+          onClick={() =>
+            setSelectedDate((date) => {
+              date.setDate(date.getDate() - 1);
+              return new Date(date);
+            })
+          }
+        />
+        <Text>{selectedDate.toLocaleString("en-gb", options)}</Text>
+        <Icon
+          name="arrow-right"
+          iconColor={colors.black}
+          backgroundColor="transparent"
+          onClick={() =>
+            setSelectedDate((date) => {
+              date.setDate(date.getDate() + 1);
+              return new Date(date);
+            })
+          }
+        />
+      </View>
+      {data ? (
+        <>
           <VictoryChart
             domain={{ x: [0, 10], y: [0, 10] }}
             // containerComponent={
@@ -122,8 +143,11 @@ const GraphScreen = () => {
               ]}
             />
           </VictoryChart>
-        )}
-      </View>
+          <FeedbackList data={data} />
+        </>
+      ) : (
+        <Loading />
+      )}
     </Screen>
   );
 };

@@ -3,14 +3,16 @@ import Icon from "../Components/Base/Icon";
 import colors from "../Config/colors";
 import { useNavigation } from "@react-navigation/native";
 import { Fragment, useState, useCallback, useEffect } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Calendar, CalendarUtils } from "react-native-calendars";
 import { useDidMount } from "../Utils/useIsMount";
 import {
   getWorkloadForDay,
   getWorkloadForMonth,
 } from "../Controllers/Workload/ReadController";
-import FeedbackList from "../Components/FeedbackList";
+import { fontSize } from "../Config/typography";
+import Button from "../Components/Base/Button";
+import routes from "../Config/routes";
 
 const CalendarScreen = () => {
   const navigation = useNavigation();
@@ -18,29 +20,11 @@ const CalendarScreen = () => {
   const [data, setData] = useState<any>(null);
   const [marked, setMarked] = useState<any>(null);
   const [selected, setSelected] = useState<any>(null);
-  const [selectedData, setSelectedData] = useState<any>(null);
   const [initialDate, setInitialDate] = useState<string>(new Date().toString());
 
   const onDayPress = useCallback((day: any) => {
     setSelected(day.dateString);
   }, []);
-
-  // updates the feedback list on date click
-  useEffect(() => {
-    console.log(selected);
-    if (didMount) {
-      async function fetchData() {
-        const res = await getWorkloadForDay(selected);
-        setSelectedData(
-          res?.docs?.map((e: any) => ({
-            docId: e.id,
-            data: e.data(),
-          }))
-        );
-      }
-      fetchData();
-    }
-  }, [selected]);
 
   // pulls data for MWL submitted over the current month
   useEffect(() => {
@@ -97,11 +81,35 @@ const CalendarScreen = () => {
       </Fragment>
       {selected ? (
         <>
-          <Text>Showing data for: {selected}</Text>
-          <FeedbackList data={selectedData} />
+          <Text style={styles.text}>Selected data for: {selected}</Text>
+          {Object.keys(marked).includes(selected) ? (
+            <>
+              <View style={styles.statisticsContainer}>
+                <Text style={styles.statisticsText}>Total MWL recorded: </Text>
+                <Text style={styles.statisticsText}>
+                  Average duration of MWL: -
+                </Text>
+                <Text style={styles.statisticsText}>Average MWL score: -</Text>
+              </View>
+              <Button title="Add MWL" onPress={() => console.log("Add MWL")} />
+              <Button
+                title="See Bubble Chart"
+                onPress={() =>
+                  navigation.navigate(routes.GRAPH_SCREEN, {
+                    initialDate: selected,
+                  })
+                }
+              />
+            </>
+          ) : (
+            <Text style={{ color: "red", alignSelf: "center" }}>
+              {" "}
+              No data for selected date{" "}
+            </Text>
+          )}
         </>
       ) : (
-        <Text> No data selected</Text>
+        <Text style={styles.text}> No date selected</Text>
       )}
     </Screen>
   );
@@ -114,8 +122,14 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     padding: 10,
-    backgroundColor: "lightgrey",
-    fontSize: 16,
+    fontSize: fontSize.xl,
+  },
+  statisticsContainer: {
+    margin: 20,
+  },
+  statisticsText: {
+    fontSize: fontSize.lg,
+    marginBottom: 10,
   },
 });
 

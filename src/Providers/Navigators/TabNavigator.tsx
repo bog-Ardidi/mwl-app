@@ -3,11 +3,11 @@ import routes from "../../Config/routes";
 import HomeScreen from "../../Screens/HomeScreen";
 import CalendarScreen from "../../Screens/CalendarScreen";
 import SubmitScreen from "../../Screens/SubmitScreen";
-import LogoutComponent from "../../Components/LogoutComponent";
 import GraphScreen from "../../Screens/GraphScreen";
 import { StyleSheet } from "react-native";
 import colors from "../../Config/colors";
 import TabItem from "../../Components/TabNavigatorItem";
+import ScoresScreen from "../../Screens/ScoresScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -49,10 +49,10 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={routes.LOGOUT_COMPONENT}
-        component={LogoutComponent}
+        name={routes.SCORES_SCREEN}
+        component={ScoresScreen}
         options={{
-          tabBarIcon: ({ focused }: any) => TabBarOptions.Logout(focused),
+          tabBarIcon: ({ focused }: any) => TabBarOptions.Scores(focused),
         }}
       />
     </Tab.Navigator>
@@ -83,8 +83,12 @@ const TabBarOptions = {
   Graph: (selected: boolean) => (
     <TabItem title="Chart" icon="chart-scatter-plot" selected={selected} />
   ),
-  Logout: (selected: boolean) => (
-    <TabItem title="Logout" icon="logout" selected={selected} />
+  Scores: (selected: boolean) => (
+    <TabItem
+      title="Feedback"
+      icon="format-list-bulleted-type"
+      selected={selected}
+    />
   ),
 };
 
