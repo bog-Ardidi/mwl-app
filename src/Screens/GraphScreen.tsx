@@ -2,12 +2,7 @@ import { View, Text } from "react-native";
 import Screen from "../Components/Base/Screen";
 import Icon from "../Components/Base/Icon";
 import colors from "../Config/colors";
-import { useNavigation } from "@react-navigation/native";
-import {
-  VictoryChart,
-  VictoryZoomContainer,
-  VictoryScatter,
-} from "victory-native";
+import { VictoryChart, VictoryScatter } from "victory-native";
 import { useState, useEffect } from "react";
 import { getWorkloadForDay } from "../Controllers/Workload/ReadController";
 import { useDidMount } from "../Utils/useIsMount";
@@ -22,86 +17,9 @@ var options = {
   day: "numeric",
 };
 
-const GraphScreen = ({ navigation, route }: any) => {
-  const [data, setData] = useState<any>(null);
-  const [chartData, setChartData] = useState<any>(null);
-  const [selectedDate, setSelectedDate] = useState<Date>(
-    route?.params?.initialDate ? new Date(route.params.initialDate) : new Date()
-  );
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const res = await getWorkloadForDay(new Date().toString());
-  //     setData(res?.docs?.map((e: any) => e.data()));
-  //   }
-  //   fetchData();
-  // }, []);
-
-  // useEffect(() => {
-  //   if (!data) return;
-
-  //   setChartData(
-  //     data.map((e: ChartEntry) => ({
-  //       x: Number(e.duration),
-  //       y: e.rating,
-  //       size: e.rating * Number(e.duration),
-  //     }))
-  //   );
-  // }, [data]);
-
-  // updates the feedback list on date click
-  useEffect(() => {
-    async function fetchData() {
-      const res = await getWorkloadForDay(selectedDate.toString());
-      setData(
-        res?.docs?.map((e: any) => ({
-          docId: e.id,
-          data: e.data(),
-        }))
-      );
-    }
-    fetchData();
-  }, [selectedDate]);
-
+const GraphScreen = ({ navigation, route, data }: any) => {
   return (
-    <Screen>
-      <Icon
-        name="arrow-left"
-        iconColor={colors.black}
-        backgroundColor="transparent"
-        onClick={() => navigation.goBack()}
-      />
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Icon
-          name="arrow-left"
-          iconColor={colors.black}
-          backgroundColor="transparent"
-          onClick={() =>
-            setSelectedDate((date) => {
-              date.setDate(date.getDate() - 1);
-              return new Date(date);
-            })
-          }
-        />
-        <Text>{selectedDate.toLocaleString("en-gb", options)}</Text>
-        <Icon
-          name="arrow-right"
-          iconColor={colors.black}
-          backgroundColor="transparent"
-          onClick={() =>
-            setSelectedDate((date) => {
-              date.setDate(date.getDate() + 1);
-              return new Date(date);
-            })
-          }
-        />
-      </View>
+    <>
       {data ? (
         <>
           <VictoryChart
@@ -148,7 +66,7 @@ const GraphScreen = ({ navigation, route }: any) => {
       ) : (
         <Loading />
       )}
-    </Screen>
+    </>
   );
 };
 
