@@ -24,7 +24,7 @@ const HomeWelcome = () => {
     <View style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.text}>Welcome back,</Text>
-        <Text>{auth.currentUser?.email} !</Text>
+        <Text>{auth.currentUser?.email?.split("@")[0]} !</Text>
       </View>
 
       <View style={styles.iconContainer}>
