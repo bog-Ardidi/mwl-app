@@ -30,18 +30,16 @@ const SettingsScreen = ({ weekView = false }) => {
         //theme={todayBtnTheme.current}
         // todayBottomMargin={16}
       >
-        <View style={{ borderWidth: 1 }}>
-          <ExpandableCalendar
-            //   theme={{
-            //     calendarBackground: "transparent",
-            //   }}
-            //testID={testIDs.expandableCalendar.CONTAINER}
-            firstDay={1}
-            //markedDates={marked.current}
-            // animateScroll
-            // closeOnDayPress={false}
-          />
-        </View>
+        <ExpandableCalendar
+          //   theme={{
+          //     calendarBackground: "transparent",
+          //   }}
+          //testID={testIDs.expandableCalendar.CONTAINER}
+          firstDay={1}
+          //markedDates={marked.current}
+          // animateScroll
+          // closeOnDayPress={false}
+        />
         <ScrollView>
           <GraphScreen data={[]} />
         </ScrollView>

@@ -31,7 +31,7 @@ const ScoresScreen = () => {
         backgroundColor="transparent"
         onClick={() => navigation.goBack()}
       />
-      <FeedbackList data={data} />
+      <FeedbackList data={data} showDelete />
     </Screen>
   );
 };

@@ -1,10 +1,12 @@
 import Screen from "../Components/Base/Screen";
-import Icon from "../Components/Base/Icon";
-import colors from "../Config/colors";
-import { useNavigation } from "@react-navigation/native";
 import { Fragment, useState, useCallback, useEffect } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { Calendar, CalendarUtils } from "react-native-calendars";
+import {
+  Calendar,
+  CalendarUtils,
+  CalendarProvider,
+  ExpandableCalendar,
+} from "react-native-calendars";
 import { useDidMount } from "../Utils/useIsMount";
 import {
   getWorkloadForDay,
@@ -15,7 +17,6 @@ import { fontSize } from "../Config/typography";
 import GraphScreen from "./GraphScreen";
 
 const CalendarScreen = () => {
-  const navigation = useNavigation();
   const didMount = useDidMount();
   const [data, setData] = useState<any>(null);
   const [marked, setMarked] = useState<any>(null);
@@ -65,6 +66,7 @@ const CalendarScreen = () => {
             [CalendarUtils.getCalendarDateString(e.data.timestamp.toDate())],
             {
               selected: true,
+              selectedColor: "green",
             },
           ])
         )
@@ -78,17 +80,17 @@ const CalendarScreen = () => {
 
   return (
     <Screen>
-      <ScrollView>
-        <Fragment>
-          <Calendar
-            enableSwipeMonths
-            current={initialDate}
-            style={styles.calendar}
-            onDayPress={onDayPress}
-            onMonthChange={onMonthChange}
-            markedDates={marked}
-          />
-        </Fragment>
+      <CalendarProvider date={initialDate}>
+        <ExpandableCalendar
+          enableSwipeMonths
+          current={initialDate}
+          onDayPress={onDayPress}
+          onMonthChange={onMonthChange}
+          markedDates={marked}
+          animateScroll
+          closeOnDayPress={true}
+        />
+
         {selected ? (
           <>
             <Text style={styles.text}>Selected data for: {selected}</Text>
@@ -103,19 +105,16 @@ const CalendarScreen = () => {
         ) : (
           <Text style={styles.text}> No date selected</Text>
         )}
-      </ScrollView>
+      </CalendarProvider>
     </Screen>
   );
 };
 
 const styles = StyleSheet.create({
-  calendar: {
-    marginBottom: 10,
-  },
   text: {
     textAlign: "center",
-    padding: 10,
     fontSize: fontSize.xl,
+    marginTop: 10,
   },
 });
 

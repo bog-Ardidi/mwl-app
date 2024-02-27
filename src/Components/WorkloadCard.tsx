@@ -4,7 +4,7 @@ import { fontSize } from "../Config/typography";
 import Icon from "./Base/Icon";
 import { DeleteWorkload } from "../Controllers/Workload/DeleteController";
 
-interface WorkloadCard {
+interface WorkloadCardProps {
   data: {
     docId: string;
     data: {
@@ -14,6 +14,7 @@ interface WorkloadCard {
       timestamp: any;
     };
   };
+  showDelete?: boolean;
 }
 
 const dateOptions = {
@@ -41,7 +42,7 @@ const DeleteItem = (docId: string) => {
   );
 };
 
-const WorkloadCard = ({ data }: WorkloadCard) => {
+const WorkloadCard = ({ data, showDelete = false }: WorkloadCardProps) => {
   return (
     <View style={styles.container}>
       <View>
@@ -63,15 +64,17 @@ const WorkloadCard = ({ data }: WorkloadCard) => {
           Duration: {data.data.duration ?? "No rating provided"}
         </Text>
       </View>
-      <View style={styles.deleteButton}>
-        <Icon
-          name="trash-can-outline"
-          backgroundColor={colors.transparent}
-          iconColor={colors.primaryRed}
-          size={50}
-          onClick={() => DeleteItem(data.docId)}
-        />
-      </View>
+      {showDelete && (
+        <View style={styles.deleteButton}>
+          <Icon
+            name="trash-can-outline"
+            backgroundColor={colors.transparent}
+            iconColor={colors.primaryRed}
+            size={50}
+            onClick={() => DeleteItem(data.docId)}
+          />
+        </View>
+      )}
     </View>
   );
 };

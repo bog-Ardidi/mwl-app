@@ -6,7 +6,7 @@ import { fontSize } from "../Config/typography";
 import colors from "../Config/colors";
 import { useDidMount } from "../Utils/useIsMount";
 
-const FeedbackList = ({ data }: any) => {
+const FeedbackList = ({ data, showDelete = false }: any) => {
   const isMount = useDidMount();
   const [feedback, setFeedback] = useState<any>([]);
 
@@ -22,7 +22,9 @@ const FeedbackList = ({ data }: any) => {
       <Text style={styles.title}>MWL ratings: </Text>
       <ScrollView contentContainerStyle={styles.container}>
         {feedback ? (
-          feedback?.map((e, idx) => <WorkloadCard data={e} key={idx} />)
+          feedback?.map((e, idx) => (
+            <WorkloadCard data={e} key={idx} showDelete={showDelete} />
+          ))
         ) : (
           <Loading />
         )}
