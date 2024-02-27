@@ -9,6 +9,8 @@ import {
   ExpandableCalendar,
 } from "react-native-calendars";
 import GraphScreen from "./GraphScreen";
+import Button from "../Components/Base/Button";
+import routes from "../Config/routes";
 
 const SettingsScreen = ({ weekView = false }) => {
   const navigation = useNavigation();
@@ -21,29 +23,10 @@ const SettingsScreen = ({ weekView = false }) => {
         backgroundColor="transparent"
         onClick={() => navigation.goBack()}
       />
-      <CalendarProvider
-        date={new Date().toString()}
-        // onDateChanged={onDateChanged}
-        // onMonthChange={onMonthChange}
-        showTodayButton
-        // disabledOpacity={0.6}
-        //theme={todayBtnTheme.current}
-        // todayBottomMargin={16}
-      >
-        <ExpandableCalendar
-          //   theme={{
-          //     calendarBackground: "transparent",
-          //   }}
-          //testID={testIDs.expandableCalendar.CONTAINER}
-          firstDay={1}
-          //markedDates={marked.current}
-          // animateScroll
-          // closeOnDayPress={false}
-        />
-        <ScrollView>
-          <GraphScreen data={[]} />
-        </ScrollView>
-      </CalendarProvider>
+      <Button
+        title="View all feedback"
+        onPress={() => navigation.navigate(routes.SCORES_SCREEN)}
+      />
     </Screen>
   );
 };

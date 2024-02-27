@@ -4,10 +4,8 @@ import WorkloadCard from "./WorkloadCard";
 import Loading from "./Base/Loading";
 import { fontSize } from "../Config/typography";
 import colors from "../Config/colors";
-import { useDidMount } from "../Utils/useIsMount";
 
 const FeedbackList = ({ data, showDelete = false }: any) => {
-  const isMount = useDidMount();
   const [feedback, setFeedback] = useState<any>([]);
 
   useEffect(() => {

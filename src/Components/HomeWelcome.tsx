@@ -33,11 +33,6 @@ const HomeWelcome = () => {
 
       <View style={styles.iconContainer}>
         <Icon
-          name={"format-list-bulleted-type"}
-          size={50}
-          onClick={() => navigation.navigate(routes.SCORES_SCREEN)}
-        />
-        <Icon
           name={"plus-circle-outline"}
           size={50}
           onClick={() => navigation.navigate(routes.SUBMIT_SCREEN)}

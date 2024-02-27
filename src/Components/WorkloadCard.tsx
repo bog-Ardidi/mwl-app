@@ -81,7 +81,8 @@ const WorkloadCard = ({ data, showDelete = false }: WorkloadCardProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 15,
+    padding: 10,
+    paddingLeft: 15,
     borderWidth: 1,
     borderRadius: 10,
     borderColor: colors.grayBorder,
