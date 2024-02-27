@@ -6,4 +6,5 @@ export default Object.freeze({
   GRAPH_SCREEN: "GreaphScreen",
   SCORES_SCREEN: "ScoresScreen",
   SUBMIT_SCREEN: "SubmitScreen",
+  SETTINGS_SCREEN: "SettingsScreen",
 });

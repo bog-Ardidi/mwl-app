@@ -45,7 +45,7 @@ const HomeWelcome = () => {
         <Icon
           name={"cog-outline"}
           size={50}
-          onClick={() => console.log("Go to settings")}
+          onClick={() => navigation.navigate(routes.SETTINGS_SCREEN)}
         />
         <Icon name={"logout"} size={50} onClick={logOut} />
       </View>
