@@ -4,6 +4,8 @@ import Icon from "../Components/Base/Icon";
 import { fontSize } from "../Config/typography";
 import colors from "../Config/colors";
 import { FirebaseSignOut } from "../Controllers/AuthenticationController";
+import { useNavigation } from "@react-navigation/native";
+import routes from "../Config/routes";
 
 const logOut = () => {
   Alert.alert("Logout", "Are you sure you want to Log Out?", [
@@ -20,6 +22,8 @@ const logOut = () => {
 };
 
 const HomeWelcome = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
@@ -28,6 +32,16 @@ const HomeWelcome = () => {
       </View>
 
       <View style={styles.iconContainer}>
+        <Icon
+          name={"format-list-bulleted-type"}
+          size={50}
+          onClick={() => navigation.navigate(routes.SCORES_SCREEN)}
+        />
+        <Icon
+          name={"plus-circle-outline"}
+          size={50}
+          onClick={() => navigation.navigate(routes.SUBMIT_SCREEN)}
+        />
         <Icon
           name={"cog-outline"}
           size={50}
