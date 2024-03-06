@@ -3,6 +3,7 @@ import Loading from "./Base/Loading";
 import FeedbackList from "./FeedbackList";
 import { useEffect, useState } from "react";
 import FeedbackModal from "./FeedbackModal";
+import GraphStatistics from "./GraphStatistics";
 
 const BubbleChart = ({ navigation, route, data }: any) => {
   const [graphData, setGraphData] = useState<any>();
@@ -74,7 +75,7 @@ const BubbleChart = ({ navigation, route, data }: any) => {
             open={openModal}
             onClose={handleVisible}
           />
-          <FeedbackList data={data} />
+          <GraphStatistics data={data} />
         </>
       ) : (
         <Loading />

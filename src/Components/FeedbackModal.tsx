@@ -1,8 +1,14 @@
-import { Modal, Text, Dimensions, StyleSheet, View } from "react-native";
+import {
+  Modal,
+  Text,
+  Dimensions,
+  StyleSheet,
+  View,
+  TouchableWithoutFeedback,
+} from "react-native";
 import Icon from "./Base/Icon";
 import colors from "../Config/colors";
 import { fontSize } from "../Config/typography";
-import { JsonPrettify } from "../Utils/JsonPrettify";
 import WorkloadCard from "./WorkloadCard";
 
 interface FeedbackModalProps {
@@ -13,29 +19,22 @@ interface FeedbackModalProps {
 
 const FeedbackModal = ({ open, onClose, data }: FeedbackModalProps) => {
   return (
-    <Modal
-      animationType="fade"
-      visible={open}
-      transparent={true}
-      onBackButtonPress={onClose}
-      onBackdropPress={onClose}
-    >
-      <View style={styles.container}>
+    <Modal animationType="slide" visible={open} transparent={true}>
+      <TouchableWithoutFeedback onPressOut={onClose}>
         <View style={styles.container}>
-          <View style={styles.modalView}>
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>Task Breakdown</Text>
-              <Icon name="close" size={35} onClick={onClose} />
+          <View style={styles.container}>
+            <View style={styles.modalView}>
+              <View style={styles.titleContainer}>
+                <Text style={styles.title}>Task Breakdown</Text>
+                <Icon name="close" size={35} onClick={onClose} />
+              </View>
+
+              <View style={styles.divider} />
+              <WorkloadCard data={data} />
             </View>
-
-            <View style={styles.divider} />
-
-            {/* bottom part container view - the main text */}
-            {/* <Text style={styles.text}>{JsonPrettify(data)}</Text> */}
-            <WorkloadCard data={data} />
           </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };
