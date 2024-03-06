@@ -1,27 +1,21 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
-
-import { FirebaseSignIn } from "../../Controllers/AuthenticationController";
+import AuthScreenOverlay from "../../Components/AuthScreensOverlay";
 import IconTextInput from "../../Components/Base/IconTextInput";
 import Button from "../../Components/Base/Button";
 import { Divider } from "../../Components/Base/Divider";
-import routes from "../../Config/routes";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import AuthScreenOverlay from "../../Components/AuthScreensOverlay";
+import { FirebaseRegister } from "../../Controllers/AuthenticationController";
 
-export default function () {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+const Register = () => {
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
   const navigation = useNavigation();
-
-  async function login() {
-    //setLoading(true);
-    FirebaseSignIn({ email, password });
-  }
 
   return (
     <AuthScreenOverlay>
+      <Text style={styles.optionsText}>Register a new account</Text>
+
       <IconTextInput
         icon="account"
         placeholder="Enter your email"
@@ -42,28 +36,23 @@ export default function () {
         onChangeText={(text: string) => setPassword(text)}
       />
       <Button
-        title="Login"
+        title="Register"
         style={styles.button}
         onPress={() => {
-          login();
+          email && password
+            ? FirebaseRegister({ email, password })
+            : alert("Incorrect fields, please check your details");
         }}
       />
 
       <Divider text="More options" />
 
-      <TouchableOpacity
-        onPress={() => navigation.navigate(routes.REGISTER_SCREEN)}
-      >
-        <Text style={styles.optionsText}>Register</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate(routes.FORGOT_PASSWORD_SCREEN)}
-      >
-        <Text style={styles.optionsText}>Forgotten password</Text>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Text style={styles.optionsText}>Back to login</Text>
       </TouchableOpacity>
     </AuthScreenOverlay>
   );
-}
+};
 
 const styles = StyleSheet.create({
   optionsText: {
@@ -75,3 +64,5 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
 });
+
+export default Register;

@@ -1,9 +1,10 @@
-import { auth, db, timestamp, fbfs } from "../../Config/firebase";
+import { auth, db, timestampFromDate } from "../../Config/firebase";
 
 export interface workloadProps {
   rating: number;
   duration: string;
   name: string;
+  date: Date;
 }
 
 const MWL_COLLECTION = "mentalworkload";
@@ -14,7 +15,7 @@ export const SubmitWorkload = async (props: workloadProps) => {
     rating: props.rating,
     duration: props.duration,
     user_id: auth.currentUser.uid,
-    timestamp: timestamp,
+    timestamp: timestampFromDate(props.date),
   };
 
   db.collection(MWL_COLLECTION)

@@ -14,6 +14,9 @@ export const FirebaseSignIn = ({ email, password }: AuthProps) => {
 export const FirebaseRegister = ({ email, password }: AuthProps) => {
   auth
     .createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      alert(`Account with email ${email} created!`);
+    })
     .catch((error: any) => alert(error.message));
 };
 

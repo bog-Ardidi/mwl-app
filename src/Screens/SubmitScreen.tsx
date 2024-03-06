@@ -9,17 +9,30 @@ import {
 } from "../Controllers/Workload/WriteController";
 import IconTextInput from "../Components/Base/IconTextInput";
 import { useState } from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import { fontSize } from "../Config/typography";
 import routes from "../Config/routes";
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
+interface SubmitScreenProps {
+  currentDate: Date;
+}
 
-const SubmitScreen = () => {
+const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
   const navigation = useNavigation();
   const [data, setData] = useState<workloadProps>({
     name: "",
     rating: 0,
     duration: "",
+    date: currentDate,
   });
+
+  const onChange = (event: DateTimePickerEvent, date = new Date()) => {
+    const currentDate = date;
+    setData((pre) => ({ ...pre, date: new Date(date) }));
+    console.log(currentDate);
+  };
 
   const submitData = () => {
     SubmitWorkload(data);
@@ -71,6 +84,17 @@ const SubmitScreen = () => {
           setData((pre) => ({ ...pre, duration: text }))
         }
       />
+
+      <Text style={styles.text}>Date of the task:</Text>
+      <View style={styles.pickerContainer}>
+        <DateTimePicker
+          value={data?.date}
+          mode="date"
+          onChange={(e, s) => onChange(e, s)}
+          maximumDate={new Date()}
+        />
+      </View>
+
       <Button title="submit" onPress={() => submitData()} />
     </Screen>
   );
@@ -85,6 +109,10 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: 5,
+  },
+  pickerContainer: {
+    alignItems: "flex-start",
+    marginLeft: 10,
   },
 });
 

@@ -37,3 +37,6 @@ export const user = firebase.auth().currentUser;
 export const timestamp = firebase.firestore.FieldValue.serverTimestamp();
 
 export const fbfs = firebase.firestore;
+
+export const timestampFromDate = (date: Date) =>
+  new fbfs.Timestamp.fromDate(date);
