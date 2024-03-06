@@ -22,12 +22,15 @@ export const getWorkloadForMonth = async (currentDate: string) => {
     m = date.getMonth();
   const firstDayOfMonth = new Date(y, m, 1);
   const lastDayOfMonth = new Date(y, m + 1, 0);
+  lastDayOfMonth.setHours(23, 59, 59);
+
+  console.log("dates are: ", firstDayOfMonth, lastDayOfMonth);
 
   return db
     .collection(MWL_COLLECTION)
     .where("user_id", "==", auth.currentUser.uid)
     .where("timestamp", ">=", firstDayOfMonth)
-    .where("timestamp", "<", lastDayOfMonth)
+    .where("timestamp", "<=", lastDayOfMonth)
     .get();
 };
 

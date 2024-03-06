@@ -9,6 +9,9 @@ import {
 } from "../Controllers/Workload/WriteController";
 import IconTextInput from "../Components/Base/IconTextInput";
 import { useState } from "react";
+import { Text, StyleSheet } from "react-native";
+import { fontSize } from "../Config/typography";
+import routes from "../Config/routes";
 
 const SubmitScreen = () => {
   const navigation = useNavigation();
@@ -20,6 +23,8 @@ const SubmitScreen = () => {
 
   const submitData = () => {
     SubmitWorkload(data);
+
+    navigation.navigate(routes.HOME_SCREEN);
   };
 
   return (
@@ -30,8 +35,10 @@ const SubmitScreen = () => {
         backgroundColor="transparent"
         onClick={() => navigation.goBack()}
       />
+      <Text style={styles.text}>Task name:</Text>
       <IconTextInput
         placeholder="Name"
+        style={styles.input}
         value={data?.name}
         autoCapitalize="none"
         autoCompleteType="off"
@@ -40,8 +47,10 @@ const SubmitScreen = () => {
           setData((pre) => ({ ...pre, name: text }))
         }
       />
+      <Text style={styles.text}>Mental Workload Rating:</Text>
       <IconTextInput
         placeholder="Rating"
+        style={styles.input}
         value={data?.rating}
         autoCapitalize="none"
         autoCompleteType="off"
@@ -50,8 +59,10 @@ const SubmitScreen = () => {
           setData((pre) => ({ ...pre, rating: text }))
         }
       />
+      <Text style={styles.text}>Duration of the task:</Text>
       <IconTextInput
         placeholder="Duration"
+        style={styles.input}
         value={data?.duration}
         autoCapitalize="none"
         autoCompleteType="off"
@@ -64,5 +75,17 @@ const SubmitScreen = () => {
     </Screen>
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    paddingLeft: 10,
+    fontSize: fontSize.lg,
+    color: colors.black,
+    marginTop: 10,
+  },
+  input: {
+    marginTop: 5,
+  },
+});
 
 export default SubmitScreen;

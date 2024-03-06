@@ -1,8 +1,7 @@
-import Screen from "../Components/Base/Screen";
-import { Fragment, useState, useCallback, useEffect } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import Screen from "./Base/Screen";
+import { useState, useCallback, useEffect } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import {
-  Calendar,
   CalendarUtils,
   CalendarProvider,
   ExpandableCalendar,
@@ -13,10 +12,9 @@ import {
   getWorkloadForMonth,
 } from "../Controllers/Workload/ReadController";
 import { fontSize } from "../Config/typography";
+import BubbleChart from "./BubbleChart";
 
-import GraphScreen from "./GraphScreen";
-
-const CalendarScreen = () => {
+const Calendar = () => {
   const didMount = useDidMount();
   const [data, setData] = useState<any>(null);
   const [marked, setMarked] = useState<any>(null);
@@ -62,7 +60,7 @@ const CalendarScreen = () => {
     if (didMount)
       setMarked(
         Object.fromEntries(
-          data.map((e) => [
+          data.map((e: any) => [
             [CalendarUtils.getCalendarDateString(e.data.timestamp.toDate())],
             {
               selected: true,
@@ -89,13 +87,26 @@ const CalendarScreen = () => {
           markedDates={marked}
           animateScroll
           closeOnDayPress={true}
+          // style={{
+          //   borderRadius: 5,
+          //   elevation: 5,
+          //   margin: 5,
+          //   borderWidth: 4,
+          //   borderColor: "rgba(100, 100, 100, 0.2)",
+          // }}
+          // theme={{
+          //   calendarBackground: "#222",
+          //   dayTextColor: "#fff",
+          //   textDisabledColor: "#444",
+          //   monthTextColor: "#888",
+          // }}
         />
 
         {selected ? (
           <>
             <Text style={styles.text}>Selected data for: {selected}</Text>
             {Object.keys(marked).includes(selected) ? (
-              <GraphScreen data={graphData} />
+              <BubbleChart data={graphData} />
             ) : (
               <Text style={{ color: "red", alignSelf: "center" }}>
                 No data for selected date
@@ -111,6 +122,11 @@ const CalendarScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    padding: 5,
+    borderRadius: 30,
+    borderWidth: 1,
+  },
   text: {
     textAlign: "center",
     fontSize: fontSize.xl,
@@ -118,4 +134,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CalendarScreen;
+export default Calendar;

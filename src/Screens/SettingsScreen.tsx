@@ -8,7 +8,7 @@ import {
   WeekCalendar,
   ExpandableCalendar,
 } from "react-native-calendars";
-import GraphScreen from "./GraphScreen";
+import GraphScreen from "../Components/BubbleChart";
 import Button from "../Components/Base/Button";
 import routes from "../Config/routes";
 
@@ -27,6 +27,7 @@ const SettingsScreen = ({ weekView = false }) => {
         title="View all feedback"
         onPress={() => navigation.navigate(routes.SCORES_SCREEN)}
       />
+      <Button title="Change Password" onPress={() => console.log(":)")} />
     </Screen>
   );
 };
