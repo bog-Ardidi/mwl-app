@@ -1,5 +1,7 @@
 export default Object.freeze({
   LOGIN_SCREEN: "LoginScreen",
+  FORGOT_PASSWORD_SCREEN: "ForgetPassword",
+  REGISTER_SCREEN: "RegisterScreen",
   LOGOUT_COMPONENT: "LogoutComponent",
   HOME_SCREEN: "HomeScreen",
   CALENDAR_SCREEN: "CalendarScreen",

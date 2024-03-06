@@ -24,8 +24,6 @@ export const getWorkloadForMonth = async (currentDate: string) => {
   const lastDayOfMonth = new Date(y, m + 1, 0);
   lastDayOfMonth.setHours(23, 59, 59);
 
-  console.log("dates are: ", firstDayOfMonth, lastDayOfMonth);
-
   return db
     .collection(MWL_COLLECTION)
     .where("user_id", "==", auth.currentUser.uid)
