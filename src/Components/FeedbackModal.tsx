@@ -2,6 +2,8 @@ import { Modal, Text, Dimensions, StyleSheet, View } from "react-native";
 import Icon from "./Base/Icon";
 import colors from "../Config/colors";
 import { fontSize } from "../Config/typography";
+import { JsonPrettify } from "../Utils/JsonPrettify";
+import WorkloadCard from "./WorkloadCard";
 
 interface FeedbackModalProps {
   open: boolean;
@@ -29,7 +31,8 @@ const FeedbackModal = ({ open, onClose, data }: FeedbackModalProps) => {
             <View style={styles.divider} />
 
             {/* bottom part container view - the main text */}
-            <Text style={styles.text}>Hello friends</Text>
+            {/* <Text style={styles.text}>{JsonPrettify(data)}</Text> */}
+            <WorkloadCard data={data} />
           </View>
         </View>
       </View>

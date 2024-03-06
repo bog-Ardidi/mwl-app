@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import FeedbackModal from "./FeedbackModal";
 
 const BubbleChart = ({ navigation, route, data }: any) => {
-  const [graphData, setGraphData] = useState();
+  const [graphData, setGraphData] = useState<any>();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const handleVisible = () => setOpenModal(!openModal);
-  const [clicked, setClicked] = useState();
+  const [modalData, setModalData] = useState([]);
 
   useEffect(() => {
     setGraphData(
@@ -16,6 +16,7 @@ const BubbleChart = ({ navigation, route, data }: any) => {
         x: Number(e.data.duration),
         y: Number(e.data.rating),
         size: 10,
+        id: e.docId,
       }))
     );
   }, [data]);
@@ -47,9 +48,18 @@ const BubbleChart = ({ navigation, route, data }: any) => {
                     onPressIn: () => {
                       return [
                         {
-                          mutation: (props) => {
+                          target: "data",
+                          mutation: (dataProps) => {
+                            const clickedId =
+                              dataProps.data[dataProps.index].id;
+
+                            const clickedData = data.find(
+                              (e: any) => e.docId === clickedId
+                            );
+
+                            setModalData(clickedData);
                             handleVisible();
-                            console.log(props);
+                            return {};
                           },
                         },
                       ];
@@ -59,7 +69,11 @@ const BubbleChart = ({ navigation, route, data }: any) => {
               ]}
             />
           </VictoryChart>
-          <FeedbackModal data={[]} open={openModal} onClose={handleVisible} />
+          <FeedbackModal
+            data={modalData}
+            open={openModal}
+            onClose={handleVisible}
+          />
           <FeedbackList data={data} />
         </>
       ) : (
