@@ -1,11 +1,7 @@
 import Screen from "./Base/Screen";
 import { useState, useCallback, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import {
-  CalendarUtils,
-  CalendarProvider,
-  ExpandableCalendar,
-} from "react-native-calendars";
+import { StyleSheet, Switch, Text, View } from "react-native";
+import { CalendarProvider, ExpandableCalendar } from "react-native-calendars";
 import { useDidMount } from "../Utils/useIsMount";
 import {
   getWorkloadForDay,
@@ -13,6 +9,8 @@ import {
 } from "../Controllers/Workload/ReadController";
 import { fontSize } from "../Config/typography";
 import BubbleChart from "./BubbleChart";
+import { getDatesInRange, testCalc } from "../Utils/dateHelpers";
+import { calculateRangeObject } from "../Utils/dateHelpers";
 
 const Calendar = () => {
   const didMount = useDidMount();
@@ -22,15 +20,50 @@ const Calendar = () => {
   const [initialDate, setInitialDate] = useState<string>(new Date().toString());
   const [graphData, setGraphData] = useState<any>(null);
 
-  const onDayPress = useCallback((day: any) => {
-    setSelected(day.dateString);
+  const [compare, setCompare] = useState<boolean>(false);
+  const handleCompare = () => setCompare(!compare);
 
+  const [startingDay, setStartingDay] = useState<Date | null>(null);
+  const [endingDay, setEndingDay] = useState<Date | null>(null);
+
+  const onDayPress = useCallback(
+    (day: any) => {
+      if (!compare) {
+        setSelected(day.dateString);
+        return;
+      }
+
+      if (startingDay && endingDay) {
+        setStartingDay(null);
+        setEndingDay(null);
+        getFeedbackDates().then(() => markDate([day.toDate]));
+      } else {
+        startingDay
+          ? setEndingDay(day.dateString)
+          : setStartingDay(day.dateString);
+      }
+    },
+    [compare, startingDay, endingDay]
+  );
+
+  useEffect(() => {
+    if (startingDay) markDate([startingDay]);
+  }, [startingDay]);
+
+  const markDate = (dates: any) => {
+    const range = calculateRangeObject(dates, true);
     setMarked((prev) => ({
       ...prev,
-      "2024-03-09": { selected: true, selectedColor: "red", startingDay: true },
-      "2024-03-12": { selected: true, selectedColor: "red", endingDay: true },
+      ...range,
     }));
-  }, []);
+  };
+
+  useEffect(() => {
+    if (startingDay && endingDay) {
+      const dates = getDatesInRange(startingDay, endingDay);
+      markDate(dates);
+    }
+  }, [startingDay, endingDay]);
 
   // pulls data for MWL submitted over the current month
   useEffect(() => {
@@ -63,26 +96,18 @@ const Calendar = () => {
 
   // calculates which dates on the calendar need to be marked
   useEffect(() => {
-    if (didMount)
-      setMarked(
-        Object.fromEntries(
-          data.map((e: any) => [
-            [CalendarUtils.getCalendarDateString(e.data.timestamp.toDate())],
-            {
-              customStyles: {
-                container: {
-                  backgroundColor: "pink",
-                },
-              },
-            },
-          ])
-        )
-      );
+    if (didMount) getFeedbackDates();
   }, [data]);
 
+  const getFeedbackDates = async () => {
+    const datesArray = data.map((e) => e.data.timestamp.toDate());
+    setMarked(calculateRangeObject(datesArray));
+  };
+
+  // reset the compare selection when you get out of compare mode
   useEffect(() => {
-    console.log(marked);
-  }, [marked]);
+    if (didMount && !compare) getFeedbackDates();
+  }, [compare]);
 
   const onMonthChange = useCallback((month: any) => {
     console.log(month);
@@ -92,6 +117,16 @@ const Calendar = () => {
   return (
     <Screen>
       <CalendarProvider date={initialDate}>
+        <View style={{ padding: 10 }}>
+          <Text>Compare mode</Text>
+          <Switch value={compare} onValueChange={handleCompare} />
+          {compare && (
+            <>
+              <Text>Start date: {startingDay?.toLocaleString()}</Text>
+              <Text>End date: {endingDay?.toLocaleString()}</Text>
+            </>
+          )}
+        </View>
         <ExpandableCalendar
           enableSwipeMonths
           current={initialDate}
@@ -99,8 +134,8 @@ const Calendar = () => {
           onMonthChange={onMonthChange}
           markedDates={marked}
           animateScroll
-          closeOnDayPress={true}
-          markingType={"custom"}
+          closeOnDayPress={false}
+          markingType={"period"}
           // style={{
           //   borderRadius: 5,
           //   elevation: 5,
