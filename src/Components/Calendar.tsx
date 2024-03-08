@@ -24,6 +24,12 @@ const Calendar = () => {
 
   const onDayPress = useCallback((day: any) => {
     setSelected(day.dateString);
+
+    setMarked((prev) => ({
+      ...prev,
+      "2024-03-09": { selected: true, selectedColor: "red", startingDay: true },
+      "2024-03-12": { selected: true, selectedColor: "red", endingDay: true },
+    }));
   }, []);
 
   // pulls data for MWL submitted over the current month
@@ -63,13 +69,20 @@ const Calendar = () => {
           data.map((e: any) => [
             [CalendarUtils.getCalendarDateString(e.data.timestamp.toDate())],
             {
-              selected: true,
-              selectedColor: "green",
+              customStyles: {
+                container: {
+                  backgroundColor: "pink",
+                },
+              },
             },
           ])
         )
       );
   }, [data]);
+
+  useEffect(() => {
+    console.log(marked);
+  }, [marked]);
 
   const onMonthChange = useCallback((month: any) => {
     console.log(month);
@@ -87,6 +100,7 @@ const Calendar = () => {
           markedDates={marked}
           animateScroll
           closeOnDayPress={true}
+          markingType={"custom"}
           // style={{
           //   borderRadius: 5,
           //   elevation: 5,
