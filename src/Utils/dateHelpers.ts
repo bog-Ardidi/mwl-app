@@ -40,13 +40,13 @@ export const calculateRangeObject = (dates: Date[], range = false) => {
   );
 };
 
-export const testCalc = (data: any) => {
-  return Object.fromEntries(
-    data.map((e: any) => [
-      [CalendarUtils.getCalendarDateString(e.data.timestamp.toDate())],
-      {
-        color: "pink",
-      },
-    ])
+/**
+ * Checks if two timestamps happened on the same day.
+ */
+export const checkSameDay = (d1: Date, d2: Date) => {
+  return (
+    d1.getFullYear() === d2.getFullYear() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getDate() === d2.getDate()
   );
 };

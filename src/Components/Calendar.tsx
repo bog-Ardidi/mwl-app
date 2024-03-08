@@ -9,8 +9,9 @@ import {
 } from "../Controllers/Workload/ReadController";
 import { fontSize } from "../Config/typography";
 import BubbleChart from "./BubbleChart";
-import { getDatesInRange, testCalc } from "../Utils/dateHelpers";
+import { checkSameDay, getDatesInRange } from "../Utils/dateHelpers";
 import { calculateRangeObject } from "../Utils/dateHelpers";
+import { JsonPrettify } from "../Utils/JsonPrettify";
 
 const Calendar = () => {
   const didMount = useDidMount();
@@ -36,12 +37,21 @@ const Calendar = () => {
       if (startingDay && endingDay) {
         setStartingDay(null);
         setEndingDay(null);
-        getFeedbackDates().then(() => markDate([day.toDate]));
-      } else {
-        startingDay
-          ? setEndingDay(day.dateString)
-          : setStartingDay(day.dateString);
+        getFeedbackDates();
+        return;
       }
+
+      if (startingDay) {
+        if (new Date(startingDay) > new Date(day.dateString)) {
+          alert("End date must not be before start date!");
+          return;
+        }
+        setEndingDay(day.dateString);
+        return;
+      }
+
+      setStartingDay(day.dateString);
+      //console.log(data);
     },
     [compare, startingDay, endingDay]
   );
@@ -62,6 +72,17 @@ const Calendar = () => {
     if (startingDay && endingDay) {
       const dates = getDatesInRange(startingDay, endingDay);
       markDate(dates);
+
+      let result = data.filter((o1) =>
+        dates.some((o2) => checkSameDay(o1.data.timestamp.toDate(), o2))
+      );
+
+      console.log(data);
+      console.log(dates);
+      console.log(
+        "result is:",
+        result.map((e) => JsonPrettify(e))
+      );
     }
   }, [startingDay, endingDay]);
 
