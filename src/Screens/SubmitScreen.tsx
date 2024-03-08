@@ -15,6 +15,7 @@ import routes from "../Config/routes";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
+
 interface SubmitScreenProps {
   currentDate: Date;
 }
@@ -27,6 +28,10 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
     duration: "",
     date: currentDate,
   });
+
+  // determines how far in the past a user can submit workload
+  const minDate = new Date();
+  minDate.setMonth(minDate.getMonth() - 3);
 
   const onChange = (event: DateTimePickerEvent, date = new Date()) => {
     const currentDate = date;
@@ -92,6 +97,7 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
           mode="date"
           onChange={(e, s) => onChange(e, s)}
           maximumDate={new Date()}
+          minimumDate={minDate}
         />
       </View>
 
