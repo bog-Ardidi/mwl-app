@@ -4,14 +4,16 @@ import { StyleSheet, Switch, Text, View } from "react-native";
 import { CalendarProvider, ExpandableCalendar } from "react-native-calendars";
 import { useDidMount } from "../Utils/useIsMount";
 import {
-  getWorkloadForDay,
-  getWorkloadForMonth,
+  firebaseGetMWLDay,
+  firebaseGetMWLMonth,
 } from "../Controllers/Workload/ReadController";
 import { fontSize } from "../Config/typography";
 import BubbleChart from "./BubbleChart";
 import { checkSameDay, getDatesInRange } from "../Utils/dateHelpers";
 import { calculateRangeObject } from "../Utils/dateHelpers";
 import { JsonPrettify } from "../Utils/JsonPrettify";
+import { getWorkloadForMonth } from "../Utils/workloadHelper";
+import { CalendarUtils } from "react-native-calendars";
 
 const Calendar = () => {
   const didMount = useDidMount();
@@ -19,13 +21,13 @@ const Calendar = () => {
   const [marked, setMarked] = useState<any>(null);
   const [selected, setSelected] = useState<any>(null);
   const [initialDate, setInitialDate] = useState<string>(new Date().toString());
-  const [graphData, setGraphData] = useState<any>(null);
 
   const [compare, setCompare] = useState<boolean>(false);
   const handleCompare = () => setCompare(!compare);
 
   const [startingDay, setStartingDay] = useState<Date | null>(null);
   const [endingDay, setEndingDay] = useState<Date | null>(null);
+  const [range, setRange] = useState<Date[] | null>(null);
 
   const onDayPress = useCallback(
     (day: any) => {
@@ -51,7 +53,6 @@ const Calendar = () => {
       }
 
       setStartingDay(day.dateString);
-      //console.log(data);
     },
     [compare, startingDay, endingDay]
   );
@@ -73,47 +74,14 @@ const Calendar = () => {
       const dates = getDatesInRange(startingDay, endingDay);
       markDate(dates);
 
-      let result = data.filter((o1) =>
-        dates.some((o2) => checkSameDay(o1.data.timestamp.toDate(), o2))
-      );
-
-      console.log(data);
-      console.log(dates);
-      console.log(
-        "result is:",
-        result.map((e) => JsonPrettify(e))
-      );
+      setRange(dates);
     }
   }, [startingDay, endingDay]);
 
   // pulls data for MWL submitted over the current month
   useEffect(() => {
-    async function fetchData() {
-      const res = await getWorkloadForMonth(initialDate);
-      setData(
-        res?.docs?.map((e: any) => ({
-          docId: e.id,
-          data: e.data(),
-        }))
-      );
-    }
-    fetchData();
+    getWorkloadForMonth(initialDate, setData);
   }, [initialDate]);
-
-  useEffect(() => {
-    if (didMount) {
-      async function fetchData() {
-        const res = await getWorkloadForDay(selected);
-        setGraphData(
-          res?.docs?.map((e: any) => ({
-            docId: e.id,
-            data: e.data(),
-          }))
-        );
-      }
-      fetchData();
-    }
-  }, [selected]);
 
   // calculates which dates on the calendar need to be marked
   useEffect(() => {
@@ -121,13 +89,16 @@ const Calendar = () => {
   }, [data]);
 
   const getFeedbackDates = async () => {
-    const datesArray = data.map((e) => e.data.timestamp.toDate());
+    const datesArray = data.map((e) => e.data.timestamp);
     setMarked(calculateRangeObject(datesArray));
   };
 
   // reset the compare selection when you get out of compare mode
   useEffect(() => {
     if (didMount && !compare) getFeedbackDates();
+
+    setSelected(null);
+    setRange(null);
   }, [compare]);
 
   const onMonthChange = useCallback((month: any) => {
@@ -172,11 +143,16 @@ const Calendar = () => {
           // }}
         />
 
-        {selected ? (
+        {selected || range ? (
           <>
             <Text style={styles.text}>Selected data for: {selected}</Text>
-            {Object.keys(marked).includes(selected) ? (
-              <BubbleChart data={graphData} />
+            {Object.keys(marked).includes(selected) ||
+            range?.some((v) =>
+              Object.keys(marked).includes(
+                CalendarUtils.getCalendarDateString(v)
+              )
+            ) ? (
+              <BubbleChart selectedDate={selected} range={range} data={data} />
             ) : (
               <Text style={{ color: "red", alignSelf: "center" }}>
                 No data for selected date
@@ -184,7 +160,9 @@ const Calendar = () => {
             )}
           </>
         ) : (
-          <Text style={styles.text}> No date selected</Text>
+          <View style={styles.idleContainer}>
+            <Text style={styles.text}> Waiting for data selection!</Text>
+          </View>
         )}
       </CalendarProvider>
     </Screen>
@@ -201,6 +179,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: fontSize.xl,
     marginTop: 10,
+  },
+  idleContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

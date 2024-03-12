@@ -50,8 +50,8 @@ const WorkloadCard = ({ data, showDelete = false }: WorkloadCardProps) => {
           {data.data.name ?? "No name provided"}
         </Text>
         <Text style={styles.cardText}>
-          {data.data.timestamp.seconds
-            ? new Date(data.data.timestamp.toDate()).toLocaleDateString(
+          {data.data.timestamp
+            ? new Date(data.data.timestamp).toLocaleDateString(
                 "en-gb",
                 dateOptions
               )

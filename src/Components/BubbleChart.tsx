@@ -1,26 +1,49 @@
 import { VictoryChart, VictoryScatter, VictoryAxis } from "victory-native";
 import Loading from "./Base/Loading";
-import FeedbackList from "./FeedbackList";
 import { useEffect, useState } from "react";
 import FeedbackModal from "./FeedbackModal";
 import GraphStatistics from "./GraphStatistics";
+import { getWorkloadForDay } from "../Utils/workloadHelper";
+import { checkSameDay } from "../Utils/dateHelpers";
+import { JsonPrettify } from "../Utils/JsonPrettify";
 
-const BubbleChart = ({ navigation, route, data }: any) => {
+const BubbleChart = ({ selectedDate, range, data }: any) => {
+  const [allFeedback, setAllFeedback] = useState([]);
   const [graphData, setGraphData] = useState<any>();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const handleVisible = () => setOpenModal(!openModal);
   const [modalData, setModalData] = useState([]);
 
   useEffect(() => {
+    if (selectedDate) {
+      getWorkloadForDay(selectedDate, setAllFeedback);
+    }
+  }, [selectedDate]);
+
+  useEffect(() => {
     setGraphData(
-      data?.map((e: any) => ({
+      allFeedback?.map((e: any) => ({
         x: Number(e.data.duration),
         y: Number(e.data.rating),
         size: 10,
         id: e.docId,
       }))
     );
-  }, [data]);
+  }, [allFeedback]);
+
+  useEffect(() => {
+    if (range) {
+      let result = data.filter((o1) =>
+        range.some((o2) => checkSameDay(o1.data.timestamp, o2))
+      );
+
+      setAllFeedback(result);
+    }
+  }, [range]);
+
+  useEffect(() => {
+    console.log(graphData);
+  }, [graphData]);
 
   return (
     <>
@@ -54,7 +77,7 @@ const BubbleChart = ({ navigation, route, data }: any) => {
                             const clickedId =
                               dataProps.data[dataProps.index].id;
 
-                            const clickedData = data.find(
+                            const clickedData: any = allFeedback.find(
                               (e: any) => e.docId === clickedId
                             );
 
@@ -75,7 +98,7 @@ const BubbleChart = ({ navigation, route, data }: any) => {
             open={openModal}
             onClose={handleVisible}
           />
-          <GraphStatistics data={data} />
+          <GraphStatistics data={allFeedback} />
         </>
       ) : (
         <Loading />

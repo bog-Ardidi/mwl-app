@@ -2,7 +2,7 @@ import { auth, db } from "../../Config/firebase";
 
 const MWL_COLLECTION = "mentalworkload";
 
-export const getWorkloadForDay = async (currentDate: string) => {
+export const firebaseGetMWLDay = async (currentDate: string) => {
   const startOfDay = new Date(currentDate);
   const endOfDay = new Date(currentDate);
   endOfDay.setHours(23, 59, 59);
@@ -16,7 +16,7 @@ export const getWorkloadForDay = async (currentDate: string) => {
     .get();
 };
 
-export const getWorkloadForMonth = async (currentDate: string) => {
+export const firebaseGetMWLMonth = async (currentDate: string) => {
   const date = new Date(currentDate),
     y = date.getFullYear(),
     m = date.getMonth();
@@ -32,7 +32,7 @@ export const getWorkloadForMonth = async (currentDate: string) => {
     .get();
 };
 
-export const getAllWorkloadForUser = async () => {
+export const firebaseGetMWLAll = async () => {
   return db
     .collection(MWL_COLLECTION)
     .where("user_id", "==", auth.currentUser.uid)
