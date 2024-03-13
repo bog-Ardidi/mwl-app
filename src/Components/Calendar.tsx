@@ -35,6 +35,7 @@ const Calendar = () => {
       if (startingDay && endingDay) {
         setStartingDay(null);
         setEndingDay(null);
+        resetCalendar();
         getFeedbackDates();
         return;
       }
@@ -93,27 +94,35 @@ const Calendar = () => {
   useEffect(() => {
     if (didMount && !compare) getFeedbackDates();
 
-    setSelected(null);
-    setRange(null);
+    resetCalendar();
   }, [compare]);
 
   const onMonthChange = useCallback((month: any) => {
     console.log(month);
+    resetCalendar();
     setInitialDate(month?.dateString);
   }, []);
+
+  const resetCalendar = () => {
+    setSelected(null);
+    setRange(null);
+    setStartingDay(null);
+    setEndingDay(null);
+  };
 
   return (
     <Screen>
       <CalendarProvider date={initialDate}>
-        <View style={{ padding: 10 }}>
-          <Text>Compare mode</Text>
+        <View
+          style={{
+            padding: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            alignSelf: "flex-end",
+          }}
+        >
+          <Text style={{ marginRight: 10 }}>Compare</Text>
           <Switch value={compare} onValueChange={handleCompare} />
-          {compare && (
-            <>
-              <Text>Start date: {startingDay?.toLocaleString()}</Text>
-              <Text>End date: {endingDay?.toLocaleString()}</Text>
-            </>
-          )}
         </View>
         <ExpandableCalendar
           enableSwipeMonths
@@ -141,15 +150,35 @@ const Calendar = () => {
 
         {selected || range ? (
           <>
-            <Text style={styles.text}>
-              Selected data for: {selected || startingDay}
-            </Text>
+            {!compare ? (
+              <Text style={styles.text}>Selected data for: {selected}</Text>
+            ) : (
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  padding: 10,
+                }}
+              >
+                <Text style={styles.text}>
+                  Start date: {"\n"}
+                  {startingDay?.toLocaleString()}
+                </Text>
+                <Text style={styles.text}>
+                  End date: {"\n"}
+                  {endingDay?.toLocaleString()}
+                </Text>
+              </View>
+            )}
+
             {Object.keys(marked).includes(selected) ||
-            range?.some((v) =>
-              Object.keys(marked).includes(
-                CalendarUtils.getCalendarDateString(v)
-              )
-            ) ? (
+            range?.some((v) => {
+              const date = CalendarUtils.getCalendarDateString(v);
+              return (
+                Object.keys(marked).includes(date) &&
+                marked[date]["color"] != "red"
+              );
+            }) ? (
               <BubbleChart selectedDate={selected} range={range} data={data} />
             ) : (
               <Text style={{ color: "red", alignSelf: "center" }}>

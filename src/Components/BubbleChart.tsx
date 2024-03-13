@@ -51,15 +51,11 @@ const BubbleChart = ({ selectedDate, range, data }: any) => {
   }, [allFeedback]);
 
   useEffect(() => {
-    console.log("definately crashes below");
-
     if (range) {
       let result = data.filter((o1) =>
         range.some((o2) => checkSameDay(o1.data.timestamp, o2))
       );
 
-      console.log("get here");
-      // figure out this unique thing
       const unique = [
         ...new Set(
           result.map((item) =>
@@ -80,7 +76,7 @@ const BubbleChart = ({ selectedDate, range, data }: any) => {
 
   return (
     <>
-      {graphData ? (
+      {graphData || graphData?.length <= 0 ? (
         <>
           <VictoryChart
             domain={{ x: [0, 24], y: [0, 15] }}
@@ -97,11 +93,10 @@ const BubbleChart = ({ selectedDate, range, data }: any) => {
               style={{
                 data: {
                   fill: ({ datum }) => {
-                    return (
-                      bubbles?.filter((obj) => obj[datum.date])[0][
-                        datum.date
-                      ] ?? "green"
-                    );
+                    const color = bubbles?.filter((obj) => {
+                      return obj[datum.date] ?? null;
+                    });
+                    return color.length > 0 ? color[0][datum.date] : "green";
                   },
                   opacity: 0.5,
                 },
