@@ -170,21 +170,7 @@ const Calendar = () => {
                 </Text>
               </View>
             )}
-
-            {Object.keys(marked).includes(selected) ||
-            range?.some((v) => {
-              const date = CalendarUtils.getCalendarDateString(v);
-              return (
-                Object.keys(marked).includes(date) &&
-                marked[date]["color"] != "red"
-              );
-            }) ? (
-              <BubbleChart selectedDate={selected} range={range} data={data} />
-            ) : (
-              <Text style={{ color: "red", alignSelf: "center" }}>
-                No data for selected date
-              </Text>
-            )}
+            <BubbleChart selectedDate={selected} range={range} data={data} />
           </>
         ) : (
           <View style={styles.idleContainer}>

@@ -7,6 +7,8 @@ import { getWorkloadForDay } from "../Utils/workloadHelper";
 import { checkSameDay } from "../Utils/dateHelpers";
 import { JsonPrettify } from "../Utils/JsonPrettify";
 import { CalendarUtils } from "react-native-calendars";
+import { Text } from "react-native";
+import { useDidMount } from "../Utils/useIsMount";
 
 function limitNumberWithinRange(num) {
   const MIN = 10;
@@ -19,10 +21,11 @@ const bubbleColors = ["green", "blue", "yellow", "purple", "pink"];
 
 const BubbleChart = ({ selectedDate, range, data }: any) => {
   const [allFeedback, setAllFeedback] = useState([]);
-  const [graphData, setGraphData] = useState<any>();
+  const [graphData, setGraphData] = useState<null | any[]>(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const handleVisible = () => setOpenModal(!openModal);
   const [modalData, setModalData] = useState([]);
+  const didMount = useDidMount();
   const [bubbles, setBubbles] = useState<any>([
     {
       [CalendarUtils.getCalendarDateString(selectedDate ?? new Date())]:
@@ -37,17 +40,18 @@ const BubbleChart = ({ selectedDate, range, data }: any) => {
   }, [selectedDate]);
 
   useEffect(() => {
-    setGraphData(
-      allFeedback?.map((e: any) => ({
-        x: Number(e.data.duration),
-        y: Number(e.data.rating),
-        size: limitNumberWithinRange(
-          Number(e.data.duration) * Number(e.data.rating)
-        ),
-        id: e.docId,
-        date: CalendarUtils.getCalendarDateString(e.data.timestamp),
-      }))
-    );
+    if (didMount)
+      setGraphData(
+        allFeedback?.map((e: any) => ({
+          x: Number(e.data.duration),
+          y: Number(e.data.rating),
+          size: limitNumberWithinRange(
+            Number(e.data.duration) * Number(e.data.rating)
+          ),
+          id: e.docId,
+          date: CalendarUtils.getCalendarDateString(e.data.timestamp),
+        }))
+      );
   }, [allFeedback]);
 
   useEffect(() => {
@@ -74,9 +78,15 @@ const BubbleChart = ({ selectedDate, range, data }: any) => {
     }
   }, [range]);
 
+  useEffect(() => {
+    console.log(graphData);
+  }, [graphData]);
+
+  if (!graphData) return <Loading />;
+
   return (
     <>
-      {graphData || graphData?.length <= 0 ? (
+      {!(graphData?.length <= 0) ? (
         <>
           <VictoryChart
             domain={{ x: [0, 24], y: [0, 15] }}
@@ -137,7 +147,9 @@ const BubbleChart = ({ selectedDate, range, data }: any) => {
           <GraphStatistics data={allFeedback} />
         </>
       ) : (
-        <Loading />
+        <Text style={{ color: "red", alignSelf: "center" }}>
+          No data for selected date
+        </Text>
       )}
     </>
   );
