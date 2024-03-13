@@ -3,13 +3,9 @@ import { useState, useCallback, useEffect } from "react";
 import { StyleSheet, Switch, Text, View } from "react-native";
 import { CalendarProvider, ExpandableCalendar } from "react-native-calendars";
 import { useDidMount } from "../Utils/useIsMount";
-import {
-  firebaseGetMWLDay,
-  firebaseGetMWLMonth,
-} from "../Controllers/Workload/ReadController";
 import { fontSize } from "../Config/typography";
 import BubbleChart from "./BubbleChart";
-import { checkSameDay, getDatesInRange } from "../Utils/dateHelpers";
+import { getDatesInRange } from "../Utils/dateHelpers";
 import { calculateRangeObject } from "../Utils/dateHelpers";
 import { JsonPrettify } from "../Utils/JsonPrettify";
 import { getWorkloadForMonth } from "../Utils/workloadHelper";
@@ -145,7 +141,9 @@ const Calendar = () => {
 
         {selected || range ? (
           <>
-            <Text style={styles.text}>Selected data for: {selected}</Text>
+            <Text style={styles.text}>
+              Selected data for: {selected || startingDay}
+            </Text>
             {Object.keys(marked).includes(selected) ||
             range?.some((v) =>
               Object.keys(marked).includes(
