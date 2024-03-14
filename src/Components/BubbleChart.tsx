@@ -78,10 +78,6 @@ const BubbleChart = ({ selectedDate, range, data }: any) => {
     }
   }, [range]);
 
-  useEffect(() => {
-    console.log(graphData);
-  }, [graphData]);
-
   if (!graphData) return <Loading />;
 
   return (
@@ -89,13 +85,17 @@ const BubbleChart = ({ selectedDate, range, data }: any) => {
       {!(graphData?.length <= 0) ? (
         <>
           <VictoryChart
-            domain={{ x: [0, 24], y: [0, 15] }}
+            domain={{ x: [0, 24], y: [0, 5] }}
             // containerComponent={
             //   <VictoryZoomContainer zoomDomain={{ x: [0, 20], y: [0, 20] }} />
             // }
           >
             <VictoryAxis label="Duration" />
-            <VictoryAxis dependentAxis label="Rating" />
+            <VictoryAxis
+              dependentAxis
+              label="Rating"
+              tickFormat={(rating) => String(Math.round(rating))}
+            />
             {/* 
             // @ts-ignore */}
             <VictoryScatter

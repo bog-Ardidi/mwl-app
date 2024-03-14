@@ -88,7 +88,7 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
         <Text style={styles.text}>Date of the task:</Text>
         <View style={styles.pickerContainer}>
           <DateTimePicker
-            value={currentDate}
+            value={date ?? new Date()}
             mode="date"
             onChange={(e, s) => setDate(s ? new Date(s) : new Date())}
             maximumDate={new Date()}
