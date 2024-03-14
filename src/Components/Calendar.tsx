@@ -5,11 +5,10 @@ import { CalendarProvider, ExpandableCalendar } from "react-native-calendars";
 import { useDidMount } from "../Utils/useIsMount";
 import { fontSize } from "../Config/typography";
 import BubbleChart from "./BubbleChart";
-import { getDatesInRange } from "../Utils/dateHelpers";
+import { dateDiffInDays, getDatesInRange } from "../Utils/dateHelpers";
 import { calculateRangeObject } from "../Utils/dateHelpers";
-import { JsonPrettify } from "../Utils/JsonPrettify";
 import { getWorkloadForMonth } from "../Utils/workloadHelper";
-import { CalendarUtils } from "react-native-calendars";
+import { useNavigation } from "@react-navigation/native";
 
 const Calendar = () => {
   const didMount = useDidMount();
@@ -17,6 +16,7 @@ const Calendar = () => {
   const [marked, setMarked] = useState<any>(null);
   const [selected, setSelected] = useState<any>(null);
   const [initialDate, setInitialDate] = useState<string>(new Date().toString());
+  const navigation = useNavigation();
 
   const [compare, setCompare] = useState<boolean>(false);
   const handleCompare = () => setCompare(!compare);
@@ -24,6 +24,15 @@ const Calendar = () => {
   const [startingDay, setStartingDay] = useState<Date | null>(null);
   const [endingDay, setEndingDay] = useState<Date | null>(null);
   const [range, setRange] = useState<Date[] | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      setInitialDate(new Date().toString());
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
 
   const onDayPress = useCallback(
     (day: any) => {
@@ -41,10 +50,19 @@ const Calendar = () => {
       }
 
       if (startingDay) {
-        if (new Date(startingDay) > new Date(day.dateString)) {
+        const d1 = new Date(startingDay);
+        const d2 = new Date(day.dateString);
+
+        if (d1 > d2) {
           alert("End date must not be before start date!");
           return;
         }
+
+        if (dateDiffInDays(d1, d2) >= 5) {
+          alert("Selection allows a maximum of 5 days!");
+          return;
+        }
+
         setEndingDay(day.dateString);
         return;
       }
