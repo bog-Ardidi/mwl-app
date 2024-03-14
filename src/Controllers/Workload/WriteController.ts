@@ -2,7 +2,7 @@ import { auth, db, timestampFromDate } from "../../Config/firebase";
 
 export interface workloadProps {
   rating: number;
-  duration: string;
+  duration: number;
   name: string;
   date: Date;
 }

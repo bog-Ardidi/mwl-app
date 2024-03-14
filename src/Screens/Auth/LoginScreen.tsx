@@ -2,52 +2,52 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import { FirebaseSignIn } from "../../Controllers/AuthenticationController";
-import IconTextInput from "../../Components/Base/IconTextInput";
 import Button from "../../Components/Base/Button";
 import { Divider } from "../../Components/Base/Divider";
 import routes from "../../Config/routes";
 import { useNavigation } from "@react-navigation/native";
 import AuthScreenOverlay from "../../Components/AuthScreensOverlay";
+import FormField from "../../Components/Validation/FormField";
+import FormikForm from "../../Components/Validation/FormikForm";
+import { validationSchemaLogin } from "../../Config/validationSchema";
+import { useFormikContext } from "formik";
+import ValidatedButton from "../../Components/Validation/ValidatedButton";
 
 export default function () {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
-
-  async function login() {
-    //setLoading(true);
-    FirebaseSignIn({ email, password });
-  }
 
   return (
     <AuthScreenOverlay>
-      <IconTextInput
-        icon="account"
-        placeholder="Enter your email"
-        value={email}
-        autoCapitalize="none"
-        autoCompleteType="off"
-        autoCorrect={false}
-        onChangeText={(text: string) => setEmail(text)}
-      />
-      <IconTextInput
-        icon="lock"
-        placeholder="Enter your password"
-        value={password}
-        autoCapitalize="none"
-        autoCompleteType="off"
-        autoCorrect={false}
-        secureTextEntry={true}
-        onChangeText={(text: string) => setPassword(text)}
-      />
-      <Button
-        title="Login"
-        style={styles.button}
-        onPress={() => {
-          login();
-        }}
-      />
+      <FormikForm
+        initialValues={{ email: "", password: "" }}
+        // send user credentials to database
+        onSubmit={(values) => FirebaseSignIn(values)}
+        validationSchema={validationSchemaLogin}
+      >
+        {/* E-mail form field */}
+        <FormField
+          autoCapitalize="none"
+          autoCorrect={false}
+          icon="account"
+          keyboardType="email-address"
+          placeholder="Enter your email"
+          textContentType="emailAddress"
+          name="email"
+        />
+
+        {/* Password form field */}
+        <FormField
+          autoCapitalize="none"
+          autoCorrect={false}
+          icon="lock"
+          placeholder="Enter your password"
+          textContentType="password"
+          secureTextEntry
+          name="password"
+        />
+
+        <ValidatedButton title="Login" style={styles.button} />
+      </FormikForm>
 
       <Divider text="More options" />
 
