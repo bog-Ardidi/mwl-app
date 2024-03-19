@@ -21,7 +21,7 @@ const bubbleColors = ["green", "blue", "yellow", "purple", "pink"];
 
 const BubbleChart = ({ selectedDate, range, data }: any) => {
   const [allFeedback, setAllFeedback] = useState([]);
-  const [graphData, setGraphData] = useState<null | any[]>(null);
+  const [graphData, setGraphData] = useState<null | any[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const handleVisible = () => setOpenModal(!openModal);
   const [modalData, setModalData] = useState([]);
@@ -40,7 +40,7 @@ const BubbleChart = ({ selectedDate, range, data }: any) => {
   }, [selectedDate]);
 
   useEffect(() => {
-    if (didMount)
+    if (didMount) {
       setGraphData(
         allFeedback?.map((e: any) => ({
           x: Number(e.data.duration),
@@ -52,6 +52,7 @@ const BubbleChart = ({ selectedDate, range, data }: any) => {
           date: CalendarUtils.getCalendarDateString(e.data.timestamp),
         }))
       );
+    }
   }, [allFeedback]);
 
   useEffect(() => {
@@ -86,9 +87,10 @@ const BubbleChart = ({ selectedDate, range, data }: any) => {
         <>
           <VictoryChart
             domain={{ x: [0, 24], y: [0, 5] }}
-            // containerComponent={
-            //   <VictoryZoomContainer zoomDomain={{ x: [0, 20], y: [0, 20] }} />
-            // }
+            animate={{
+              duration: 4000,
+              easing: "bounce",
+            }}
           >
             <VictoryAxis label="Duration" />
             <VictoryAxis

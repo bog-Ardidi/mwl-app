@@ -13,7 +13,7 @@ import { fontSize } from "../../Config/typography";
 interface ModalProps {
   open: boolean;
   onClose: any;
-  title: string;
+  title?: string;
   children: React.ReactNode;
 }
 
@@ -22,16 +22,17 @@ const Modal = ({ open, onClose, title, children }: ModalProps) => {
     <RNModal animationType="slide" visible={open} transparent={true}>
       <TouchableWithoutFeedback onPressOut={onClose}>
         <View style={styles.container}>
-          <View style={styles.container}>
-            <View style={styles.modalView}>
-              <View style={styles.titleContainer}>
-                <Text style={styles.title}>{title}</Text>
-                <Icon name="close" size={35} onClick={onClose} />
-              </View>
-
-              <View style={styles.divider} />
-              {children}
-            </View>
+          <View style={styles.modalView}>
+            {title && (
+              <>
+                <View style={styles.titleContainer}>
+                  <Text style={styles.title}>{title}</Text>
+                  <Icon name="close" size={35} onClick={onClose} />
+                </View>
+                <View style={styles.divider} />
+              </>
+            )}
+            {children}
           </View>
         </View>
       </TouchableWithoutFeedback>

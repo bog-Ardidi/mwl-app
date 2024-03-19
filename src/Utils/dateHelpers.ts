@@ -62,3 +62,8 @@ export const dateDiffInDays = (a: Date, b: Date) => {
 
   return Math.floor((utc2 - utc1) / _MS_PER_DAY);
 };
+
+export const resetDateTime = (date: Date) => {
+  const newDate = new Date(date.setHours(0, 0, 0, 0));
+  return newDate;
+};
