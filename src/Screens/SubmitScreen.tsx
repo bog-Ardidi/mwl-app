@@ -23,27 +23,18 @@ import { validationSchemaTaskSubmit } from "../Config/validationSchema";
 import FormField from "../Components/Validation/FormField";
 import ValidatedButton from "../Components/Validation/ValidatedButton";
 import { resetDateTime } from "../Utils/dateHelpers";
-import { Picker } from "@react-native-picker/picker";
-import Button from "../Components/Base/Button";
-import Modal from "../Components/Base/Modal";
+import DropDownPicker from "react-native-dropdown-picker";
+import { useFormikContext } from "formik";
+
 interface SubmitScreenProps {
   currentDate: Date;
 }
-
-const ratingOptions = [
-  { key: 1, label: "1 - Low" },
-  { key: 2, label: "2 - Modest" },
-  { key: 3, label: "3 - Medium" },
-  { key: 4, label: "4 - Substantial" },
-  { key: 5, label: "5 - High" },
-];
 
 const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
   const navigation = useNavigation();
   const [date, setDate] = useState<Date>(new Date());
   const [duration, setDuration] = useState<Date>(resetDateTime(new Date()));
-  const [rating, setRating] = useState<number>(1);
-  const [open, setOpen] = useState<boolean>(false);
+  const [rating, setRating] = useState<any>();
 
   // determines how far in the past a user can submit workload
   const minDate = new Date();
@@ -63,6 +54,20 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
 
     navigation.navigate(routes.HOME_SCREEN);
   };
+
+  const [open1, setOpen1] = useState(false);
+
+  const [items, setItems] = useState([
+    { label: "1 - Low", value: "1" },
+    { label: "2 - Modest", value: "2" },
+    { label: "3 - Medium", value: "3" },
+    { label: "4 - Substantial", value: "4" },
+    { label: "5 - High", value: "5" },
+  ]);
+
+  useEffect(() => {
+    console.log(rating);
+  }, [rating]);
 
   return (
     <Screen>
@@ -90,27 +95,27 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
           validationSchema={validationSchemaTaskSubmit}
         >
           <Text style={styles.text}>Task name:</Text>
-          <FormField
-            placeholder="Name"
-            style={styles.input}
-            autoCompleteType="off"
-            autoCapitalize="none"
-            autoCorrect={false}
-            name="Name"
-          />
-          <Text style={styles.text}>Mental Workload Rating:</Text>
-          <TouchableOpacity onPress={() => setOpen(true)}>
+          <View style={styles.input}>
             <FormField
-              pointerEvents="none"
-              placeholder="Rating"
-              style={styles.input}
+              placeholder="Name"
               autoCompleteType="off"
               autoCapitalize="none"
               autoCorrect={false}
-              name="Rating"
-              value={ratingOptions.find((x) => x.key === rating)?.label}
+              name="Name"
             />
-          </TouchableOpacity>
+          </View>
+          <Text style={styles.text}>Mental Workload Rating:</Text>
+          <DropDownPicker
+            open={open1}
+            value={rating}
+            items={items}
+            setOpen={setOpen1}
+            setValue={setRating}
+            setItems={setItems}
+            style={styles.ratingSelect}
+            theme="LIGHT"
+            dropDownContainerStyle={styles.dropdown}
+          />
 
           <Text style={styles.text}>Duration of the task:</Text>
           <View style={styles.pickerContainer}>
@@ -133,25 +138,6 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
               minimumDate={minDate}
             />
           </View>
-
-          <Modal open={open} onClose={() => {}}>
-            <Picker
-              selectedValue={rating}
-              onValueChange={(itemValue, itemIndex) => {
-                setRating(itemValue);
-                console.log(itemValue);
-              }}
-            >
-              {ratingOptions.map((option, idx) => (
-                <Picker.Item
-                  label={option.label}
-                  value={option.key}
-                  key={idx}
-                />
-              ))}
-            </Picker>
-            <Button title="Confirm selection" onPress={() => setOpen(false)} />
-          </Modal>
 
           <ValidatedButton style={styles.submitButton} title="Submit" />
         </FormikForm>
@@ -221,6 +207,23 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     marginTop: 20,
+  },
+  ratingSelect: {
+    borderWidth: 0.5,
+    borderColor: colors.grayBorder,
+    borderRadius: 0,
+    padding: 0,
+    minHeight: 40,
+    width: "95%",
+    marginLeft: 10,
+    marginTop: 5,
+    marginBottom: 20,
+  },
+  dropdown: {
+    borderWidth: 0.5,
+    borderColor: colors.grayBorder,
+    marginLeft: 10,
+    width: "95%",
   },
 });
 
