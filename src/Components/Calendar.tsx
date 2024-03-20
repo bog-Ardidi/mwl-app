@@ -10,7 +10,7 @@ import { calculateRangeObject } from "../Utils/dateHelpers";
 import { getWorkloadForMonth } from "../Utils/workloadHelper";
 import { useNavigation } from "@react-navigation/native";
 
-const Calendar = () => {
+const Calendar = ({ compare, setCompare }: any) => {
   const didMount = useDidMount();
   const [data, setData] = useState<any>(null);
   const [marked, setMarked] = useState<any>(null);
@@ -18,7 +18,6 @@ const Calendar = () => {
   const [initialDate, setInitialDate] = useState<string>(new Date().toString());
   const navigation = useNavigation();
 
-  const [compare, setCompare] = useState<boolean>(false);
   const handleCompare = () => setCompare(!compare);
 
   const [startingDay, setStartingDay] = useState<Date | null>(null);
@@ -131,17 +130,7 @@ const Calendar = () => {
   return (
     <Screen>
       <CalendarProvider date={initialDate}>
-        <View
-          style={{
-            padding: 10,
-            flexDirection: "row",
-            alignItems: "center",
-            alignSelf: "flex-end",
-          }}
-        >
-          <Text style={{ marginRight: 10 }}>Compare</Text>
-          <Switch value={compare} onValueChange={handleCompare} />
-        </View>
+        {compare && <Text>Multi-day selection on!</Text>}
         <ExpandableCalendar
           enableSwipeMonths
           current={initialDate}

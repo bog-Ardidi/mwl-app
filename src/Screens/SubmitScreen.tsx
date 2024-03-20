@@ -24,6 +24,7 @@ import ValidatedButton from "../Components/Validation/ValidatedButton";
 import { resetDateTime } from "../Utils/dateHelpers";
 import { Picker } from "@react-native-picker/picker";
 import Modal from "../Components/Base/Modal";
+import Button from "../Components/Base/Button";
 
 interface SubmitScreenProps {
   currentDate: Date;
@@ -132,9 +133,10 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
           mode="time"
           onChange={(e, s) => setDuration(s ? new Date(s) : new Date())}
           locale="en_GB"
+          style={{}}
         />
 
-        <Modal open={open} onClose={() => setOpen(!open)}>
+        <Modal open={open} onClose={() => {}}>
           <Picker
             selectedValue={rating}
             onValueChange={(itemValue, itemIndex) => setRating(itemValue)}
@@ -143,6 +145,7 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
               <Picker.Item label={option.label} value={option.key} key={idx} />
             ))}
           </Picker>
+          <Button title="Confirm selection" onPress={() => setOpen(false)} />
         </Modal>
 
         <ValidatedButton title="Submit" />

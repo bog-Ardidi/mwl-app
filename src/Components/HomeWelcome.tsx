@@ -21,7 +21,7 @@ const logOut = () => {
   ]);
 };
 
-const HomeWelcome = () => {
+const HomeWelcome = ({ compare, setCompare }) => {
   const navigation = useNavigation();
 
   return (
@@ -38,10 +38,17 @@ const HomeWelcome = () => {
           onClick={() => navigation.navigate(routes.SUBMIT_SCREEN)}
         />
         <Icon
+          name={"select-compare"}
+          size={50}
+          iconColor={compare ? colors.primaryRed : colors.black}
+          onClick={() => setCompare(!compare)}
+        />
+        <Icon
           name={"cog-outline"}
           size={50}
           onClick={() => navigation.navigate(routes.SETTINGS_SCREEN)}
         />
+
         <Icon name={"logout"} size={50} onClick={logOut} />
       </View>
     </View>
