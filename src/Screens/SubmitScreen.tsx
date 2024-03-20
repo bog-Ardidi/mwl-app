@@ -11,8 +11,9 @@ import {
   Text,
   StyleSheet,
   View,
-  TextInput,
   TouchableOpacity,
+  Dimensions,
+  SafeAreaView,
 } from "react-native";
 import { fontSize } from "../Config/typography";
 import routes from "../Config/routes";
@@ -23,9 +24,8 @@ import FormField from "../Components/Validation/FormField";
 import ValidatedButton from "../Components/Validation/ValidatedButton";
 import { resetDateTime } from "../Utils/dateHelpers";
 import { Picker } from "@react-native-picker/picker";
-import Modal from "../Components/Base/Modal";
 import Button from "../Components/Base/Button";
-
+import Modal from "../Components/Base/Modal";
 interface SubmitScreenProps {
   currentDate: Date;
 }
@@ -49,20 +49,13 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
   const minDate = new Date();
   minDate.setMonth(minDate.getMonth() - 3);
 
-  useEffect(() => {
-    const minutes = duration.getMinutes() + duration.getHours() * 60;
-    console.log("minutes picked", minutes);
-  }, [duration]);
-
-  useEffect(() => {
-    console.log("rating is:", rating);
-  }, [rating]);
-
   const submitData = (values: any) => {
+    const minutes = duration.getMinutes() + duration.getHours() * 60;
+
     const data: workloadProps = {
       name: values.Name,
-      rating: values.Rating,
-      duration: values.Duration,
+      rating: rating,
+      duration: minutes,
       date: date ?? new Date(),
     };
 
@@ -73,86 +66,102 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
 
   return (
     <Screen>
-      <Icon
-        name="arrow-left"
-        iconColor={colors.black}
-        backgroundColor="transparent"
-        onClick={() => navigation.goBack()}
-      />
-      <FormikForm
-        initialValues={{ Name: "", Rating: 0, Duration: 0, Date: currentDate }}
-        // send user credentials to database
-        onSubmit={(values: workloadProps) => submitData(values)}
-        validationSchema={validationSchemaTaskSubmit}
-      >
-        <Text style={styles.text}>Task name:</Text>
-        <FormField
-          placeholder="Name"
-          style={styles.input}
-          autoCompleteType="off"
-          autoCapitalize="none"
-          autoCorrect={false}
-          name="Name"
+      <SafeAreaView style={styles.headerContainer}></SafeAreaView>
+      <View style={styles.header}>
+        <Icon
+          name="arrow-left"
+          size={50}
+          iconColor={colors.white}
+          backgroundColor="transparent"
+          onClick={() => navigation.goBack()}
         />
-        <Text style={styles.text}>Mental Workload Rating:</Text>
-        <TouchableOpacity onPress={() => setOpen(true)}>
+        <Text style={styles.headerText}>Submit your{"\n"}Mental Workload!</Text>
+      </View>
+      <View style={styles.formContainer}>
+        <FormikForm
+          initialValues={{
+            Name: "",
+            Rating: 0,
+            Duration: 0,
+            Date: currentDate,
+          }}
+          // send user credentials to database
+          onSubmit={(values: workloadProps) => submitData(values)}
+          validationSchema={validationSchemaTaskSubmit}
+        >
+          <Text style={styles.text}>Task name:</Text>
           <FormField
-            pointerEvents="none"
-            placeholder="Rating"
+            placeholder="Name"
             style={styles.input}
             autoCompleteType="off"
             autoCapitalize="none"
             autoCorrect={false}
-            name="Rating"
+            name="Name"
           />
-        </TouchableOpacity>
+          <Text style={styles.text}>Mental Workload Rating:</Text>
+          <TouchableOpacity onPress={() => setOpen(true)}>
+            <FormField
+              pointerEvents="none"
+              placeholder="Rating"
+              style={styles.input}
+              autoCompleteType="off"
+              autoCapitalize="none"
+              autoCorrect={false}
+              name="Rating"
+              value={ratingOptions.find((x) => x.key === rating)?.label}
+            />
+          </TouchableOpacity>
 
-        <Text style={styles.text}>Duration of the task:</Text>
-        <FormField
-          placeholder="Duration"
-          style={styles.input}
-          autoCompleteType="off"
-          autoCapitalize="none"
-          autoCorrect={false}
-          name="Duration"
-        />
+          <Text style={styles.text}>Duration of the task:</Text>
+          <View style={styles.pickerContainer}>
+            <DateTimePicker
+              value={duration ?? new Date()}
+              mode="time"
+              onChange={(e, s) => setDuration(s ? new Date(s) : new Date())}
+              locale="en_GB"
+            />
+            <Text style={styles.durationText}>hrs/mins</Text>
+          </View>
 
-        <Text style={styles.text}>Date of the task:</Text>
-        <View style={styles.pickerContainer}>
-          <DateTimePicker
-            value={date ?? new Date()}
-            mode="date"
-            onChange={(e, s) => setDate(s ? new Date(s) : new Date())}
-            maximumDate={new Date()}
-            minimumDate={minDate}
-          />
-        </View>
+          <Text style={styles.text}>Date of the task:</Text>
+          <View style={styles.pickerContainer}>
+            <DateTimePicker
+              value={date ?? new Date()}
+              mode="date"
+              onChange={(e, s) => setDate(s ? new Date(s) : new Date())}
+              maximumDate={new Date()}
+              minimumDate={minDate}
+            />
+          </View>
 
-        <DateTimePicker
-          value={duration ?? new Date()}
-          mode="time"
-          onChange={(e, s) => setDuration(s ? new Date(s) : new Date())}
-          locale="en_GB"
-          style={{}}
-        />
+          <Modal open={open} onClose={() => {}}>
+            <Picker
+              selectedValue={rating}
+              onValueChange={(itemValue, itemIndex) => {
+                setRating(itemValue);
+                console.log(itemValue);
+              }}
+            >
+              {ratingOptions.map((option, idx) => (
+                <Picker.Item
+                  label={option.label}
+                  value={option.key}
+                  key={idx}
+                />
+              ))}
+            </Picker>
+            <Button title="Confirm selection" onPress={() => setOpen(false)} />
+          </Modal>
 
-        <Modal open={open} onClose={() => {}}>
-          <Picker
-            selectedValue={rating}
-            onValueChange={(itemValue, itemIndex) => setRating(itemValue)}
-          >
-            {ratingOptions.map((option, idx) => (
-              <Picker.Item label={option.label} value={option.key} key={idx} />
-            ))}
-          </Picker>
-          <Button title="Confirm selection" onPress={() => setOpen(false)} />
-        </Modal>
-
-        <ValidatedButton title="Submit" />
-      </FormikForm>
+          <ValidatedButton style={styles.submitButton} title="Submit" />
+        </FormikForm>
+      </View>
     </Screen>
   );
 };
+
+const headerWidth = Dimensions.get("window").width * 1;
+const headerHeight = Dimensions.get("window").height * 0.25;
 
 const styles = StyleSheet.create({
   text: {
@@ -163,18 +172,55 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: 5,
+    marginBottom: 20,
   },
   pickerContainer: {
     alignItems: "flex-start",
     marginLeft: 10,
+    marginTop: 5,
+    marginBottom: 20,
+    flexDirection: "row",
   },
-  picker: {
-    //width: fieldWidth,
-    backgroundColor: "red",
-    // marginBottom: 15,
-    // borderRadius: 15,
-    // borderWidth: 0.1,
-    // borderColor: colors.dark,
+  headerContainer: {
+    position: "absolute",
+    height: headerHeight,
+    width: headerWidth,
+    backgroundColor: colors.bubbleGreen,
+  },
+  formContainer: {
+    backgroundColor: colors.white,
+    padding: 20,
+    margin: 20,
+    shadowColor: colors.gray,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  header: {
+    padding: 10,
+  },
+  headerText: {
+    fontSize: fontSize.h3,
+    fontWeight: "bold",
+    color: colors.white,
+    textAlign: "center",
+    marginBottom: 30,
+
+    shadowColor: colors.gray,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  durationText: {
+    alignSelf: "flex-end",
+    marginLeft: 5,
+    marginBottom: 5,
+    color: colors.gray,
+  },
+  submitButton: {
+    marginTop: 20,
   },
 });
 

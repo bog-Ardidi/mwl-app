@@ -36,6 +36,7 @@ export default {
   transparent: "transparent",
 
   grayBorder: "#d8d8d8",
+  bubbleGreen: "#68AD66",
 
   // palette 1
   palette1: "#3333cc",

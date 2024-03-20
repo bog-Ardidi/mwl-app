@@ -7,20 +7,6 @@ import { FirebaseSignOut } from "../Controllers/AuthenticationController";
 import { useNavigation } from "@react-navigation/native";
 import routes from "../Config/routes";
 
-const logOut = () => {
-  Alert.alert("Logout", "Are you sure you want to Log Out?", [
-    {
-      text: "Yes",
-      onPress: () => {
-        FirebaseSignOut();
-      },
-    },
-    {
-      text: "No",
-    },
-  ]);
-};
-
 const HomeWelcome = ({ compare, setCompare }) => {
   const navigation = useNavigation();
 
@@ -44,12 +30,15 @@ const HomeWelcome = ({ compare, setCompare }) => {
           onClick={() => setCompare(!compare)}
         />
         <Icon
+          name={"information-outline"}
+          size={50}
+          onClick={() => console.log("go info")}
+        />
+        <Icon
           name={"cog-outline"}
           size={50}
           onClick={() => navigation.navigate(routes.SETTINGS_SCREEN)}
         />
-
-        <Icon name={"logout"} size={50} onClick={logOut} />
       </View>
     </View>
   );
