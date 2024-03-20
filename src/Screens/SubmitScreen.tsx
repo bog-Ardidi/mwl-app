@@ -24,7 +24,6 @@ import FormField from "../Components/Validation/FormField";
 import ValidatedButton from "../Components/Validation/ValidatedButton";
 import { resetDateTime } from "../Utils/dateHelpers";
 import DropDownPicker from "react-native-dropdown-picker";
-import { useFormikContext } from "formik";
 
 interface SubmitScreenProps {
   currentDate: Date;
@@ -34,7 +33,14 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
   const navigation = useNavigation();
   const [date, setDate] = useState<Date>(new Date());
   const [duration, setDuration] = useState<Date>(resetDateTime(new Date()));
-  const [rating, setRating] = useState<any>();
+  const [items, setItems] = useState([
+    { label: "1 - Low", value: "1" },
+    { label: "2 - Modest", value: "2" },
+    { label: "3 - Medium", value: "3" },
+    { label: "4 - Substantial", value: "4" },
+    { label: "5 - High", value: "5" },
+  ]);
+  const [rating, setRating] = useState(items[0].value);
 
   // determines how far in the past a user can submit workload
   const minDate = new Date();
@@ -45,7 +51,7 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
 
     const data: workloadProps = {
       name: values.Name,
-      rating: rating,
+      rating: Number(rating),
       duration: minutes,
       date: date ?? new Date(),
     };
@@ -55,15 +61,7 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
     navigation.navigate(routes.HOME_SCREEN);
   };
 
-  const [open1, setOpen1] = useState(false);
-
-  const [items, setItems] = useState([
-    { label: "1 - Low", value: "1" },
-    { label: "2 - Modest", value: "2" },
-    { label: "3 - Medium", value: "3" },
-    { label: "4 - Substantial", value: "4" },
-    { label: "5 - High", value: "5" },
-  ]);
+  const [open, setOpen1] = useState(false);
 
   useEffect(() => {
     console.log(rating);
@@ -106,7 +104,7 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
           </View>
           <Text style={styles.text}>Mental Workload Rating:</Text>
           <DropDownPicker
-            open={open1}
+            open={open}
             value={rating}
             items={items}
             setOpen={setOpen1}

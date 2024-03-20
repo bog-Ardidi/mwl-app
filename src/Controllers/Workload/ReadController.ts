@@ -36,5 +36,6 @@ export const firebaseGetMWLAll = async () => {
   return db
     .collection(MWL_COLLECTION)
     .where("user_id", "==", auth.currentUser.uid)
+    .orderBy("timestamp", "desc")
     .get();
 };

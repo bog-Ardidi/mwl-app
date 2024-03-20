@@ -3,7 +3,6 @@ import { Text, View, StyleSheet, Alert } from "react-native";
 import Icon from "../Components/Base/Icon";
 import { fontSize } from "../Config/typography";
 import colors from "../Config/colors";
-import { FirebaseSignOut } from "../Controllers/AuthenticationController";
 import { useNavigation } from "@react-navigation/native";
 import routes from "../Config/routes";
 
@@ -51,6 +50,7 @@ const styles = StyleSheet.create({
     margin: 10,
     marginTop: 0,
     paddingTop: 10,
+    alignItems: "center",
   },
   iconContainer: {
     flexDirection: "row",
@@ -59,8 +59,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   text: {
-    fontSize: fontSize.xl,
+    fontSize: fontSize.h3,
     color: colors.black,
+    fontWeight: "500",
   },
 });
 
