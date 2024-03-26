@@ -1,5 +1,8 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { fontSize } from "../Config/typography";
+import { Divider } from "./Base/Divider";
+import colors from "../Config/colors";
+import { roundToDecimal } from "../Utils/workloadHelper";
 
 const GraphStatistics = ({ data }: any) => {
   const totalTasks = data?.length;
@@ -13,19 +16,30 @@ const GraphStatistics = ({ data }: any) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Graph statistics</Text>
+      <Divider text="Details" style={styles.divider} color={colors.gray500} />
       <ScrollView contentContainerStyle={styles.statisticsContainer}>
-        <Text style={styles.statisticsText}>
-          Total tasks submitted: {totalTasks}
-        </Text>
-        <Text style={styles.statisticsText}>
-          Average Task Duration: {avgDuration}
-        </Text>
-        <Text style={styles.statisticsText}>
-          Average MWL rating: {avgRating}
-        </Text>
-        <Text style={styles.statisticsText}>MWL Balance: </Text>
+        <View style={styles.row}>
+          <Text style={styles.statisticLabel}>Total tasks submitted:</Text>
+          <Text style={styles.statisticValue}>{totalTasks}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.statisticLabel}>Average Task Duration:</Text>
+          <Text style={styles.statisticValue}>
+            {roundToDecimal(avgDuration, 1)}
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.statisticLabel}>Average MWL rating:</Text>
+          <Text style={styles.statisticValue}>
+            {roundToDecimal(avgRating, 1)}
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.statisticLabel}>MWL Balance:</Text>
+          <Text style={styles.statisticValue}>N/A</Text>
+        </View>
       </ScrollView>
+      <Divider style={styles.divider} color={colors.gray500} />
     </View>
   );
 };
@@ -34,17 +48,31 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
   },
-  title: {
-    fontSize: fontSize.h3,
-    fontWeight: "500",
-  },
   statisticsContainer: {
     padding: 10,
+    justifyContent: "center",
+    //backgroundColor: "white",
   },
-  statisticsText: {
-    fontSize: fontSize.lg,
-    marginTop: 10,
+  statisticLabel: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: colors.tealGreen,
+  },
+  statisticValue: {
+    fontSize: fontSize.xl,
     fontWeight: "500",
+    color: colors.black,
+  },
+  divider: {
+    margin: 0,
+    marginBottom: 10,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    margin: 5,
+    marginBottom: 15,
   },
 });
 

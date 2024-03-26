@@ -1,6 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
 import Screen from "../Components/Base/Screen";
-import { View, StyleSheet, Text, Alert, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Alert,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import Icon from "../Components/Base/Icon";
 import colors from "../Config/colors";
 import Button from "../Components/Base/Button";
@@ -65,6 +72,8 @@ const styles = StyleSheet.create({
     height: headerHeight,
     width: headerWidth,
     backgroundColor: colors.palette5,
+    borderBottomRightRadius: 10,
+    borderBottomEndRadius: 20,
   },
   header: {
     padding: 10,

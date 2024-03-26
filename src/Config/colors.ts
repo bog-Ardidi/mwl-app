@@ -37,6 +37,7 @@ export default {
 
   grayBorder: "#d8d8d8",
   bubbleGreen: "#68AD66",
+  purple_haze: "#C8B4D0",
 
   // palette 1
   palette1: "#3333cc",
@@ -44,4 +45,18 @@ export default {
   palette3: "#c0dfff",
   palette4: "#60b0c0",
   palette5: "#008080",
+
+  // pallette 2
+  // https://www.canva.com/colors/color-palettes/pastel-dreams/
+  yellow_p: "#FBE7C6",
+  mint: "#B4F8C8",
+  tiffanyBlue: "#A0E7E5",
+  hotPink: "#FFAEBC",
+
+  // palette 3
+  // https://www.canva.com/colors/color-palettes/padlocked-doors/
+  mauve: "#B99095",
+  salmon: "#FCB5AC",
+  mint_darker: "#B5E5CF",
+  tealGreen: "#3D5B59",
 };

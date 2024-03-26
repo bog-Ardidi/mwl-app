@@ -1,6 +1,12 @@
 import Screen from "./Base/Screen";
 import { useState, useCallback, useEffect } from "react";
-import { StyleSheet, Switch, Text, View } from "react-native";
+import {
+  StyleSheet,
+  Switch,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { CalendarProvider, ExpandableCalendar } from "react-native-calendars";
 import { useDidMount } from "../Utils/useIsMount";
 import { fontSize } from "../Config/typography";
@@ -9,6 +15,7 @@ import { dateDiffInDays, getDatesInRange } from "../Utils/dateHelpers";
 import { calculateRangeObject } from "../Utils/dateHelpers";
 import { getWorkloadForMonth } from "../Utils/workloadHelper";
 import { useNavigation } from "@react-navigation/native";
+import colors from "../Config/colors";
 
 const Calendar = ({ compare, setCompare }: any) => {
   const didMount = useDidMount();
@@ -130,30 +137,70 @@ const Calendar = ({ compare, setCompare }: any) => {
   return (
     <Screen>
       <CalendarProvider date={initialDate}>
-        {compare && <Text>Multi-day selection on!</Text>}
-        <ExpandableCalendar
-          enableSwipeMonths
-          current={initialDate}
-          onDayPress={onDayPress}
-          onMonthChange={onMonthChange}
-          markedDates={marked}
-          animateScroll
-          closeOnDayPress={false}
-          markingType={"period"}
-          // style={{
-          //   borderRadius: 5,
-          //   elevation: 5,
-          //   margin: 5,
-          //   borderWidth: 4,
-          //   borderColor: "rgba(100, 100, 100, 0.2)",
-          // }}
-          // theme={{
-          //   calendarBackground: "#222",
-          //   dayTextColor: "#fff",
-          //   textDisabledColor: "#444",
-          //   monthTextColor: "#888",
-          // }}
-        />
+        <View
+          style={{
+            //borderRadius: 30,
+            elevation: 5,
+            //margin: 5,
+            //borderWidth: 1,
+            //borderColor: "rgba(100, 100, 100, 0.2)",
+            borderColor: colors.mint,
+          }}
+        >
+          <View style={styles.multiSelectionContainer}>
+            {compare && (
+              <Text style={styles.multiSelectionText}>
+                Multi-day selection on!
+              </Text>
+            )}
+          </View>
+
+          <ExpandableCalendar
+            enableSwipeMonths
+            current={initialDate}
+            onDayPress={onDayPress}
+            onMonthChange={onMonthChange}
+            markedDates={marked}
+            animateScroll
+            closeOnDayPress={false}
+            markingType={"period"}
+            firstDay={1}
+            theme={{
+              monthTextColor: colors.tealGreen,
+              arrowColor: colors.bubbleGreen,
+              textMonthFontWeight: "bold",
+              todayTextColor: colors.darkerBlue,
+              textDayHeaderFontWeight: "bold",
+              textDayFontWeight: "500",
+              dayTextColor: colors.tealGreen,
+              stylesheet: {
+                // calendar: {
+                //   main: {
+                //     container: {
+                //       borderWidth: 1,
+                //       borderColor: "green",
+                //     },
+                //   },
+                // },
+                // expandable: {
+                //   main: {
+                //     container: {
+                //       borderWidth: 1,
+                //     },
+                //   },
+                // },
+              },
+              // dayTextColor: "red",
+              //textDayHeaderFontSize: fontSize.h1,
+              //weekVerticalMargin: 10,
+              //calendarBackground: "#222",
+              //calendarBackground: colors.mint,
+              //dayTextColor: "#fff",
+              //textDisabledColor: "#444",
+              //monthTextColor: "#888",
+            }}
+          />
+        </View>
 
         {selected || range ? (
           <>
@@ -204,6 +251,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  multiSelectionText: {
+    textAlign: "center",
+    color: colors.tealGreen,
+    fontWeight: "bold",
+  },
+  multiSelectionContainer: {
+    height: 20,
   },
 });
 

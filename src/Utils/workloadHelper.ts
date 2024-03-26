@@ -36,3 +36,8 @@ export const getAllWorkloadForUser = (func) => {
   }
   fetchData();
 };
+
+export const roundToDecimal = (value, precision) => {
+  var multiplier = Math.pow(10, precision || 0);
+  return Math.round(value * multiplier) / multiplier;
+};

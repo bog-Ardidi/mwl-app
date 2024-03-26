@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     margin: 10,
     marginTop: 0,
+    marginBottom: 0,
     paddingTop: 10,
     alignItems: "center",
   },

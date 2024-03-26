@@ -2,16 +2,20 @@ import { View, Text, StyleSheet } from "react-native";
 import colors from "../../Config/colors";
 
 interface DividerProps {
-  text: string;
+  text?: string;
+  style?: any;
+  color?: string;
 }
 
-export const Divider = ({ text }: DividerProps) => (
-  <View style={styles.container}>
-    <View style={styles.border} />
-    <View>
-      <Text style={styles.text}>{text}</Text>
-    </View>
-    <View style={styles.border} />
+export const Divider = ({ text, style, color }: DividerProps) => (
+  <View style={[styles.container, style]}>
+    <View style={[styles.border, { backgroundColor: color }]} />
+    {text && (
+      <View>
+        <Text style={[styles.text, { color: color }]}>{text}</Text>
+      </View>
+    )}
+    <View style={[styles.border, { backgroundColor: color }]} />
   </View>
 );
 

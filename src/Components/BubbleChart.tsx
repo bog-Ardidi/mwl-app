@@ -7,8 +7,9 @@ import { getWorkloadForDay } from "../Utils/workloadHelper";
 import { checkSameDay } from "../Utils/dateHelpers";
 import { JsonPrettify } from "../Utils/JsonPrettify";
 import { CalendarUtils } from "react-native-calendars";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { useDidMount } from "../Utils/useIsMount";
+import colors from "../Config/colors";
 
 function limitNumberWithinRange(num) {
   const MIN = 10;
@@ -17,7 +18,13 @@ function limitNumberWithinRange(num) {
   return Math.min(Math.max(parsed, MIN), MAX);
 }
 
-const bubbleColors = ["green", "blue", "yellow", "purple", "pink"];
+const bubbleColors = [
+  colors.bubbleGreen,
+  colors.yellow,
+  colors.darkBlue,
+  colors.purple,
+  colors.hotPink,
+];
 
 const BubbleChart = ({ selectedDate, range, data }: any) => {
   const [allFeedback, setAllFeedback] = useState([]);
@@ -84,7 +91,7 @@ const BubbleChart = ({ selectedDate, range, data }: any) => {
   return (
     <>
       {!(graphData?.length <= 0) ? (
-        <>
+        <View>
           <VictoryChart
             domain={{ x: [0, 24], y: [0, 5] }}
             animate={{
@@ -108,9 +115,11 @@ const BubbleChart = ({ selectedDate, range, data }: any) => {
                     const color = bubbles?.filter((obj) => {
                       return obj[datum.date] ?? null;
                     });
-                    return color.length > 0 ? color[0][datum.date] : "green";
+                    return color.length > 0
+                      ? color[0][datum.date]
+                      : bubbleColors[0];
                   },
-                  opacity: 0.5,
+                  //opacity: 0.5,
                 },
               }}
               events={[
@@ -147,7 +156,7 @@ const BubbleChart = ({ selectedDate, range, data }: any) => {
             onClose={handleVisible}
           />
           <GraphStatistics data={allFeedback} />
-        </>
+        </View>
       ) : (
         <Text style={{ color: "red", alignSelf: "center" }}>
           No data for selected date
