@@ -63,18 +63,19 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
 
   return (
     <>
-      <StatusBar color={colors.bubbleGreen} />
+      <StatusBar color={colors.hotPink} />
       <Screen>
-        <Header color={colors.bubbleGreen} height={0.25} />
+        <Header color={colors.hotPink} height={0.25} />
         <View style={styles.header}>
           <Icon
             name="arrow-left"
             size={50}
+            iconStyle={styles.shadow}
             iconColor={colors.white}
             backgroundColor="transparent"
             onClick={() => navigation.goBack()}
           />
-          <Text style={styles.headerText}>
+          <Text style={[styles.headerText, styles.shadow]}>
             Submit your{"\n"}Mental Workload!
           </Text>
         </View>
@@ -181,12 +182,6 @@ const styles = StyleSheet.create({
     color: colors.white,
     textAlign: "center",
     marginBottom: 30,
-
-    shadowColor: colors.gray,
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
   },
   durationText: {
     alignSelf: "flex-end",
@@ -213,6 +208,13 @@ const styles = StyleSheet.create({
     borderColor: colors.grayBorder,
     marginLeft: 10,
     width: "95%",
+  },
+  shadow: {
+    shadowColor: colors.gray,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    elevation: 5,
   },
 });
 

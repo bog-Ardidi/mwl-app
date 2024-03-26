@@ -10,6 +10,7 @@ import { Text, View, StyleSheet } from "react-native";
 import { useDidMount } from "../Utils/useIsMount";
 import colors from "../Config/colors";
 import { fontSize } from "../Config/typography";
+import NoDataComponent from "./NoDataComponent";
 
 function limitNumberWithinRange(num) {
   const MIN = 10;
@@ -166,7 +167,7 @@ const BubbleChart = ({ selectedDate, range, data, compare }: any) => {
                         ? color[0][datum.date]
                         : bubbleColors[0];
                     },
-                    //opacity: 0.5,
+                    opacity: 0.9,
                   },
                 }}
                 events={[
@@ -202,13 +203,12 @@ const BubbleChart = ({ selectedDate, range, data, compare }: any) => {
               open={openModal}
               onClose={handleVisible}
             />
+
+            <GraphStatistics data={allFeedback} />
           </View>
-          <GraphStatistics data={allFeedback} />
         </>
       ) : (
-        <Text style={{ color: "red", alignSelf: "center" }}>
-          No data for selected date
-        </Text>
+        <NoDataComponent date={selectedDate} />
       )}
     </>
   );
@@ -217,7 +217,8 @@ const BubbleChart = ({ selectedDate, range, data, compare }: any) => {
 const styles = StyleSheet.create({
   chartContainer: {
     backgroundColor: colors.white,
-    margin: 15,
+    margin: 10,
+    marginBottom: 0,
     paddingTop: 5,
     paddingBottom: 5,
     shadowColor: colors.gray,
@@ -233,7 +234,12 @@ const styles = StyleSheet.create({
     margin: 5,
     marginBottom: 0,
     fontWeight: "500",
-    color: colors.black500,
+    color: colors.black100,
+    shadowColor: colors.gray,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 5,
   },
   selectedDate: {
     textAlign: "center",

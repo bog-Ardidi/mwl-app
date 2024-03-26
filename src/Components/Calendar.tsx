@@ -139,26 +139,28 @@ const Calendar = ({ compare, setCompare }: any) => {
           )}
         </View>
 
-        <ExpandableCalendar
-          enableSwipeMonths
-          current={initialDate}
-          onDayPress={onDayPress}
-          onMonthChange={onMonthChange}
-          markedDates={marked}
-          animateScroll
-          closeOnDayPress={false}
-          markingType={"period"}
-          firstDay={1}
-          theme={{
-            monthTextColor: colors.tealGreen,
-            arrowColor: colors.bubbleGreen,
-            textMonthFontWeight: "bold",
-            todayTextColor: colors.darkerBlue,
-            textDayHeaderFontWeight: "bold",
-            textDayFontWeight: "500",
-            dayTextColor: colors.tealGreen,
-          }}
-        />
+        <View style={styles.calendarContainer}>
+          <ExpandableCalendar
+            enableSwipeMonths
+            current={initialDate}
+            onDayPress={onDayPress}
+            onMonthChange={onMonthChange}
+            markedDates={marked}
+            animateScroll
+            closeOnDayPress={false}
+            markingType={"period"}
+            firstDay={1}
+            theme={{
+              monthTextColor: colors.tealGreen,
+              arrowColor: colors.bubbleGreen,
+              textMonthFontWeight: "bold",
+              todayTextColor: colors.darkerBlue,
+              textDayHeaderFontWeight: "bold",
+              textDayFontWeight: "500",
+              dayTextColor: colors.tealGreen,
+            }}
+          />
+        </View>
 
         {selected || range ? (
           <>
@@ -205,6 +207,11 @@ const styles = StyleSheet.create({
   },
   multiSelectionContainer: {
     height: 20,
+  },
+  calendarContainer: {
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: colors.mint_darker,
   },
 });
 

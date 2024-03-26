@@ -10,9 +10,9 @@ const HomeScreen = () => {
 
   return (
     <>
-      <StatusBar color={"transparent"} />
+      <StatusBar color={colors.bubbleGreen} />
       <Screen>
-        <Header color={"transparent"} height={0.25} />
+        <Header color={colors.bubbleGreen} height={0.2} />
         <HomeWelcome compare={compare} setCompare={setCompare} />
         <Calendar compare={compare} setCompare={setCompare} />
       </Screen>

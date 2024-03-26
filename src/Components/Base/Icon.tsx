@@ -8,6 +8,7 @@ interface IconProps {
   size?: number;
   backgroundColor?: string;
   iconColor?: string;
+  iconStyle?: any;
   onClick?: () => void;
 }
 
@@ -16,6 +17,7 @@ function Icon({
   size = 40,
   backgroundColor = colors.transparent,
   iconColor = colors.black,
+  iconStyle,
   onClick,
 }: IconProps) {
   return (
@@ -34,6 +36,7 @@ function Icon({
           name={name}
           color={iconColor}
           size={size * 0.5}
+          style={iconStyle}
         />
       </View>
     </TouchableOpacity>

@@ -29,7 +29,6 @@ const dateOptions = {
 const FeedbackModal = ({ open, onClose, data }: FeedbackModalProps) => {
   return (
     <Modal open={open} onClose={onClose} title="Task Breakdown">
-      {/* <WorkloadCard data={data} /> */}
       <View style={[styles.row, { flexDirection: "column" }]}>
         <Text style={styles.title}>
           {data?.data?.name ?? "No name provided"}

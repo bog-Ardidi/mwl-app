@@ -16,8 +16,9 @@ const GraphStatistics = ({ data }: any) => {
 
   return (
     <View style={styles.container}>
-      <Divider text="Details" style={styles.divider} color={colors.gray500} />
+      <Divider style={styles.divider} color={colors.gray500} />
       <ScrollView contentContainerStyle={styles.statisticsContainer}>
+        <Text style={styles.title}>Details</Text>
         <View style={styles.row}>
           <Text style={styles.statisticLabel}>Total tasks submitted:</Text>
           <Text style={styles.statisticValue}>{totalTasks}</Text>
@@ -39,27 +40,38 @@ const GraphStatistics = ({ data }: any) => {
           <Text style={styles.statisticValue}>N/A</Text>
         </View>
       </ScrollView>
-      <Divider style={styles.divider} color={colors.gray500} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    margin: 10,
+    marginTop: 0,
+    padding: 10,
+  },
+  title: {
+    textAlign: "center",
+    fontSize: fontSize.xl,
+    marginBottom: 15,
+    fontWeight: "500",
+    color: colors.black100,
+    shadowColor: colors.gray,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 5,
   },
   statisticsContainer: {
-    padding: 10,
     justifyContent: "center",
-    //backgroundColor: "white",
   },
   statisticLabel: {
-    fontSize: 18,
+    fontSize: fontSize.lg,
     fontWeight: "bold",
     color: colors.tealGreen,
   },
   statisticValue: {
-    fontSize: fontSize.xl,
+    fontSize: 18,
     fontWeight: "500",
     color: colors.black,
   },

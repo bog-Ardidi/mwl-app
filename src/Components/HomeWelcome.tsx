@@ -12,30 +12,39 @@ const HomeWelcome = ({ compare, setCompare }) => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>Welcome back,</Text>
-        <Text>{auth.currentUser?.email?.split("@")[0]} !</Text>
+        <Text style={[styles.text, styles.shadow]}>Welcome back,</Text>
+        <Text style={[styles.emailText, styles.shadow]}>
+          {auth.currentUser?.email?.split("@")[0]} !
+        </Text>
       </View>
 
       <View style={styles.iconContainer}>
         <Icon
           name={"plus-circle-outline"}
           size={50}
+          iconStyle={styles.shadow}
+          iconColor={colors.white}
           onClick={() => navigation.navigate(routes.SUBMIT_SCREEN)}
         />
         <Icon
           name={"select-compare"}
           size={50}
-          iconColor={compare ? colors.primaryRed : colors.black}
+          iconStyle={styles.shadow}
+          iconColor={compare ? colors.primaryRed : colors.white}
           onClick={() => setCompare(!compare)}
         />
         <Icon
           name={"information-outline"}
           size={50}
+          iconStyle={styles.shadow}
+          iconColor={colors.white}
           onClick={() => console.log("go info")}
         />
         <Icon
           name={"cog-outline"}
           size={50}
+          iconStyle={styles.shadow}
+          iconColor={colors.white}
           onClick={() => navigation.navigate(routes.SETTINGS_SCREEN)}
         />
       </View>
@@ -57,11 +66,23 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     padding: 10,
+    paddingBottom: 0,
   },
   text: {
     fontSize: fontSize.h3,
-    color: colors.black,
+    color: colors.white,
     fontWeight: "500",
+  },
+  emailText: {
+    color: colors.white,
+    fontSize: fontSize.lg,
+  },
+  shadow: {
+    shadowColor: colors.gray,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    elevation: 5,
   },
 });
 
