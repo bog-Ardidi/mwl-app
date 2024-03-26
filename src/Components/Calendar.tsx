@@ -1,12 +1,6 @@
 import Screen from "./Base/Screen";
 import { useState, useCallback, useEffect } from "react";
-import {
-  StyleSheet,
-  Switch,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { CalendarProvider, ExpandableCalendar } from "react-native-calendars";
 import { useDidMount } from "../Utils/useIsMount";
 import { fontSize } from "../Config/typography";
@@ -137,98 +131,50 @@ const Calendar = ({ compare, setCompare }: any) => {
   return (
     <Screen>
       <CalendarProvider date={initialDate}>
-        <View
-          style={{
-            //borderRadius: 30,
-            elevation: 5,
-            //margin: 5,
-            //borderWidth: 1,
-            //borderColor: "rgba(100, 100, 100, 0.2)",
-            borderColor: colors.mint,
-          }}
-        >
-          <View style={styles.multiSelectionContainer}>
-            {compare && (
-              <Text style={styles.multiSelectionText}>
-                Multi-day selection on!
-              </Text>
-            )}
-          </View>
-
-          <ExpandableCalendar
-            enableSwipeMonths
-            current={initialDate}
-            onDayPress={onDayPress}
-            onMonthChange={onMonthChange}
-            markedDates={marked}
-            animateScroll
-            closeOnDayPress={false}
-            markingType={"period"}
-            firstDay={1}
-            theme={{
-              monthTextColor: colors.tealGreen,
-              arrowColor: colors.bubbleGreen,
-              textMonthFontWeight: "bold",
-              todayTextColor: colors.darkerBlue,
-              textDayHeaderFontWeight: "bold",
-              textDayFontWeight: "500",
-              dayTextColor: colors.tealGreen,
-              stylesheet: {
-                // calendar: {
-                //   main: {
-                //     container: {
-                //       borderWidth: 1,
-                //       borderColor: "green",
-                //     },
-                //   },
-                // },
-                // expandable: {
-                //   main: {
-                //     container: {
-                //       borderWidth: 1,
-                //     },
-                //   },
-                // },
-              },
-              // dayTextColor: "red",
-              //textDayHeaderFontSize: fontSize.h1,
-              //weekVerticalMargin: 10,
-              //calendarBackground: "#222",
-              //calendarBackground: colors.mint,
-              //dayTextColor: "#fff",
-              //textDisabledColor: "#444",
-              //monthTextColor: "#888",
-            }}
-          />
+        <View style={styles.multiSelectionContainer}>
+          {compare && (
+            <Text style={styles.multiSelectionText}>
+              Multi-day selection on!
+            </Text>
+          )}
         </View>
+
+        <ExpandableCalendar
+          enableSwipeMonths
+          current={initialDate}
+          onDayPress={onDayPress}
+          onMonthChange={onMonthChange}
+          markedDates={marked}
+          animateScroll
+          closeOnDayPress={false}
+          markingType={"period"}
+          firstDay={1}
+          theme={{
+            monthTextColor: colors.tealGreen,
+            arrowColor: colors.bubbleGreen,
+            textMonthFontWeight: "bold",
+            todayTextColor: colors.darkerBlue,
+            textDayHeaderFontWeight: "bold",
+            textDayFontWeight: "500",
+            dayTextColor: colors.tealGreen,
+          }}
+        />
 
         {selected || range ? (
           <>
-            {!compare ? (
-              <Text style={styles.text}>Selected data for: {selected}</Text>
-            ) : (
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  padding: 10,
-                }}
-              >
-                <Text style={styles.text}>
-                  Start date: {"\n"}
-                  {startingDay?.toLocaleString()}
-                </Text>
-                <Text style={styles.text}>
-                  End date: {"\n"}
-                  {endingDay?.toLocaleString()}
-                </Text>
-              </View>
-            )}
-            <BubbleChart selectedDate={selected} range={range} data={data} />
+            <BubbleChart
+              selectedDate={selected}
+              range={range}
+              data={data}
+              compare={compare}
+            />
           </>
         ) : (
           <View style={styles.idleContainer}>
-            <Text style={styles.text}> Waiting for data selection!</Text>
+            <Text style={styles.selectedText}>
+              {" "}
+              Waiting for data selection!
+            </Text>
           </View>
         )}
       </CalendarProvider>
@@ -242,7 +188,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderWidth: 1,
   },
-  text: {
+  selectedText: {
     textAlign: "center",
     fontSize: fontSize.xl,
     marginTop: 10,
@@ -254,7 +200,7 @@ const styles = StyleSheet.create({
   },
   multiSelectionText: {
     textAlign: "center",
-    color: colors.tealGreen,
+    color: colors.primaryRed,
     fontWeight: "bold",
   },
   multiSelectionContainer: {

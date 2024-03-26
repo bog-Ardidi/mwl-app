@@ -7,7 +7,11 @@ interface DividerProps {
   color?: string;
 }
 
-export const Divider = ({ text, style, color }: DividerProps) => (
+export const Divider = ({
+  text,
+  style,
+  color = colors.gray200,
+}: DividerProps) => (
   <View style={[styles.container, style]}>
     <View style={[styles.border, { backgroundColor: color }]} />
     {text && (

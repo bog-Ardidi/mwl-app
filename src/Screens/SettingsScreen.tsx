@@ -1,20 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
 import Screen from "../Components/Base/Screen";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Alert,
-  Dimensions,
-  ScrollView,
-} from "react-native";
+import { View, StyleSheet, Text, Alert, Dimensions } from "react-native";
 import Icon from "../Components/Base/Icon";
 import colors from "../Config/colors";
-import Button from "../Components/Base/Button";
 import routes from "../Config/routes";
 import { fontSize } from "../Config/typography";
 import { FirebaseSignOut } from "../Controllers/AuthenticationController";
 import SettingsListItem from "../Components/SettingsListItem";
+import { Header, StatusBar } from "../Components/Base/Header";
 
 const logOut = () => {
   Alert.alert("Logout", "Are you sure you want to Log Out?", [
@@ -34,32 +27,39 @@ const SettingsScreen = ({ weekView = false }) => {
   const navigation = useNavigation();
 
   return (
-    <Screen>
-      <View style={styles.headerContainer}></View>
-      <View style={styles.header}>
-        <Icon
-          name="arrow-left"
-          size={50}
-          iconColor={colors.white}
-          backgroundColor="transparent"
-          onClick={() => navigation.goBack()}
-        />
-        <Text style={styles.headerText}>Settings</Text>
-      </View>
-      <View style={styles.formContainer}>
-        <SettingsListItem
-          name="View all feedback"
-          iconName={"format-list-bulleted-type"}
-          onPress={() => navigation.navigate(routes.SCORES_SCREEN)}
-        />
-        <SettingsListItem
-          name="Change password"
-          iconName={"account-key-outline"}
-          onPress={() => console.log(":)")}
-        />
-        <SettingsListItem name="Log out" iconName={"logout"} onPress={logOut} />
-      </View>
-    </Screen>
+    <>
+      <StatusBar color={colors.palette5} />
+      <Screen>
+        <Header color={colors.palette5} height={0.25} />
+        <View style={styles.header}>
+          <Icon
+            name="arrow-left"
+            size={50}
+            iconColor={colors.white}
+            backgroundColor="transparent"
+            onClick={() => navigation.goBack()}
+          />
+          <Text style={styles.headerText}>Settings</Text>
+        </View>
+        <View style={styles.formContainer}>
+          <SettingsListItem
+            name="View all feedback"
+            iconName={"format-list-bulleted-type"}
+            onPress={() => navigation.navigate(routes.SCORES_SCREEN)}
+          />
+          <SettingsListItem
+            name="Change password"
+            iconName={"account-key-outline"}
+            onPress={() => console.log(":)")}
+          />
+          <SettingsListItem
+            name="Log out"
+            iconName={"logout"}
+            onPress={logOut}
+          />
+        </View>
+      </Screen>
+    </>
   );
 };
 
@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
   },
   header: {
     padding: 10,
+    paddingTop: 0,
     flexDirection: "row",
     alignItems: "center",
   },

@@ -7,14 +7,7 @@ import {
   workloadProps,
 } from "../Controllers/Workload/WriteController";
 import { useEffect, useState } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Dimensions,
-  SafeAreaView,
-} from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import { fontSize } from "../Config/typography";
 import routes from "../Config/routes";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -24,6 +17,7 @@ import FormField from "../Components/Validation/FormField";
 import ValidatedButton from "../Components/Validation/ValidatedButton";
 import { resetDateTime } from "../Utils/dateHelpers";
 import DropDownPicker from "react-native-dropdown-picker";
+import { Header, StatusBar } from "../Components/Base/Header";
 
 interface SubmitScreenProps {
   currentDate: Date;
@@ -68,84 +62,86 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
   }, [rating]);
 
   return (
-    <Screen>
-      <SafeAreaView style={styles.headerContainer}></SafeAreaView>
-      <View style={styles.header}>
-        <Icon
-          name="arrow-left"
-          size={50}
-          iconColor={colors.white}
-          backgroundColor="transparent"
-          onClick={() => navigation.goBack()}
-        />
-        <Text style={styles.headerText}>Submit your{"\n"}Mental Workload!</Text>
-      </View>
-      <View style={styles.formContainer}>
-        <FormikForm
-          initialValues={{
-            Name: "",
-            Rating: 0,
-            Duration: 0,
-            Date: currentDate,
-          }}
-          // send user credentials to database
-          onSubmit={(values: workloadProps) => submitData(values)}
-          validationSchema={validationSchemaTaskSubmit}
-        >
-          <Text style={styles.text}>Task name:</Text>
-          <View style={styles.input}>
-            <FormField
-              placeholder="Name"
-              autoCompleteType="off"
-              autoCapitalize="none"
-              autoCorrect={false}
-              name="Name"
-            />
-          </View>
-          <Text style={styles.text}>Mental Workload Rating:</Text>
-          <DropDownPicker
-            open={open}
-            value={rating}
-            items={items}
-            setOpen={setOpen1}
-            setValue={setRating}
-            setItems={setItems}
-            style={styles.ratingSelect}
-            theme="LIGHT"
-            dropDownContainerStyle={styles.dropdown}
+    <>
+      <StatusBar color={colors.bubbleGreen} />
+      <Screen>
+        <Header color={colors.bubbleGreen} height={0.25} />
+        <View style={styles.header}>
+          <Icon
+            name="arrow-left"
+            size={50}
+            iconColor={colors.white}
+            backgroundColor="transparent"
+            onClick={() => navigation.goBack()}
           />
-
-          <Text style={styles.text}>Duration of the task:</Text>
-          <View style={styles.pickerContainer}>
-            <DateTimePicker
-              value={duration ?? new Date()}
-              mode="time"
-              onChange={(e, s) => setDuration(s ? new Date(s) : new Date())}
-              locale="en_GB"
+          <Text style={styles.headerText}>
+            Submit your{"\n"}Mental Workload!
+          </Text>
+        </View>
+        <View style={styles.formContainer}>
+          <FormikForm
+            initialValues={{
+              Name: "",
+              Rating: 0,
+              Duration: 0,
+              Date: currentDate,
+            }}
+            // send user credentials to database
+            onSubmit={(values: workloadProps) => submitData(values)}
+            validationSchema={validationSchemaTaskSubmit}
+          >
+            <Text style={styles.text}>Task name:</Text>
+            <View style={styles.input}>
+              <FormField
+                placeholder="Name"
+                autoCompleteType="off"
+                autoCapitalize="none"
+                autoCorrect={false}
+                name="Name"
+              />
+            </View>
+            <Text style={styles.text}>Mental Workload Rating:</Text>
+            <DropDownPicker
+              open={open}
+              value={rating}
+              items={items}
+              setOpen={setOpen1}
+              setValue={setRating}
+              setItems={setItems}
+              style={styles.ratingSelect}
+              theme="LIGHT"
+              dropDownContainerStyle={styles.dropdown}
             />
-            <Text style={styles.durationText}>hrs/mins</Text>
-          </View>
 
-          <Text style={styles.text}>Date of the task:</Text>
-          <View style={styles.pickerContainer}>
-            <DateTimePicker
-              value={date ?? new Date()}
-              mode="date"
-              onChange={(e, s) => setDate(s ? new Date(s) : new Date())}
-              maximumDate={new Date()}
-              minimumDate={minDate}
-            />
-          </View>
+            <Text style={styles.text}>Duration of the task:</Text>
+            <View style={styles.pickerContainer}>
+              <DateTimePicker
+                value={duration ?? new Date()}
+                mode="time"
+                onChange={(e, s) => setDuration(s ? new Date(s) : new Date())}
+                locale="en_GB"
+              />
+              <Text style={styles.durationText}>hrs/mins</Text>
+            </View>
 
-          <ValidatedButton style={styles.submitButton} title="Submit" />
-        </FormikForm>
-      </View>
-    </Screen>
+            <Text style={styles.text}>Date of the task:</Text>
+            <View style={styles.pickerContainer}>
+              <DateTimePicker
+                value={date ?? new Date()}
+                mode="date"
+                onChange={(e, s) => setDate(s ? new Date(s) : new Date())}
+                maximumDate={new Date()}
+                minimumDate={minDate}
+              />
+            </View>
+
+            <ValidatedButton style={styles.submitButton} title="Submit" />
+          </FormikForm>
+        </View>
+      </Screen>
+    </>
   );
 };
-
-const headerWidth = Dimensions.get("window").width * 1;
-const headerHeight = Dimensions.get("window").height * 0.25;
 
 const styles = StyleSheet.create({
   text: {
@@ -165,12 +161,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     flexDirection: "row",
   },
-  headerContainer: {
-    position: "absolute",
-    height: headerHeight,
-    width: headerWidth,
-    backgroundColor: colors.bubbleGreen,
-  },
   formContainer: {
     backgroundColor: colors.white,
     padding: 20,
@@ -183,6 +173,7 @@ const styles = StyleSheet.create({
   },
   header: {
     padding: 10,
+    paddingTop: 0,
   },
   headerText: {
     fontSize: fontSize.h3,
