@@ -14,7 +14,7 @@ const HomeScreen = () => {
       <Screen>
         <Header color={colors.bubbleGreen} height={0.2} />
         <HomeWelcome compare={compare} setCompare={setCompare} />
-        <Calendar compare={compare} setCompare={setCompare} />
+        <Calendar compare={compare} />
       </Screen>
     </>
   );

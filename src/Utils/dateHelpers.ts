@@ -1,4 +1,5 @@
 import { CalendarUtils } from "react-native-calendars";
+import colors from "../Config/colors";
 
 /**
  * Returns an array of the dates between two dates that are passed.
@@ -34,7 +35,7 @@ export const calculateRangeObject = (dates: Date[], range = false) => {
         ...(range
           ? { endingDay: index === dates.length - 1 }
           : { endingDay: true }),
-        color: range ? "red" : "pink",
+        color: range ? colors.primaryRed : colors.hotPink,
       },
     ])
   );

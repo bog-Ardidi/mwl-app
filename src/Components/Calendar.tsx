@@ -11,16 +11,13 @@ import { getWorkloadForMonth } from "../Utils/workloadHelper";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../Config/colors";
 
-const Calendar = ({ compare, setCompare }: any) => {
+const Calendar = ({ compare }: any) => {
   const didMount = useDidMount();
   const [data, setData] = useState<any>(null);
   const [marked, setMarked] = useState<any>(null);
   const [selected, setSelected] = useState<any>(null);
   const [initialDate, setInitialDate] = useState<string>(new Date().toString());
   const navigation = useNavigation();
-
-  const handleCompare = () => setCompare(!compare);
-
   const [startingDay, setStartingDay] = useState<Date | null>(null);
   const [endingDay, setEndingDay] = useState<Date | null>(null);
   const [range, setRange] = useState<Date[] | null>(null);
@@ -131,7 +128,7 @@ const Calendar = ({ compare, setCompare }: any) => {
   return (
     <Screen>
       <CalendarProvider date={initialDate}>
-        <View style={styles.multiSelectionContainer}>
+        <View style={[styles.multiSelectionContainer, styles.shadow]}>
           {compare && (
             <Text style={styles.multiSelectionText}>
               Multi-day selection on!
@@ -150,6 +147,7 @@ const Calendar = ({ compare, setCompare }: any) => {
             closeOnDayPress={false}
             markingType={"period"}
             firstDay={1}
+            initialPosition={ExpandableCalendar.positions.OPEN}
             theme={{
               monthTextColor: colors.tealGreen,
               arrowColor: colors.bubbleGreen,
@@ -202,7 +200,7 @@ const styles = StyleSheet.create({
   },
   multiSelectionText: {
     textAlign: "center",
-    color: colors.primaryRed,
+    color: colors.white,
     fontWeight: "bold",
   },
   multiSelectionContainer: {
@@ -212,6 +210,13 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: colors.mint_darker,
+  },
+  shadow: {
+    shadowColor: colors.gray,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    elevation: 5,
   },
 });
 

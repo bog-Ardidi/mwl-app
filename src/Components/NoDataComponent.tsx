@@ -1,14 +1,36 @@
 import { StyleSheet, Text, View, Dimensions, Image } from "react-native";
 import colors from "../Config/colors";
 import { fontSize } from "../Config/typography";
+import { useState } from "react";
 
-const NoDataComponent = ({ date }: any) => {
+interface NoDataProps {
+  date?: string;
+}
+
+const dateOptions = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+
+const NoDataComponent = ({ date }: NoDataProps) => {
+  const [loaded, setLoaded] = useState(false);
+
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Text style={styles.text}>The selected date</Text>
-        <Text style={styles.dateText}>{date}</Text>
-        <Text style={styles.text}>has no ratings recorded.</Text>
+        {date ? (
+          <>
+            <Text style={styles.text}>The selected date</Text>
+            <Text style={styles.dateText}>
+              {new Date(date).toLocaleDateString("en-gb", dateOptions)}
+            </Text>
+            <Text style={styles.text}>has no ratings recorded.</Text>
+          </>
+        ) : (
+          <Text> hello fiends</Text>
+        )}
+
         <Image
           source={require("../../assets/brain_logo-tr.png")}
           style={styles.image}
@@ -18,14 +40,14 @@ const NoDataComponent = ({ date }: any) => {
         </Text>
         <Text style={styles.text}>
           The dates with feedback are highlighted in
-          <Text style={{ color: "pink" }}> pink</Text>
+          <Text style={styles.pink}> pink</Text>
         </Text>
       </View>
     </View>
   );
 };
 
-const cardWidth = Dimensions.get("window").width * 0.9;
+//const cardWidth = Dimensions.get("window").width * 0.9;
 
 const styles = StyleSheet.create({
   container: {
@@ -34,10 +56,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   card: {
+    flex: 1,
     backgroundColor: colors.white,
     padding: 30,
+    paddingTop: 50,
     borderRadius: 10,
-    width: cardWidth,
+    marginTop: 20,
+    marginBottom: 20,
 
     shadowColor: colors.gray,
     shadowOffset: { width: 0, height: 1 },
@@ -61,6 +86,10 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     alignSelf: "center",
+  },
+  pink: {
+    color: colors.hotPink,
+    fontWeight: "500",
   },
 });
 

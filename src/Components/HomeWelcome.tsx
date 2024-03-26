@@ -30,7 +30,7 @@ const HomeWelcome = ({ compare, setCompare }) => {
           name={"select-compare"}
           size={50}
           iconStyle={styles.shadow}
-          iconColor={compare ? colors.primaryRed : colors.white}
+          iconColor={compare ? colors.purple : colors.white}
           onClick={() => setCompare(!compare)}
         />
         <Icon
