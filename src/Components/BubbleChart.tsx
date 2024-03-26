@@ -13,29 +13,7 @@ import colors from "../Config/colors";
 import { fontSize } from "../Config/typography";
 import NoDataComponent from "./NoDataComponent";
 import { checkForOverlap } from "../Utils/repulsion";
-
-function circle(x1, y1, x2, y2, r1, r2) {
-  var d = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-
-  if (d <= r1 - r2) {
-    console.log("Circle B is inside A");
-  } else if (d <= r2 - r1) {
-    console.log("Circle A is inside B");
-  } else if (d < r1 + r2) {
-    console.log("Circle intersect to each other");
-  } else if (d === r1 + r2) {
-    console.log("Circle touch to each other");
-  } else {
-    console.log("Circle not touch to each other");
-  }
-}
-
-function limitNumberWithinRange(num) {
-  const MIN = 10;
-  const MAX = 30;
-  const parsed = parseInt(num);
-  return Math.min(Math.max(parsed, MIN), MAX);
-}
+import { limitNumberWithinRange } from "../Utils/workloadHelper";
 
 const bubbleColors = [
   colors.bubbleGreen,

@@ -41,3 +41,8 @@ export const roundToDecimal = (value, precision) => {
   var multiplier = Math.pow(10, precision || 0);
   return Math.round(value * multiplier) / multiplier;
 };
+
+export const limitNumberWithinRange = (num, MIN = 10, MAX = 30) => {
+  const parsed = parseFloat(num);
+  return Math.min(Math.max(parsed, MIN), MAX);
+};

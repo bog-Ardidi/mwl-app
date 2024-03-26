@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { limitNumberWithinRange } from "./workloadHelper";
 
 export const circle = (x1, y1, x2, y2, radius1, radius2) => {
   var d = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
@@ -37,21 +38,15 @@ export const checkForOverlap = (graphData) => {
       const overlap = circle(x1, y1, x2, y2, r1, r2);
 
       if (overlap) {
-        //console.log("overlappers:", pairs[index]);
-        //console.log("data is:", data);
-
         data.forEach((element, idx) => {
           if (element["id"] == pairs[index][0]["id"]) {
-            //console.log("update this boy: ", data[idx]);
-
             randomizeRepulsion(r1, data[idx]);
-            //console.log("boy is updated", data[idx]);
+            console.log(data[idx]);
           }
 
           if (element["id"] == pairs[index][1]["id"]) {
             randomizeRepulsion(r1, data[idx]);
-            //data[idx]["x"] -= r1 * 2;
-            //console.log("update this boy: ", data[idx]);
+            console.log(data[idx]);
           }
         });
       }
@@ -64,12 +59,13 @@ const getPairs = (arr) =>
   arr.map((v, i) => arr.slice(i + 1).map((w) => [v, w])).flat();
 
 var lastDirection = 0;
+const graphHeight = 5;
+const graphWidth = 24;
 
 const randomizeRepulsion = (radius, data) => {
   const min = 1;
   const max = 3;
   var rand = Math.floor(Math.random() * (max - min + 1) + min);
-  //console.log(rand, lastDirection);
 
   while (rand == lastDirection)
     rand = Math.floor(Math.random() * (max - min + 1) + min);
