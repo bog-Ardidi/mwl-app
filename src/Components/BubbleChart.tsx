@@ -12,6 +12,7 @@ import { useDidMount } from "../Utils/useIsMount";
 import colors from "../Config/colors";
 import { fontSize } from "../Config/typography";
 import NoDataComponent from "./NoDataComponent";
+import { checkForOverlap } from "../Utils/repulsion";
 
 function circle(x1, y1, x2, y2, r1, r2) {
   var d = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
@@ -111,18 +112,7 @@ const BubbleChart = ({ selectedDate, range, data, compare }: any) => {
   }, [range]);
 
   useEffect(() => {
-    console.log(graphData);
-
-    if (graphData?.length > 1) {
-      const x1 = graphData[0]["x"];
-      const y1 = graphData[0]["y"];
-      const x2 = graphData[1]["x"];
-      const y2 = graphData[1]["y"];
-      const r1 = graphData[0]["size"] / 10;
-      const r2 = graphData[1]["size"] / 10;
-
-      circle(x1, y1, x2, y2, r1, r2);
-    }
+    checkForOverlap(graphData);
   }, [graphData]);
 
   if (!graphData) return <Loading />;
