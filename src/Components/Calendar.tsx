@@ -10,6 +10,7 @@ import { calculateRangeObject } from "../Utils/dateHelpers";
 import { getWorkloadForMonth } from "../Utils/workloadHelper";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../Config/colors";
+import NoDataComponent from "./NoDataComponent";
 
 const Calendar = ({ compare }: any) => {
   const didMount = useDidMount();
@@ -152,7 +153,7 @@ const Calendar = ({ compare }: any) => {
               monthTextColor: colors.tealGreen,
               arrowColor: colors.bubbleGreen,
               textMonthFontWeight: "bold",
-              todayTextColor: colors.darkerBlue,
+              todayTextColor: colors.bubbleGreen,
               textDayHeaderFontWeight: "bold",
               textDayFontWeight: "500",
               dayTextColor: colors.tealGreen,
@@ -170,12 +171,7 @@ const Calendar = ({ compare }: any) => {
             />
           </>
         ) : (
-          <View style={styles.idleContainer}>
-            <Text style={styles.selectedText}>
-              {" "}
-              Waiting for data selection!
-            </Text>
-          </View>
+          <NoDataComponent />
         )}
       </CalendarProvider>
     </Screen>

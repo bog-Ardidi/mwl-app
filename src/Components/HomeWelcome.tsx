@@ -5,9 +5,12 @@ import { fontSize } from "../Config/typography";
 import colors from "../Config/colors";
 import { useNavigation } from "@react-navigation/native";
 import routes from "../Config/routes";
+import { useState } from "react";
+import TutorialModal from "./TutorialModal";
 
-const HomeWelcome = ({ compare, setCompare }) => {
+const HomeWelcome = ({ compare, setCompare }: any) => {
   const navigation = useNavigation();
+  const [openTutorial, setOpenTutorial] = useState<boolean>(false);
 
   return (
     <View style={styles.container}>
@@ -38,7 +41,7 @@ const HomeWelcome = ({ compare, setCompare }) => {
           size={50}
           iconStyle={styles.shadow}
           iconColor={colors.white}
-          onClick={() => console.log("go info")}
+          onClick={() => setOpenTutorial(true)}
         />
         <Icon
           name={"cog-outline"}
@@ -48,6 +51,10 @@ const HomeWelcome = ({ compare, setCompare }) => {
           onClick={() => navigation.navigate(routes.SETTINGS_SCREEN)}
         />
       </View>
+      <TutorialModal
+        open={openTutorial}
+        onClose={() => setOpenTutorial(!openTutorial)}
+      />
     </View>
   );
 };

@@ -35,6 +35,7 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
     { label: "5 - High", value: "5" },
   ]);
   const [rating, setRating] = useState(items[0].value);
+  const [openPicker, setOpenPicker] = useState(false);
 
   // determines how far in the past a user can submit workload
   const minDate = new Date();
@@ -55,17 +56,11 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
     navigation.navigate(routes.HOME_SCREEN);
   };
 
-  const [open, setOpen1] = useState(false);
-
-  useEffect(() => {
-    console.log(rating);
-  }, [rating]);
-
   return (
     <>
-      <StatusBar color={colors.hotPink} />
+      <StatusBar color={colors.mustard} />
       <Screen>
-        <Header color={colors.hotPink} height={0.25} />
+        <Header color={colors.mustard} height={0.25} />
         <View style={styles.header}>
           <Icon
             name="arrow-left"
@@ -103,10 +98,10 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
             </View>
             <Text style={styles.text}>Mental Workload Rating:</Text>
             <DropDownPicker
-              open={open}
+              open={openPicker}
               value={rating}
               items={items}
-              setOpen={setOpen1}
+              setOpen={setOpenPicker}
               setValue={setRating}
               setItems={setItems}
               style={styles.ratingSelect}

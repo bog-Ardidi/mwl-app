@@ -80,8 +80,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: fontSize.h2,
     fontWeight: "500",
-    color: colors.palette5,
+    color: colors.black100,
     marginBottom: 10,
+    shadowColor: colors.gray,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 5,
   },
 });
 

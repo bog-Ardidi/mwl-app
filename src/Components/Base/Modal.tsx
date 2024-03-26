@@ -26,8 +26,13 @@ const Modal = ({ open, onClose, title, children }: ModalProps) => {
             {title && (
               <>
                 <View style={styles.titleContainer}>
-                  <Text style={styles.title}>{title}</Text>
-                  <Icon name="close" size={35} onClick={onClose} />
+                  <Text style={[styles.title, styles.shadow]}>{title}</Text>
+                  <Icon
+                    name="close"
+                    size={35}
+                    iconStyle={styles.shadow}
+                    onClick={onClose}
+                  />
                 </View>
                 <View style={styles.divider} />
               </>
@@ -85,6 +90,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: fontSize.lg,
+  },
+  shadow: {
+    shadowColor: colors.gray,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 5,
   },
 });
 

@@ -37,7 +37,7 @@ export default {
 
   grayBorder: "#d8d8d8",
   bubbleGreen: "#68AD66",
-  bubbleGreen_op: "#68AD6630",
+  mustard: "#E1883B",
   purple_haze: "#C8B4D080",
 
   // palette 1

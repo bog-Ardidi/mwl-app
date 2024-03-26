@@ -28,7 +28,7 @@ const NoDataComponent = ({ date }: NoDataProps) => {
             <Text style={styles.text}>has no ratings recorded.</Text>
           </>
         ) : (
-          <Text> hello fiends</Text>
+          <Text style={styles.text}>There is no date currently selected!</Text>
         )}
 
         <Image
@@ -39,15 +39,13 @@ const NoDataComponent = ({ date }: NoDataProps) => {
           Please select a new date from the calendar!
         </Text>
         <Text style={styles.text}>
-          The dates with feedback are highlighted in
+          The dates with feedback are highlighted in {"\n"}
           <Text style={styles.pink}> pink</Text>
         </Text>
       </View>
     </View>
   );
 };
-
-//const cardWidth = Dimensions.get("window").width * 0.9;
 
 const styles = StyleSheet.create({
   container: {
@@ -62,7 +60,6 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     borderRadius: 10,
     marginTop: 20,
-    marginBottom: 20,
 
     shadowColor: colors.gray,
     shadowOffset: { width: 0, height: 1 },
@@ -90,6 +87,11 @@ const styles = StyleSheet.create({
   pink: {
     color: colors.hotPink,
     fontWeight: "500",
+    shadowColor: colors.gray,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    elevation: 5,
   },
 });
 
