@@ -26,6 +26,9 @@ const dateOptions = {
   day: "numeric",
 };
 
+const getTime = (time: number) =>
+  time < 60 ? `${time} min` : `${time / 60} hrs`;
+
 const FeedbackModal = ({ open, onClose, data }: FeedbackModalProps) => {
   return (
     <Modal open={open} onClose={onClose} title="Task Breakdown">
@@ -52,7 +55,9 @@ const FeedbackModal = ({ open, onClose, data }: FeedbackModalProps) => {
       <View style={styles.row}>
         <Text style={styles.statisticLabel}>Duration: </Text>
         <Text style={styles.statisticValue}>
-          {data?.data?.duration ?? "No rating provided"} min
+          {data?.data?.duration
+            ? getTime(Number(data?.data?.duration))
+            : "No rating provided"}
         </Text>
       </View>
     </Modal>

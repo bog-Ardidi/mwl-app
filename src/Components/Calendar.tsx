@@ -129,7 +129,6 @@ const Calendar = ({ compare }: any) => {
   }, [compare]);
 
   const onMonthChange = useCallback((month: any) => {
-    console.log(month);
     resetCalendar();
     setInitialDate(month?.dateString);
   }, []);
@@ -172,6 +171,7 @@ const Calendar = ({ compare }: any) => {
               textDayHeaderFontWeight: "bold",
               textDayFontWeight: "500",
               dayTextColor: colors.tealGreen,
+              selectedDayTextColor: colors.black,
             }}
           />
         </View>

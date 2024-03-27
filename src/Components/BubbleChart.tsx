@@ -56,7 +56,7 @@ const BubbleChart = ({ selectedDate, range, data, compare }: any) => {
           x: limitNumberWithinRange(Number(e.data.duration) / 60, 0, 24),
           y: Number(e.data.rating),
           size: limitNumberWithinRange(
-            (Number(e.data.duration) / 60) * Number(e.data.rating)
+            (Number(e.data.duration) / 60) * Number(e.data.rating) * 2
           ),
           id: e.docId,
           date: CalendarUtils.getCalendarDateString(e.data.timestamp),

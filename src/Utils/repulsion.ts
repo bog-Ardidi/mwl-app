@@ -41,12 +41,10 @@ export const checkForOverlap = (graphData) => {
         data.forEach((element, idx) => {
           if (element["id"] == pairs[index][0]["id"]) {
             randomizeRepulsion(r1, data[idx]);
-            console.log(data[idx]);
           }
 
           if (element["id"] == pairs[index][1]["id"]) {
             randomizeRepulsion(r1, data[idx]);
-            console.log(data[idx]);
           }
         });
       }
@@ -79,7 +77,6 @@ const randomizeRepulsion = (radius, data) => {
         1,
         graphWidth
       );
-      console.log("change:", data["x"]);
       break;
     case 2:
       data["y"] = limitNumberWithinRange(
@@ -87,7 +84,6 @@ const randomizeRepulsion = (radius, data) => {
         0,
         graphHeight
       );
-      console.log("change:", data["y"]);
       break;
     case 3:
       data["x"] = limitNumberWithinRange(
@@ -95,7 +91,6 @@ const randomizeRepulsion = (radius, data) => {
         1,
         graphWidth
       );
-      console.log("change:", data["x"]);
       break;
     case 4:
       data["y"] = limitNumberWithinRange(
@@ -103,7 +98,6 @@ const randomizeRepulsion = (radius, data) => {
         0,
         graphHeight
       );
-      console.log("change:", data["y"]);
       break;
   }
 
