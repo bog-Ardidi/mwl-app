@@ -2,13 +2,18 @@ import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { fontSize } from "../Config/typography";
 import { Divider } from "./Base/Divider";
 import colors from "../Config/colors";
-import { calculateOverallMWL, roundToDecimal } from "../Utils/workloadHelper";
-import { useState } from "react";
+import {
+  MWL,
+  calculateOverallMWL,
+  roundToDecimal,
+} from "../Utils/workloadHelper";
+import { useEffect, useState } from "react";
 import Tooltip from "./Tooltip";
+import MWLmessage, { mwlLabelStyle, mwlLabels } from "./MWLmessage";
 
 const GraphStatistics = ({ data }: any) => {
   const [toolTipVisible, setToolTipVisible] = useState<boolean>(false);
-  const [goodMWL, setGoodMWL] = useState<boolean>(false);
+  const [overallMWL, setOverallMWL] = useState<MWL>(MWL.UNSURE);
   const totalTasks = data?.length;
   const avgDuration =
     data.reduce((total, next) => total + Number(next.data.duration), 0) /
@@ -18,7 +23,9 @@ const GraphStatistics = ({ data }: any) => {
     data.reduce((total, next) => total + Number(next.data.rating), 0) /
     totalTasks;
 
-  calculateOverallMWL(data);
+  useEffect(() => {
+    setOverallMWL(() => calculateOverallMWL(data));
+  }, [data]);
 
   return (
     <View style={styles.container}>
@@ -51,17 +58,15 @@ const GraphStatistics = ({ data }: any) => {
                 styles.statisticValue,
                 styles.balanceValue,
                 styles.shadow,
-                goodMWL ? styles.balanceValueGood : styles.balanceValueBad,
+                overallMWL >= 3 ? mwlLabelStyle[2] : mwlLabelStyle[overallMWL],
               ]}
             >
-              {goodMWL ? "Good" : "Bad"}
+              {overallMWL >= 3 ? mwlLabels[2] : mwlLabels[overallMWL]}
             </Text>
             <Tooltip open={toolTipVisible} setOpen={setToolTipVisible}>
-              <Text>
-                {goodMWL
-                  ? "You have had a balanced amount of low, medium and high Mental workload today!"
-                  : "Example: You have had long periods of high mental workload today!"}
-              </Text>
+              <View style={styles.tooltipContainer}>
+                <MWLmessage mwl={overallMWL} />
+              </View>
             </Tooltip>
           </View>
         </View>
@@ -128,6 +133,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 2,
     elevation: 5,
+  },
+  tooltipContainer: {
+    padding: 10,
   },
 });
 

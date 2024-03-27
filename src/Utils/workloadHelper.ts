@@ -48,46 +48,59 @@ export const limitNumberWithinRange = (num, MIN = 10, MAX = 30) => {
 };
 
 export enum MWL {
-  GOOD,
-  BAD,
-  UNSURE,
+  UNSURE = 0,
+  GOOD = 1,
+  BAD_LOW = 2,
+  BAD_MID = 3,
+  BAD_HIGH = 4,
 }
 
 export const calculateOverallMWL = (data) => {
-  var numLow = 0,
-    numMid = 0,
-    numHigh = 0;
   var durationLow = 0,
     durationMid = 0,
     durationHigh = 0;
+
+  if (data.length <= 1) return MWL.UNSURE;
 
   data.forEach((e) => {
     var taskRating = Number(e["data"]["rating"]);
     var taskDuration = Number(e["data"]["duration"]);
 
     if (taskRating <= 2) {
-      numLow++;
       durationLow += taskDuration;
     }
 
     if (taskRating >= 2 && taskRating <= 4) {
-      numMid++;
       durationMid += taskDuration;
     }
 
     if (taskRating >= 4) {
-      numHigh++;
       durationHigh += taskDuration;
     }
   });
 
-  console.log("num low: ", numLow, "num mid: ", numMid, "num high: ", numHigh);
-  console.log(
-    "duration low: ",
-    durationLow,
-    "duration mid: ",
-    durationMid,
-    "duration high: ",
-    durationHigh
+  var durations = [durationLow, durationMid, durationHigh];
+  var highest = durations.indexOf(
+    Math.max(...[durationLow, durationMid, durationHigh])
   );
+  var rest = 0;
+
+  durations.map((e) => {
+    if (e == durations[highest]) return;
+
+    rest += e;
+  });
+
+  if (durations[highest] > rest + 120) {
+    switch (highest) {
+      case 0:
+        return MWL.BAD_LOW;
+
+      case 1:
+        return MWL.BAD_MID;
+
+      case 3:
+        return MWL.BAD_HIGH;
+    }
+  } else return MWL.GOOD;
 };
