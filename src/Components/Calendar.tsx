@@ -26,6 +26,7 @@ const Calendar = ({ compare }: any) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       setInitialDate(new Date().toString());
+      resetCalendar();
     });
 
     // Return the function to unsubscribe from the event so it gets removed on unmount
@@ -53,7 +54,7 @@ const Calendar = ({ compare }: any) => {
 
         if (d1 > d2) {
           alert("End date must not be before start date!");
-          return;
+          //var temp =
         }
 
         if (dateDiffInDays(d1, d2) >= 5) {

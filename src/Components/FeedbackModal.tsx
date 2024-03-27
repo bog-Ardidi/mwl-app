@@ -52,7 +52,7 @@ const FeedbackModal = ({ open, onClose, data }: FeedbackModalProps) => {
       <View style={styles.row}>
         <Text style={styles.statisticLabel}>Duration: </Text>
         <Text style={styles.statisticValue}>
-          {data?.data?.duration ?? "No rating provided"}min
+          {data?.data?.duration ?? "No rating provided"} min
         </Text>
       </View>
     </Modal>

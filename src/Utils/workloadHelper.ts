@@ -46,3 +46,48 @@ export const limitNumberWithinRange = (num, MIN = 10, MAX = 30) => {
   const parsed = parseFloat(num);
   return Math.min(Math.max(parsed, MIN), MAX);
 };
+
+export enum MWL {
+  GOOD,
+  BAD,
+  UNSURE,
+}
+
+export const calculateOverallMWL = (data) => {
+  var numLow = 0,
+    numMid = 0,
+    numHigh = 0;
+  var durationLow = 0,
+    durationMid = 0,
+    durationHigh = 0;
+
+  data.forEach((e) => {
+    var taskRating = Number(e["data"]["rating"]);
+    var taskDuration = Number(e["data"]["duration"]);
+
+    if (taskRating <= 2) {
+      numLow++;
+      durationLow += taskDuration;
+    }
+
+    if (taskRating >= 2 && taskRating <= 4) {
+      numMid++;
+      durationMid += taskDuration;
+    }
+
+    if (taskRating >= 4) {
+      numHigh++;
+      durationHigh += taskDuration;
+    }
+  });
+
+  console.log("num low: ", numLow, "num mid: ", numMid, "num high: ", numHigh);
+  console.log(
+    "duration low: ",
+    durationLow,
+    "duration mid: ",
+    durationMid,
+    "duration high: ",
+    durationHigh
+  );
+};

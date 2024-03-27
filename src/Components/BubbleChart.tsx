@@ -53,10 +53,10 @@ const BubbleChart = ({ selectedDate, range, data, compare }: any) => {
     if (didMount) {
       setGraphData(
         allFeedback?.map((e: any) => ({
-          x: Number(e.data.duration),
+          x: limitNumberWithinRange(Number(e.data.duration) / 60, 0, 24),
           y: Number(e.data.rating),
           size: limitNumberWithinRange(
-            Number(e.data.duration) * Number(e.data.rating)
+            (Number(e.data.duration) / 60) * Number(e.data.rating)
           ),
           id: e.docId,
           date: CalendarUtils.getCalendarDateString(e.data.timestamp),

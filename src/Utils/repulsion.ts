@@ -64,21 +64,46 @@ const graphWidth = 24;
 
 const randomizeRepulsion = (radius, data) => {
   const min = 1;
-  const max = 3;
+  const max = 4;
   var rand = Math.floor(Math.random() * (max - min + 1) + min);
 
   while (rand == lastDirection)
     rand = Math.floor(Math.random() * (max - min + 1) + min);
 
+  var movementFactor = radius == 10 ? radius * 2 : radius;
+
   switch (rand) {
     case 1:
-      data["x"] -= radius * 2;
+      data["x"] = limitNumberWithinRange(
+        data["x"] + movementFactor * 2,
+        1,
+        graphWidth
+      );
+      console.log("change:", data["x"]);
       break;
     case 2:
-      data["y"] += radius;
+      data["y"] = limitNumberWithinRange(
+        data["y"] + movementFactor,
+        0,
+        graphHeight
+      );
+      console.log("change:", data["y"]);
       break;
     case 3:
-      data["x"] += radius;
+      data["x"] = limitNumberWithinRange(
+        data["x"] - movementFactor,
+        1,
+        graphWidth
+      );
+      console.log("change:", data["x"]);
+      break;
+    case 4:
+      data["y"] = limitNumberWithinRange(
+        data["y"] - movementFactor,
+        0,
+        graphHeight
+      );
+      console.log("change:", data["y"]);
       break;
   }
 
