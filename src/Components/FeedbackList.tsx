@@ -12,22 +12,28 @@ const FeedbackList = ({ data, showDelete = false }: any) => {
     setFeedback(data);
   }, [data]);
 
+  const removeItem = (elem) => {
+    setFeedback(feedback.filter((o) => o.docId !== elem));
+  };
+
   if (!feedback?.length)
-    return <Text>No MWL Scores to show for the selected date</Text>;
+    return <Text style={styles.text}>No MWL Scores to show</Text>;
 
   return (
-    <>
-      <Text style={styles.title}>MWL ratings: </Text>
-      <ScrollView contentContainerStyle={styles.container}>
-        {feedback ? (
-          feedback?.map((e, idx) => (
-            <WorkloadCard data={e} key={idx} showDelete={showDelete} />
-          ))
-        ) : (
-          <Loading />
-        )}
-      </ScrollView>
-    </>
+    <ScrollView contentContainerStyle={styles.container}>
+      {feedback ? (
+        feedback?.map((e, idx) => (
+          <WorkloadCard
+            data={e}
+            key={idx}
+            showDelete={showDelete}
+            removeItem={removeItem}
+          />
+        ))
+      ) : (
+        <Loading />
+      )}
+    </ScrollView>
   );
 };
 
@@ -35,11 +41,9 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
   },
-  title: {
-    fontSize: fontSize.xl,
-    marginLeft: 15,
-    color: colors.black,
-    fontWeight: "500",
+  text: {
+    textAlign: "center",
+    fontSize: fontSize.lg,
   },
 });
 

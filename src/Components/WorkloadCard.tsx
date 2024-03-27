@@ -15,6 +15,7 @@ interface WorkloadCardProps {
     };
   };
   showDelete?: boolean;
+  removeItem: any;
 }
 
 const dateOptions = {
@@ -24,7 +25,7 @@ const dateOptions = {
   day: "numeric",
 };
 
-const DeleteItem = (docId: string) => {
+const DeleteItem = (docId, removeItem) => {
   Alert.alert(
     "Delete document",
     "Are you sure you want to delete this document?",
@@ -33,6 +34,7 @@ const DeleteItem = (docId: string) => {
         text: "Yes",
         onPress: () => {
           DeleteWorkload(docId);
+          removeItem(docId);
         },
       },
       {
@@ -42,7 +44,11 @@ const DeleteItem = (docId: string) => {
   );
 };
 
-const WorkloadCard = ({ data, showDelete = false }: WorkloadCardProps) => {
+const WorkloadCard = ({
+  data,
+  showDelete = false,
+  removeItem,
+}: WorkloadCardProps) => {
   return (
     <View style={styles.container}>
       <View>
@@ -71,7 +77,9 @@ const WorkloadCard = ({ data, showDelete = false }: WorkloadCardProps) => {
             backgroundColor={colors.transparent}
             iconColor={colors.primaryRed}
             size={50}
-            onClick={() => DeleteItem(data.docId)}
+            onClick={() => {
+              DeleteItem(data.docId, removeItem);
+            }}
           />
         </View>
       )}

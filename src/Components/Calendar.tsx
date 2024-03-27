@@ -1,7 +1,11 @@
 import Screen from "./Base/Screen";
 import { useState, useCallback, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { CalendarProvider, ExpandableCalendar } from "react-native-calendars";
+import {
+  CalendarProvider,
+  CalendarUtils,
+  ExpandableCalendar,
+} from "react-native-calendars";
 import { useDidMount } from "../Utils/useIsMount";
 import { fontSize } from "../Config/typography";
 import BubbleChart from "./BubbleChart";
@@ -49,12 +53,22 @@ const Calendar = ({ compare }: any) => {
       }
 
       if (startingDay) {
-        const d1 = new Date(startingDay);
-        const d2 = new Date(day.dateString);
+        var d1 = new Date(startingDay);
+        var d2 = new Date(day.dateString);
 
         if (d1 > d2) {
-          alert("End date must not be before start date!");
-          //var temp =
+          var temp = d1;
+          d1 = d2;
+          d2 = temp;
+
+          if (dateDiffInDays(d1, d2) >= 5) {
+            alert("Selection allows a maximum of 5 days!");
+            return;
+          }
+
+          setStartingDay(CalendarUtils.getCalendarDateString(d1));
+          setEndingDay(CalendarUtils.getCalendarDateString(d2));
+          return;
         }
 
         if (dateDiffInDays(d1, d2) >= 5) {
