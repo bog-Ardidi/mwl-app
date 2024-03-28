@@ -6,7 +6,7 @@ import colors from "../Config/colors";
 import routes from "../Config/routes";
 import { fontSize } from "../Config/typography";
 import { FirebaseSignOut } from "../Controllers/AuthenticationController";
-import SettingsListItem from "../Components/SettingsListItem";
+import SettingsListItem from "../Components/Settings/SettingsListItem";
 import { Header, StatusBar } from "../Components/Base/Header";
 
 const logOut = () => {

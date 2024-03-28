@@ -3,7 +3,7 @@ import Icon from "../Components/Base/Icon";
 import colors from "../Config/colors";
 import { useNavigation } from "@react-navigation/native";
 import { useState, useEffect } from "react";
-import FeedbackList from "../Components/FeedbackList";
+import FeedbackList from "../Components/Settings/FeedbackList";
 import { getAllWorkloadForUser } from "../Utils/workloadHelper";
 import { Text, StyleSheet, View } from "react-native";
 import { fontSize } from "../Config/typography";

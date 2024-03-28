@@ -6,7 +6,7 @@ import colors from "../Config/colors";
 import { useNavigation } from "@react-navigation/native";
 import routes from "../Config/routes";
 import { useState } from "react";
-import TutorialModal from "./TutorialModal";
+import TutorialModal from "./Tutorial/TutorialModal";
 
 const HomeWelcome = ({ compare, setCompare }: any) => {
   const navigation = useNavigation();

@@ -1,8 +1,8 @@
 import { View, StyleSheet, Text, Alert } from "react-native";
-import colors from "../Config/colors";
-import { fontSize } from "../Config/typography";
-import Icon from "./Base/Icon";
-import { DeleteWorkload } from "../Controllers/Workload/DeleteController";
+import colors from "../../Config/colors";
+import { fontSize } from "../../Config/typography";
+import Icon from "../Base/Icon";
+import { DeleteWorkload } from "../../Controllers/Workload/DeleteController";
 
 interface WorkloadCardProps {
   data: {

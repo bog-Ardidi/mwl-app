@@ -1,9 +1,9 @@
-import colors from "../Config/colors";
-import { fontSize } from "../Config/typography";
-import Modal from "./Base/Modal";
-import WorkloadCard from "./WorkloadCard";
+import colors from "../../Config/colors";
+import { fontSize } from "../../Config/typography";
+import Modal from "../Base/Modal";
+import WorkloadCard from "../Settings/WorkloadCard";
 import { View, StyleSheet, Text } from "react-native";
-import { roundToDecimal } from "../Utils/workloadHelper";
+import { roundToDecimal } from "../../Utils/workloadHelper";
 
 interface FeedbackModalProps {
   open: boolean;
@@ -27,7 +27,7 @@ const dateOptions = {
 };
 
 const getTime = (time: number) =>
-  time < 60 ? `${time} min` : `${time / 60} hrs`;
+  time < 60 ? `${time} min` : `${roundToDecimal(time / 60, 1)} hrs`;
 
 const FeedbackModal = ({ open, onClose, data }: FeedbackModalProps) => {
   return (

@@ -1,9 +1,9 @@
 import { ScrollView, StyleSheet, Text } from "react-native";
 import { useEffect, useState } from "react";
 import WorkloadCard from "./WorkloadCard";
-import Loading from "./Base/Loading";
-import { fontSize } from "../Config/typography";
-import colors from "../Config/colors";
+import Loading from "../Base/Loading";
+import { fontSize } from "../../Config/typography";
+import colors from "../../Config/colors";
 
 const FeedbackList = ({ data, showDelete = false }: any) => {
   const [feedback, setFeedback] = useState<any>([]);

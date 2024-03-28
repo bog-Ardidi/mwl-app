@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import { fontSize } from "../Config/typography";
-import { Divider } from "./Base/Divider";
-import colors from "../Config/colors";
+import { fontSize } from "../../Config/typography";
+import { Divider } from "../Base/Divider";
+import colors from "../../Config/colors";
 import {
   MWL,
   calculateOverallMWL,
   roundToDecimal,
-} from "../Utils/workloadHelper";
+} from "../../Utils/workloadHelper";
 import { useEffect, useState } from "react";
-import Tooltip from "./Tooltip";
+import Tooltip from "../Base/Tooltip";
 import MWLmessage, { mwlLabelStyle, mwlLabels } from "./MWLmessage";
 
 const GraphStatistics = ({ data }: any) => {

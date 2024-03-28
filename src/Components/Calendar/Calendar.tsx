@@ -1,4 +1,4 @@
-import Screen from "./Base/Screen";
+import Screen from "../Base/Screen";
 import { useState, useCallback, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import {
@@ -6,14 +6,14 @@ import {
   CalendarUtils,
   ExpandableCalendar,
 } from "react-native-calendars";
-import { useDidMount } from "../Utils/useIsMount";
-import { fontSize } from "../Config/typography";
-import BubbleChart from "./BubbleChart";
-import { dateDiffInDays, getDatesInRange } from "../Utils/dateHelpers";
-import { calculateRangeObject } from "../Utils/dateHelpers";
-import { getWorkloadForMonth } from "../Utils/workloadHelper";
+import { useDidMount } from "../../Utils/useIsMount";
+import { fontSize } from "../../Config/typography";
+import BubbleChart from "../Chart/BubbleChart";
+import { dateDiffInDays, getDatesInRange } from "../../Utils/dateHelpers";
+import { calculateRangeObject } from "../../Utils/dateHelpers";
+import { getWorkloadForMonth } from "../../Utils/workloadHelper";
 import { useNavigation } from "@react-navigation/native";
-import colors from "../Config/colors";
+import colors from "../../Config/colors";
 import NoDataComponent from "./NoDataComponent";
 
 const Calendar = ({ compare }: any) => {

@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Icon from "./Base/Icon";
-import colors from "../Config/colors";
-import { fontSize } from "../Config/typography";
+import Icon from "../Base/Icon";
+import colors from "../../Config/colors";
+import { fontSize } from "../../Config/typography";
 
 function SettingsListItem({ name, iconName, onPress }) {
   return (

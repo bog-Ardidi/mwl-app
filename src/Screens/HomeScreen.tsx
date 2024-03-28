@@ -1,6 +1,6 @@
 import Screen from "../Components/Base/Screen";
 import HomeWelcome from "../Components/HomeWelcome";
-import Calendar from "../Components/Calendar";
+import Calendar from "../Components/Calendar/Calendar";
 import React, { useState } from "react";
 import { Header, StatusBar } from "../Components/Base/Header";
 import colors from "../Config/colors";

@@ -1,8 +1,8 @@
-import colors from "../Config/colors";
+import colors from "../../Config/colors";
 import { Text, StyleSheet } from "react-native";
-import { fontSize } from "../Config/typography";
+import { fontSize } from "../../Config/typography";
 import { useEffect, useState } from "react";
-import { MWL } from "../Utils/workloadHelper";
+import { MWL } from "../../Utils/workloadHelper";
 
 const mwlMessages = [
   "The current selection does not contain sufficent data to calculate a mental workload score. Please try adding some more tasks!",

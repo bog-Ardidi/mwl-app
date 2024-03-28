@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Dimensions, Image } from "react-native";
-import colors from "../Config/colors";
-import { fontSize } from "../Config/typography";
+import colors from "../../Config/colors";
+import { fontSize } from "../../Config/typography";
 import { useState } from "react";
 
 interface NoDataProps {
@@ -32,7 +32,7 @@ const NoDataComponent = ({ date }: NoDataProps) => {
         )}
 
         <Image
-          source={require("../../assets/brain_logo-tr.png")}
+          source={require("../../../assets/brain_logo-tr.png")}
           style={styles.image}
         />
         <Text style={styles.text}>

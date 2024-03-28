@@ -1,5 +1,5 @@
 import { Text } from "react-native";
-import Modal from "./Base/Modal";
+import Modal from "../Base/Modal";
 
 const TutorialModal = ({ open, onClose }: any) => {
   return (

@@ -1,19 +1,19 @@
 // @ts-nocheck
 import { VictoryChart, VictoryScatter, VictoryAxis } from "victory-native";
-import Loading from "./Base/Loading";
+import Loading from "../Base/Loading";
 import { useEffect, useState } from "react";
 import FeedbackModal from "./FeedbackModal";
 import GraphStatistics from "./GraphStatistics";
-import { getWorkloadForDay } from "../Utils/workloadHelper";
-import { checkSameDay } from "../Utils/dateHelpers";
+import { getWorkloadForDay } from "../../Utils/workloadHelper";
+import { checkSameDay } from "../../Utils/dateHelpers";
 import { CalendarUtils } from "react-native-calendars";
 import { Text, View, StyleSheet } from "react-native";
-import { useDidMount } from "../Utils/useIsMount";
-import colors from "../Config/colors";
-import { fontSize } from "../Config/typography";
-import NoDataComponent from "./NoDataComponent";
-import { checkForOverlap } from "../Utils/repulsion";
-import { limitNumberWithinRange } from "../Utils/workloadHelper";
+import { useDidMount } from "../../Utils/useIsMount";
+import colors from "../../Config/colors";
+import { fontSize } from "../../Config/typography";
+import NoDataComponent from "../Calendar/NoDataComponent";
+import { checkForOverlap } from "../../Utils/repulsion";
+import { limitNumberWithinRange } from "../../Utils/workloadHelper";
 
 const bubbleColors = [
   colors.bubbleGreen,
