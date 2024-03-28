@@ -15,32 +15,37 @@ interface ModalProps {
   onClose: any;
   title?: string;
   children: React.ReactNode;
+  outsideClose?: boolean;
 }
 
-const Modal = ({ open, onClose, title, children }: ModalProps) => {
+const Modal = ({
+  open,
+  onClose,
+  title,
+  children,
+  outsideClose = true,
+}: ModalProps) => {
   return (
     <RNModal animationType="slide" visible={open} transparent={true}>
-      <TouchableWithoutFeedback onPressOut={onClose}>
-        <View style={styles.container}>
-          <View style={styles.modalView}>
-            {title && (
-              <>
-                <View style={styles.titleContainer}>
-                  <Text style={[styles.title, styles.shadow]}>{title}</Text>
-                  <Icon
-                    name="close"
-                    size={35}
-                    iconStyle={styles.shadow}
-                    onClick={onClose}
-                  />
-                </View>
-                <View style={styles.divider} />
-              </>
-            )}
-            {children}
-          </View>
+      <View style={styles.container}>
+        <View style={styles.modalView}>
+          {title && (
+            <>
+              <View style={styles.titleContainer}>
+                <Text style={[styles.title, styles.shadow]}>{title}</Text>
+                <Icon
+                  name="close"
+                  size={35}
+                  iconStyle={styles.shadow}
+                  onClick={onClose}
+                />
+              </View>
+              <View style={styles.divider} />
+            </>
+          )}
+          {children}
         </View>
-      </TouchableWithoutFeedback>
+      </View>
     </RNModal>
   );
 };

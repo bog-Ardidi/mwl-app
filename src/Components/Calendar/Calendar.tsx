@@ -163,6 +163,8 @@ const Calendar = ({ compare }: any) => {
             markingType={"period"}
             firstDay={1}
             initialPosition={ExpandableCalendar.positions.OPEN}
+            //hideKnob={true}
+            //style={{ height: "50%" }}
             theme={{
               monthTextColor: colors.tealGreen,
               arrowColor: colors.bubbleGreen,
@@ -172,6 +174,7 @@ const Calendar = ({ compare }: any) => {
               textDayFontWeight: "500",
               dayTextColor: colors.tealGreen,
               selectedDayTextColor: colors.black,
+              weekVerticalMargin: 6,
             }}
           />
         </View>

@@ -14,14 +14,7 @@ import { fontSize } from "../../Config/typography";
 import NoDataComponent from "../Calendar/NoDataComponent";
 import { checkForOverlap } from "../../Utils/repulsion";
 import { limitNumberWithinRange } from "../../Utils/workloadHelper";
-
-const bubbleColors = [
-  colors.bubbleGreen,
-  colors.yellow,
-  colors.lightBlue,
-  colors.lightPurple,
-  colors.hotPink,
-];
+import bubbleColors from "../../Config/bubbleColors";
 
 const dateOptions = {
   year: "numeric",
@@ -53,7 +46,7 @@ const BubbleChart = ({ selectedDate, range, data, compare }: any) => {
     if (didMount) {
       setGraphData(
         allFeedback?.map((e: any) => ({
-          x: limitNumberWithinRange(Number(e.data.duration) / 60, 0, 24),
+          x: limitNumberWithinRange(Number(e.data.duration) / 60, 1, 24),
           y: Number(e.data.rating),
           size: limitNumberWithinRange(
             (Number(e.data.duration) / 60) * Number(e.data.rating) * 2
