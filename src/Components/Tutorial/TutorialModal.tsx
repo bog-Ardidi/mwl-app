@@ -90,8 +90,11 @@ const TutorialModal = ({ open, onClose }: any) => {
             {swiperData[3].text_3}
           </RegularText>
           <View style={styles.paletteContainer}>
-            {bubbleColors.map((e) => (
-              <View style={[styles.paletteColor, { backgroundColor: e }]} />
+            {bubbleColors.map((e, idx) => (
+              <View
+                style={[styles.paletteColor, { backgroundColor: e }]}
+                key={idx}
+              />
             ))}
           </View>
         </SwiperScreen>
