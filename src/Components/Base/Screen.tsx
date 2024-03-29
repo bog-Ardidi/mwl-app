@@ -1,17 +1,25 @@
-/**
- *  A reusable screen component. It ensures that the view on the screen
- *  is correctly sized on both Android and IOS devices.
- */
-
 import React from "react";
 import Constants from "expo-constants";
-import { StyleSheet, SafeAreaView, View, StyleProp } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  View,
+  StyleProp,
+  ViewProps,
+} from "react-native";
 
 interface ScreenProps {
-  style?: StyleProp<any>;
-  children: any;
+  style?: StyleProp<ViewProps>;
+  children: React.ReactNode;
 }
 
+/**
+ * Base screen component. It ensures that the view on the screen
+ * is correctly sized on both Android and IOS devices.
+ *
+ * @param style - Any additional style
+ * @param children - Childern to render in the component
+ */
 function Screen({ style, children }: ScreenProps) {
   return (
     <SafeAreaView style={[styles.screen, style]}>
@@ -25,7 +33,6 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     flex: 1,
   },
-
   view: {
     flex: 1,
   },

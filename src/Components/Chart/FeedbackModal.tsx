@@ -1,22 +1,14 @@
 import colors from "../../Config/colors";
 import { fontSize } from "../../Config/typography";
 import Modal from "../Base/Modal";
-import WorkloadCard from "../Settings/WorkloadCard";
 import { View, StyleSheet, Text } from "react-native";
 import { roundToDecimal } from "../../Utils/workloadHelper";
+import { MWLdata } from "../../Types/mwl";
 
 interface FeedbackModalProps {
   open: boolean;
-  onClose: any;
-  data: {
-    docId: string;
-    data: {
-      name: string;
-      rating: string;
-      duration: string;
-      timestamp: any;
-    };
-  };
+  onClose: () => void;
+  data: MWLdata;
 }
 
 const dateOptions = {

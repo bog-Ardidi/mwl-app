@@ -13,9 +13,13 @@ const dateOptions = {
   day: "numeric",
 };
 
+/**
+ * Component that is displayed when no date is selected on the Calendar
+ * or the selected date does not have any tasks recorded.
+ *
+ * @param date - The date selected
+ */
 const NoDataComponent = ({ date }: NoDataProps) => {
-  const [loaded, setLoaded] = useState(false);
-
   return (
     <View style={styles.container}>
       <View style={styles.card}>

@@ -1,12 +1,20 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import colors from "../../Config/colors";
 
 interface DividerProps {
   text?: string;
-  style?: any;
+  style?: StyleProp<ViewStyle>;
   color?: string;
 }
 
+/**
+ * Base divider component. A horizontal line which can have text in the
+ * middle,
+ *
+ * @param text - Text that will be placed in the center of the divider
+ * @param style - Any additional style
+ * @param color - Color of the divider
+ */
 export const Divider = ({
   text,
   style,

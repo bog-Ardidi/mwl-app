@@ -4,7 +4,6 @@ import {
   Dimensions,
   StyleSheet,
   View,
-  TouchableWithoutFeedback,
 } from "react-native";
 import Icon from "./Icon";
 import colors from "../../Config/colors";
@@ -12,19 +11,19 @@ import { fontSize } from "../../Config/typography";
 
 interface ModalProps {
   open: boolean;
-  onClose: any;
+  onClose: () => void;
   title?: string;
   children: React.ReactNode;
-  outsideClose?: boolean;
 }
 
-const Modal = ({
-  open,
-  onClose,
-  title,
-  children,
-  outsideClose = true,
-}: ModalProps) => {
+/**
+ * Base modal component. Pops up over the current screen.
+ * @param open - Boolean tracking if the modal is open
+ * @param onClose - Function to be invoked when the modal is closed
+ * @param title - Title on the header of the modal
+ * @param children - Children to be displayed in the modal
+ */
+const Modal = ({ open, onClose, title, children }: ModalProps) => {
   return (
     <RNModal animationType="slide" visible={open} transparent={true}>
       <View style={styles.container}>

@@ -1,17 +1,34 @@
-/**
- *  Custom TextInput that let's you choose an icon.
- *  The icon is placed on the left end of the Text input field.
- *  If icon is not passed a normal TextInput will be loaded.
- *  Icons are taken from expo/vector-icons and are called by their names.
- */
-
 import React from "react";
-import { TextInput, View, StyleSheet } from "react-native";
+import {
+  TextInput,
+  View,
+  StyleSheet,
+  StyleProp,
+  ViewProps,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
 import colors from "../../Config/colors";
 
-function IconTextInput({ icon, width = "100%", style, ...otherProps }: any) {
+interface IconTextInputProps {
+  icon: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
+  width?: string;
+  style?: StyleProp<ViewProps>;
+  otherProps: IconTextInputProps;
+}
+
+/**
+ * Base Text Input with and icon on the left.
+ * @param icon - Name of icon (from MaterialCommunityIcons)
+ * @param width - Width
+ * @param style - Any additional style
+ * @param otherProps - Any additional TextInput props
+ */
+function IconTextInput({
+  icon,
+  width = "100%",
+  style,
+  ...otherProps
+}: IconTextInputProps) {
   return (
     <View style={[styles.container, style]}>
       {icon && (

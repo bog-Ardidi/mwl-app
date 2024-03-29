@@ -1,17 +1,26 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleProp, StyleSheet, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../../Config/colors";
 
 interface IconProps {
-  name: any;
+  name: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
   size?: number;
   backgroundColor?: string;
   iconColor?: string;
-  iconStyle?: any;
+  iconStyle?: StyleProp<any>;
   onClick?: () => void;
 }
 
+/**
+ * Base icon component.
+ * @param name - Name of icon (from MaterialCommunityIcons)
+ * @param size - Icon size
+ * @param backgroundColor - Background color
+ * @param iconColor - Icon color
+ * @param iconStyle - Any additional style for the icon
+ * @param onClick - On click event
+ */
 function Icon({
   name,
   size = 40,

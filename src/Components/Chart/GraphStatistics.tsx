@@ -10,8 +10,13 @@ import {
 import { useEffect, useState } from "react";
 import Tooltip from "../Base/Tooltip";
 import MWLmessage, { mwlLabelStyle, mwlLabels } from "./MWLmessage";
+import { MWLdata } from "../../Types/mwl";
 
-const GraphStatistics = ({ data }: any) => {
+interface GraphStatisticsProps {
+  data: MWLdata[];
+}
+
+const GraphStatistics = ({ data }: GraphStatisticsProps) => {
   const [toolTipVisible, setToolTipVisible] = useState<boolean>(false);
   const [overallMWL, setOverallMWL] = useState<MWL>(MWL.UNSURE);
   const totalTasks = data?.length;
@@ -23,8 +28,9 @@ const GraphStatistics = ({ data }: any) => {
     data.reduce((total, next) => total + Number(next.data.rating), 0) /
     totalTasks;
 
+  // Calculate the MWL balance
   useEffect(() => {
-    setOverallMWL(() => calculateOverallMWL(data));
+    setOverallMWL(() => calculateOverallMWL(data) ?? MWL.UNSURE);
   }, [data]);
 
   return (

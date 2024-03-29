@@ -15,18 +15,34 @@ import { getWorkloadForMonth } from "../../Utils/workloadHelper";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../../Config/colors";
 import NoDataComponent from "./NoDataComponent";
+import { MWLdata } from "../../Types/mwl";
 
-const Calendar = ({ compare }: any) => {
+interface CalendarProps {
+  compare: boolean;
+}
+
+/**
+ * Heart and soul of the application.
+ * Pulls all tasks for the month from database.
+ * Marks the days that have tasks on them.
+ * On date click generates a bubble chart for the selected date.
+ *
+ * @param compare - Boolean that tracks if the Calendar is in normal or
+ * compare mode.
+ */
+const Calendar = ({ compare }: CalendarProps) => {
   const didMount = useDidMount();
-  const [data, setData] = useState<any>(null);
-  const [marked, setMarked] = useState<any>(null);
-  const [selected, setSelected] = useState<any>(null);
-  const [initialDate, setInitialDate] = useState<string>(new Date().toString());
   const navigation = useNavigation();
+
+  const [data, setData] = useState<MWLdata[] | null>(null);
+  const [marked, setMarked] = useState<any>(null);
+  const [selected, setSelected] = useState<string | null>(null);
+  const [initialDate, setInitialDate] = useState<string>(new Date().toString());
   const [startingDay, setStartingDay] = useState<Date | null>(null);
   const [endingDay, setEndingDay] = useState<Date | null>(null);
   const [range, setRange] = useState<Date[] | null>(null);
 
+  // Resets the calendar when a new rating is submitted
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       setInitialDate(new Date().toString());
@@ -37,6 +53,7 @@ const Calendar = ({ compare }: any) => {
     return unsubscribe;
   }, [navigation]);
 
+  // Calculates what to show on the graph
   const onDayPress = useCallback(
     (day: any) => {
       if (!compare) {
@@ -85,10 +102,12 @@ const Calendar = ({ compare }: any) => {
     [compare, startingDay, endingDay]
   );
 
+  // Marks the dates in compare mode
   useEffect(() => {
     if (startingDay) markDate([startingDay]);
   }, [startingDay]);
 
+  // Sets up the marked dates and passes them to the calendar
   const markDate = (dates: any) => {
     const range = calculateRangeObject(dates, true);
     setMarked((prev) => ({
@@ -97,6 +116,7 @@ const Calendar = ({ compare }: any) => {
     }));
   };
 
+  // Calculates the date range between two selected dates in compare mode
   useEffect(() => {
     if (startingDay && endingDay) {
       const dates = getDatesInRange(startingDay, endingDay);
@@ -117,22 +137,25 @@ const Calendar = ({ compare }: any) => {
   }, [data]);
 
   const getFeedbackDates = async () => {
-    const datesArray = data.map((e) => e.data.timestamp);
-    setMarked(calculateRangeObject(datesArray));
+    const datesArray = data?.map((e: any) => e.data.timestamp);
+
+    if (datesArray) setMarked(calculateRangeObject(datesArray));
   };
 
-  // reset the compare selection when you get out of compare mode
+  // Reset the compare selection when you get out of compare mode
   useEffect(() => {
     if (didMount && !compare) getFeedbackDates();
 
     resetCalendar();
   }, [compare]);
 
+  // Pull data for month on month change
   const onMonthChange = useCallback((month: any) => {
     resetCalendar();
     setInitialDate(month?.dateString);
   }, []);
 
+  // Resets the calendar
   const resetCalendar = () => {
     setSelected(null);
     setRange(null);
@@ -163,8 +186,6 @@ const Calendar = ({ compare }: any) => {
             markingType={"period"}
             firstDay={1}
             initialPosition={ExpandableCalendar.positions.OPEN}
-            //hideKnob={true}
-            //style={{ height: "50%" }}
             theme={{
               monthTextColor: colors.tealGreen,
               arrowColor: colors.bubbleGreen,

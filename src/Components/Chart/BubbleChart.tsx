@@ -8,27 +8,52 @@ import { getWorkloadForDay } from "../../Utils/workloadHelper";
 import { checkSameDay } from "../../Utils/dateHelpers";
 import { CalendarUtils } from "react-native-calendars";
 import { Text, View, StyleSheet } from "react-native";
-import { useDidMount } from "../../Utils/useIsMount";
 import colors from "../../Config/colors";
 import { fontSize } from "../../Config/typography";
 import NoDataComponent from "../Calendar/NoDataComponent";
 import { checkForOverlap } from "../../Utils/repulsion";
 import { limitNumberWithinRange } from "../../Utils/workloadHelper";
 import bubbleColors from "../../Config/bubbleColors";
+import { useDidMount } from "../../Utils/useIsMount";
 
+interface BubbleChartProps {
+  selectedDate: any;
+  range: Date[] | null;
+  data: any;
+  compare: boolean;
+}
+
+// Format of the dates displayed in the component
 const dateOptions = {
   year: "numeric",
   month: "short",
   day: "numeric",
 };
 
-const BubbleChart = ({ selectedDate, range, data, compare }: any) => {
+/**
+ * Bubble chart that represents the tasks.
+ * Allows for single day or multi-day selection.
+ *
+ * @param selectedDate - The date selected on the calendar
+ * @param range - Range selected in the calendar (compare mode only)
+ * @param data - Data to be displayed on the chart
+ * @param compare - Boolean that tracks if the Calendar is in normal or
+ * compare mode.
+ */
+const BubbleChart = ({
+  selectedDate,
+  range,
+  data,
+  compare,
+}: BubbleChartProps) => {
   const [allFeedback, setAllFeedback] = useState([]);
   const [graphData, setGraphData] = useState<null | any[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const handleVisible = () => setOpenModal(!openModal);
   const [modalData, setModalData] = useState([]);
+
   const didMount = useDidMount();
+  const handleVisible = () => setOpenModal(!openModal);
+
   const [bubbles, setBubbles] = useState<any>([
     {
       [CalendarUtils.getCalendarDateString(selectedDate ?? new Date())]:
@@ -36,12 +61,14 @@ const BubbleChart = ({ selectedDate, range, data, compare }: any) => {
     },
   ]);
 
+  // On date change grab new data
   useEffect(() => {
     if (selectedDate) {
       getWorkloadForDay(selectedDate, setAllFeedback);
     }
   }, [selectedDate]);
 
+  // On load calculate chart values from data
   useEffect(() => {
     if (didMount) {
       setGraphData(
@@ -58,6 +85,7 @@ const BubbleChart = ({ selectedDate, range, data, compare }: any) => {
     }
   }, [allFeedback]);
 
+  // Multi-day select calculations
   useEffect(() => {
     if (range) {
       let result = data.filter((o1) =>
@@ -82,6 +110,7 @@ const BubbleChart = ({ selectedDate, range, data, compare }: any) => {
     }
   }, [range]);
 
+  // Check for overlapping bubbles - repulsion
   useEffect(() => {
     checkForOverlap(graphData);
   }, [graphData]);
