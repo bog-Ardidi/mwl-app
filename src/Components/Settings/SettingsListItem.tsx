@@ -8,7 +8,7 @@ import { fontSize } from "../../Config/typography";
 interface SettingsListItemProps {
   name: string;
   iconName: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
-  onPress: () => void;
+  onPress: (e: any) => void;
 }
 
 /**

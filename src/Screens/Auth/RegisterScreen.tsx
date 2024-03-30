@@ -21,7 +21,6 @@ const Register = () => {
         placeholder="Enter your email"
         value={email}
         autoCapitalize="none"
-        autoCompleteType="off"
         autoCorrect={false}
         onChangeText={(text: string) => setEmail(text)}
       />
@@ -30,7 +29,6 @@ const Register = () => {
         placeholder="Enter your password"
         value={password}
         autoCapitalize="none"
-        autoCompleteType="off"
         autoCorrect={false}
         secureTextEntry={true}
         onChangeText={(text: string) => setPassword(text)}

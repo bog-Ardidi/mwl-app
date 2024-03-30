@@ -110,7 +110,7 @@ const Calendar = ({ compare }: CalendarProps) => {
   // Sets up the marked dates and passes them to the calendar
   const markDate = (dates: any) => {
     const range = calculateRangeObject(dates, true);
-    setMarked((prev) => ({
+    setMarked((prev: any) => ({
       ...prev,
       ...range,
     }));

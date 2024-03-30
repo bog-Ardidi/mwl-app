@@ -20,7 +20,6 @@ const ResetPassword = () => {
           placeholder="Enter your email"
           value={email}
           autoCapitalize="none"
-          autoCompleteType="off"
           autoCorrect={false}
           onChangeText={(text: string) => setEmail(text)}
         />

@@ -9,7 +9,7 @@ import { dateOptionsLong, getTimeExt } from "../../Utils/dateHelpers";
 interface WorkloadCardProps {
   data: MWLdata;
   showDelete?: boolean;
-  removeItem: () => void;
+  removeItem: (e: any) => void;
 }
 
 /**

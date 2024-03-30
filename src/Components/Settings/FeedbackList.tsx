@@ -18,8 +18,8 @@ const FeedbackList = ({ data, showDelete = false }: any) => {
     setFeedback(data);
   }, [data]);
 
-  const removeItem = (elem) => {
-    setFeedback(feedback.filter((o) => o.docId !== elem));
+  const removeItem = (elem: any) => {
+    setFeedback(feedback.filter((o: any) => o.docId !== elem));
   };
 
   if (!feedback?.length)
@@ -28,7 +28,7 @@ const FeedbackList = ({ data, showDelete = false }: any) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {feedback ? (
-        feedback?.map((e, idx) => (
+        feedback?.map((e: any, idx: number) => (
           <WorkloadCard
             data={e}
             key={idx}
