@@ -5,7 +5,20 @@ import Icon from "../Base/Icon";
 import colors from "../../Config/colors";
 import { fontSize } from "../../Config/typography";
 
-function SettingsListItem({ name, iconName, onPress }) {
+interface SettingsListItemProps {
+  name: string;
+  iconName: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
+  onPress: () => void;
+}
+
+/**
+ * A single list item in the settings menu - Icon, Text, Styling
+ *
+ * @param name - Title of the menu item
+ * @param iconName - The name (MaterialCommunity name) of the icon to be displayed
+ * @param onPress - Function to be invoked when the menu item is clicked
+ */
+function SettingsListItem({ name, iconName, onPress }: SettingsListItemProps) {
   return (
     <TouchableOpacity onPress={(e) => onPress(e)}>
       <View style={[styles.container]}>

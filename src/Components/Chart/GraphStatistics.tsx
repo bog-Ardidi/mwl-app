@@ -16,6 +16,13 @@ interface GraphStatisticsProps {
   data: MWLdata[];
 }
 
+/**
+ * The graph statistics that appear below the chart when date selection has been made.
+ * Calcultes the averages for all tasks that are in the selected dates.
+ * Calculates the MWL balance for the time period and generates suggestions if the MWL is bad.
+ *
+ * @param data - The data to get the statistics from.
+ */
 const GraphStatistics = ({ data }: GraphStatisticsProps) => {
   const [toolTipVisible, setToolTipVisible] = useState<boolean>(false);
   const [overallMWL, setOverallMWL] = useState<MWL>(MWL.UNSURE);

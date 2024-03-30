@@ -1,5 +1,6 @@
 import { CalendarUtils } from "react-native-calendars";
 import colors from "../Config/colors";
+import { roundToDecimal } from "./workloadHelper";
 
 /**
  * Returns an array of the dates between two dates that are passed.
@@ -68,3 +69,6 @@ export const resetDateTime = (date: Date) => {
   const newDate = new Date(date.setHours(0, 0, 0, 0));
   return newDate;
 };
+
+export const getTimeExt = (time: number) =>
+  time < 60 ? `${time} min` : `${roundToDecimal(time / 60, 1)} hrs`;

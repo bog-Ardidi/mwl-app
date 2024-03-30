@@ -3,8 +3,14 @@ import { useEffect, useState } from "react";
 import WorkloadCard from "./WorkloadCard";
 import Loading from "../Base/Loading";
 import { fontSize } from "../../Config/typography";
-import colors from "../../Config/colors";
 
+/**
+ *  Overview of all tasts that have been submitted for the logged account.
+ *  Allows for deleting specific taskts.
+ *
+ * @param data - Data to be displayed in the list.
+ * @param showDelete - Shows and hides the delete button on a single instance.
+ */
 const FeedbackList = ({ data, showDelete = false }: any) => {
   const [feedback, setFeedback] = useState<any>([]);
 

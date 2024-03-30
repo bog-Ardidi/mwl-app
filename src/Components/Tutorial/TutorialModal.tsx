@@ -9,13 +9,23 @@ import {
   SwiperIcon,
 } from "./SwiperComponents";
 import { swiperData } from "./swiperData";
-import Icon from "../Base/Icon";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import bubbleColors from "../../Config/bubbleColors";
 
-const TutorialModal = ({ open, onClose }: any) => {
+interface TutorialModalProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+/**
+ * Pops up wwhen the information icon is clicked on the HomeScreen.
+ * Holds all 4 screens for the tutorial.
+ *
+ * @param open - Boolean tracking if the modal is open
+ * @param onClose - Function to be invoked when the modal is closed
+ */
+const TutorialModal = ({ open, onClose }: TutorialModalProps) => {
   return (
-    <Modal open={open} onClose={onClose} title="Tutorial" outsideClose={false}>
+    <Modal open={open} onClose={onClose} title="Tutorial">
       <Swiper loop={false} paginationStyle={{ bottom: 0 }}>
         {/* Screen 1 - Welcome */}
         <SwiperScreen>

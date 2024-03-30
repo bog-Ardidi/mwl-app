@@ -2,8 +2,8 @@ import colors from "../../Config/colors";
 import { fontSize } from "../../Config/typography";
 import Modal from "../Base/Modal";
 import { View, StyleSheet, Text } from "react-native";
-import { roundToDecimal } from "../../Utils/workloadHelper";
 import { MWLdata } from "../../Types/mwl";
+import { getTimeExt } from "../../Utils/dateHelpers";
 
 interface FeedbackModalProps {
   open: boolean;
@@ -18,9 +18,12 @@ const dateOptions = {
   day: "numeric",
 };
 
-const getTime = (time: number) =>
-  time < 60 ? `${time} min` : `${roundToDecimal(time / 60, 1)} hrs`;
-
+/**
+ *
+ * @param open - Boolean tracking if the modal is open
+ * @param onClose - Function to be invoked when the modal is closed
+ * @param data - Data about the task that was clicked
+ */
 const FeedbackModal = ({ open, onClose, data }: FeedbackModalProps) => {
   return (
     <Modal open={open} onClose={onClose} title="Task Breakdown">
@@ -48,7 +51,7 @@ const FeedbackModal = ({ open, onClose, data }: FeedbackModalProps) => {
         <Text style={styles.statisticLabel}>Duration: </Text>
         <Text style={styles.statisticValue}>
           {data?.data?.duration
-            ? getTime(Number(data?.data?.duration))
+            ? getTimeExt(Number(data?.data?.duration))
             : "No rating provided"}
         </Text>
       </View>

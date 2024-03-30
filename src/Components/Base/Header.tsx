@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   statusBar: {
-    backgroundColor: "purple",
+    backgroundColor: "white",
     alignContent: "center",
     justifyContent: "center",
     paddingHorizontal: 16,

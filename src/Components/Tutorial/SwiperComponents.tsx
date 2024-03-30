@@ -1,23 +1,54 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, StyleProp, TextStyle } from "react-native";
 import colors from "../../Config/colors";
 import { fontSize } from "../../Config/typography";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const SwiperScreen = ({ children }: any) => {
+interface SwiperChildrenProps {
+  children: React.ReactNode;
+}
+
+/**
+ * Container in the swiper for the tutorial.
+ */
+const SwiperScreen = ({ children }: SwiperChildrenProps) => {
   return <View style={styles.pageContainer}>{children}</View>;
 };
 
-const RegularText = ({ children, style }: any) => {
+interface RegularTextProps {
+  children: React.ReactNode;
+  style?: StyleProp<TextStyle>;
+}
+
+/**
+ * Regular text in the swiper for the tutorial.
+ */
+const RegularText = ({ children, style }: RegularTextProps) => {
   return (
     <Text style={[styles.regularText, styles.shadow, style]}>{children}</Text>
   );
 };
 
-const SwiperTitle = ({ children }: any) => {
+/**
+ * The title for the SwiperScreen for the tutorial.
+ */
+const SwiperTitle = ({ children }: SwiperChildrenProps) => {
   return <Text style={[styles.title, styles.shadow]}>{children}</Text>;
 };
 
-const SwiperIcon = ({ title, size = 100, color = colors.palette5 }: any) => {
+interface SwiperIconProps {
+  title: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
+  size?: number;
+  color?: string;
+}
+
+/**
+ * Icons that are displayed as part of the tutorial in the SwiperScreen.
+ */
+const SwiperIcon = ({
+  title,
+  size = 100,
+  color = colors.palette5,
+}: SwiperIconProps) => {
   return (
     <MaterialCommunityIcons
       size={size / 2}

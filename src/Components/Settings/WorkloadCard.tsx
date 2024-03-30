@@ -3,19 +3,12 @@ import colors from "../../Config/colors";
 import { fontSize } from "../../Config/typography";
 import Icon from "../Base/Icon";
 import { DeleteWorkload } from "../../Controllers/Workload/DeleteController";
+import { MWLdata } from "../../Types/mwl";
 
 interface WorkloadCardProps {
-  data: {
-    docId: string;
-    data: {
-      name: string;
-      rating: string;
-      duration: string;
-      timestamp: any;
-    };
-  };
+  data: MWLdata;
   showDelete?: boolean;
-  removeItem: any;
+  removeItem: () => void;
 }
 
 const dateOptions = {
@@ -25,7 +18,10 @@ const dateOptions = {
   day: "numeric",
 };
 
-const DeleteItem = (docId, removeItem) => {
+/**
+ * Deletes the selected task from Firebase and removes it from the react state list.
+ */
+const DeleteItem = (docId: string, removeItem: (e: string) => void) => {
   Alert.alert(
     "Delete document",
     "Are you sure you want to delete this document?",
@@ -44,13 +40,20 @@ const DeleteItem = (docId, removeItem) => {
   );
 };
 
+/**
+ * UI for a single task displaed in the FeedbackList component.
+ *
+ * @param data - Data to be displayed in the card
+ * @param showDelete - Shows and hides the delete button
+ * @param removeItem - Function that updates the list when an item is deleted
+ */
 const WorkloadCard = ({
   data,
   showDelete = false,
   removeItem,
 }: WorkloadCardProps) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, styles.shadow]}>
       <View>
         <Text style={styles.cardTitle}>
           {data.data.name ?? "No name provided"}
@@ -97,6 +100,7 @@ const styles = StyleSheet.create({
     margin: 10,
     flexDirection: "row",
     justifyContent: "space-between",
+    backgroundColor: colors.white,
   },
   cardTitle: {
     fontSize: fontSize.xl,
@@ -112,6 +116,13 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     justifyContent: "center",
+  },
+  shadow: {
+    shadowColor: colors.gray,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 5,
   },
 });
 

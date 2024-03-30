@@ -1,3 +1,6 @@
+/**
+ * The text that is displayed in the tutorial.
+ */
 export const swiperData = [
   {
     title: "Welcome",

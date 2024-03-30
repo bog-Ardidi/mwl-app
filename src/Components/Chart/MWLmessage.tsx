@@ -68,6 +68,11 @@ const calculateOrder = (mwl: MWL) => {
   }
 };
 
+/**
+ * The message that is displayed in the MWL balance tooltip.
+ *
+ * @param mwl - The type of MWL for the selected statistic
+ */
 const MWLmessage = ({ mwl }: MWLmessageProps) => {
   if (mwl < 3)
     return <Text style={styles.tooltipText}>{mwlMessages[mwl]}</Text>;

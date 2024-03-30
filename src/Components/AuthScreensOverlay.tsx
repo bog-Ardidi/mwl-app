@@ -9,29 +9,37 @@ interface Props {
   children: React.ReactNode;
 }
 
+// Background color for the auth pages
 const bgColor = hex2rgba(colors.palette5, 0.1);
 
+/**
+ * Overlay screen for the Login, Register and Forgotten Password pages.
+ */
 const AuthScreenOverlay = ({ children }: Props) => {
   return (
     <>
       <StatusBar color={bgColor} />
-      <Screen style={styles.screenContainer}>
-        <Image
-          resizeMode="contain"
-          source={require("../../assets/login.png")}
-          style={styles.logo}
-        />
-        <View style={styles.loginContainer}>
-          <Text style={styles.titleText}>Mental Workload Tracker</Text>
-          {children}
+      <Screen>
+        <View style={styles.screenContainer}>
+          <Image
+            resizeMode="contain"
+            source={require("../../assets/login.png")}
+            style={styles.logo}
+          />
+          <View style={styles.loginContainer}>
+            <Text style={styles.titleText}>Mental Workload Tracker</Text>
+            {children}
+          </View>
         </View>
       </Screen>
+      <View style={styles.bottomNavBar}></View>
     </>
   );
 };
 
 const styles = StyleSheet.create({
   screenContainer: {
+    flex: 1,
     backgroundColor: bgColor,
   },
   logo: {
@@ -51,6 +59,14 @@ const styles = StyleSheet.create({
     fontSize: fontSize["h3"],
     fontWeight: "500",
     marginVertical: 40,
+  },
+  bottomNavBar: {
+    backgroundColor: colors.white,
+    alignContent: "center",
+    justifyContent: "center",
+    paddingHorizontal: 16,
+    paddingTop: 0,
+    paddingBottom: 35,
   },
 });
 

@@ -8,6 +8,15 @@ import routes from "../Config/routes";
 import { useState } from "react";
 import TutorialModal from "./Tutorial/TutorialModal";
 
+/**
+ *  The HomeScreen menu at the top of the screen.
+ *  Displays a greeting with the user's name.
+ *  Holds - Add Task button, Compare button, Tutorial button and Setting button.
+ *
+ * @param compare - Boolean that tracks if the Calendar is in normal or
+ * compare mode.
+ * @param setCompare - Function that toggles the compare boolean.
+ */
 const HomeWelcome = ({ compare, setCompare }: any) => {
   const navigation = useNavigation();
   const [openTutorial, setOpenTutorial] = useState<boolean>(false);
