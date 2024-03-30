@@ -1,3 +1,4 @@
+// Typography
 const fontSize = {
   h1: 36,
   h2: 30,

@@ -5,12 +5,18 @@ interface AuthProps {
   password: string;
 }
 
+/**
+ * Accoun sign in.
+ */
 export const FirebaseSignIn = ({ email, password }: AuthProps) => {
   auth
     .signInWithEmailAndPassword(email, password)
     .catch((error: any) => alert(error.message));
 };
 
+/**
+ * Accoun register.
+ */
 export const FirebaseRegister = ({ email, password }: AuthProps) => {
   auth
     .createUserWithEmailAndPassword(email, password)
@@ -20,10 +26,16 @@ export const FirebaseRegister = ({ email, password }: AuthProps) => {
     .catch((error: any) => alert(error.message));
 };
 
+/**
+ * Accoun sign out.
+ */
 export const FirebaseSignOut = () => {
   auth.signOut().catch((error: any) => alert(error.message));
 };
 
+/**
+ * Accoun reset password.
+ */
 export const FirebaseForgottenPassword = (email: string) => {
   auth
     .sendPasswordResetEmail(email)

@@ -10,6 +10,7 @@ import {
   FIREBASE_MESSAGING_SENDER_ID,
 } from "@env";
 
+// database configuration
 const firebaseConfig = {
   apiKey: FIREBASE_API_KEY,
   authDomain: "brain-data-api.firebaseapp.com",

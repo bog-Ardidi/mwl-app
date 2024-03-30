@@ -5,6 +5,7 @@ import {
   StyleSheet,
   StyleProp,
   ViewProps,
+  TextInputProps,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../../Config/colors";
@@ -13,7 +14,7 @@ interface IconTextInputProps {
   icon: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
   width?: string;
   style?: StyleProp<ViewProps>;
-  otherProps: IconTextInputProps;
+  otherProps: any;
 }
 
 /**

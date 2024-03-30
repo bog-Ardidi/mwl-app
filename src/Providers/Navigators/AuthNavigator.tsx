@@ -7,6 +7,9 @@ import routes from "../../Config/routes";
 // AuthStack manages the authentication
 const AuthStack = createNativeStackNavigator();
 
+/**
+ * Navigator that holds the Auth screens.
+ */
 const AuthNavigator = () => {
   return (
     <AuthStack.Navigator

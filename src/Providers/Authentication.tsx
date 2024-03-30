@@ -8,10 +8,10 @@ interface Context {
   user: boolean | null;
 }
 
+// Context around the whole app, tracks if the user is logger
 const AuthContext = createContext<Context>({ user: null });
 
 const AuthProvider = ({ children }: Props) => {
-  // user null = loading
   const [user, setUser] = useState<boolean | null>(null);
 
   useEffect(() => {

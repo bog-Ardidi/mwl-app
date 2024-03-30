@@ -1,6 +1,9 @@
 // @ts-nocheck
 import { limitNumberWithinRange } from "./workloadHelper";
 
+/**
+ * Decides if two circles are overlapping
+ */
 export const circle = (x1, y1, x2, y2, radius1, radius2) => {
   var d = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
   var c1 = d <= radius1 - radius2;
@@ -9,17 +12,15 @@ export const circle = (x1, y1, x2, y2, radius1, radius2) => {
   var c4 = d === radius1 + radius2;
 
   if (c1 || c2 || c3 || c4) {
-    // console.log(
-    //   `the circles x1: ${x1} y1: ${y1} r: ${radius1} and x2: ${x2} y2: ${y2} r2: ${radius2} intersect`
-    // );
-    // console.log(c1, c2, c3, c4);
     return true;
   } else {
-    //console.log("no overlap");
     return false;
   }
 };
 
+/**
+ * Main function that controls the whole repulsion.
+ */
 export const checkForOverlap = (graphData) => {
   if (graphData.length <= 1) return;
 
@@ -56,10 +57,17 @@ export const checkForOverlap = (graphData) => {
 const getPairs = (arr) =>
   arr.map((v, i) => arr.slice(i + 1).map((w) => [v, w])).flat();
 
+// makes sure we don't move in the same direction as previous bubble
 var lastDirection = 0;
+// graph dimensions ensures we don't go outside the graph
 const graphHeight = 5;
 const graphWidth = 24;
 
+/**
+ * Does the calculations from the movement of the circles when an overlap is
+ * detected. Moves the circles only visually on the grpah without altering their
+ * original x and y coordinates (keeps data integrity)
+ */
 const randomizeRepulsion = (radius, data) => {
   const min = 1;
   const max = 4;

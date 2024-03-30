@@ -13,7 +13,7 @@ const objectMap = (apiResponse) =>
     },
   }));
 
-export const getWorkloadForDay = (date, func) => {
+export const getWorkloadForDay = (date: string, func: (e: any) => void) => {
   async function fetchData() {
     const res = await firebaseGetMWLDay(date);
     func(objectMap(res));
@@ -21,7 +21,7 @@ export const getWorkloadForDay = (date, func) => {
   fetchData();
 };
 
-export const getWorkloadForMonth = (date, func) => {
+export const getWorkloadForMonth = (date: string, func: (e: any) => void) => {
   async function fetchData() {
     const res = await firebaseGetMWLMonth(date);
     func(objectMap(res));
@@ -29,7 +29,7 @@ export const getWorkloadForMonth = (date, func) => {
   fetchData();
 };
 
-export const getAllWorkloadForUser = (func) => {
+export const getAllWorkloadForUser = (func: (e: any) => void) => {
   async function fetchData() {
     const res = await firebaseGetMWLAll();
     func(objectMap(res));
@@ -37,12 +37,12 @@ export const getAllWorkloadForUser = (func) => {
   fetchData();
 };
 
-export const roundToDecimal = (value, precision) => {
+export const roundToDecimal = (value: number, precision: number) => {
   var multiplier = Math.pow(10, precision || 0);
   return Math.round(value * multiplier) / multiplier;
 };
 
-export const limitNumberWithinRange = (num, MIN = 10, MAX = 30) => {
+export const limitNumberWithinRange = (num: string, MIN = 10, MAX = 30) => {
   const parsed = parseFloat(num);
   return Math.min(Math.max(parsed, MIN), MAX);
 };
@@ -55,7 +55,7 @@ export enum MWL {
   BAD_HIGH = 4,
 }
 
-export const calculateOverallMWL = (data) => {
+export const calculateOverallMWL = (data: any) => {
   var durationLow = 0,
     durationMid = 0,
     durationHigh = 0;

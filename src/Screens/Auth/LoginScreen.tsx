@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import { FirebaseSignIn } from "../../Controllers/AuthenticationController";
-import Button from "../../Components/Base/Button";
 import { Divider } from "../../Components/Base/Divider";
 import routes from "../../Config/routes";
 import { useNavigation } from "@react-navigation/native";
@@ -10,7 +9,6 @@ import AuthScreenOverlay from "../../Components/AuthScreensOverlay";
 import FormField from "../../Components/Validation/FormField";
 import FormikForm from "../../Components/Validation/FormikForm";
 import { validationSchemaLogin } from "../../Config/validationSchema";
-import { useFormikContext } from "formik";
 import ValidatedButton from "../../Components/Validation/ValidatedButton";
 
 export default function () {
@@ -21,7 +19,7 @@ export default function () {
       <FormikForm
         initialValues={{ email: "", password: "" }}
         // send user credentials to database
-        onSubmit={(values) => FirebaseSignIn(values)}
+        onSubmit={(values: any) => FirebaseSignIn(values)}
         validationSchema={validationSchemaLogin}
       >
         {/* E-mail form field */}

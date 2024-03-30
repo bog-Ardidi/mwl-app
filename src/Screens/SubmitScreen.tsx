@@ -27,6 +27,7 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
   const navigation = useNavigation();
   const [date, setDate] = useState<Date>(new Date());
   const [duration, setDuration] = useState<Date>(resetDateTime(new Date()));
+  // labels in the rating select dropdown
   const [items, setItems] = useState([
     { label: "1 - Low", value: "1" },
     { label: "2 - Modest", value: "2" },
@@ -41,6 +42,7 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
   const minDate = new Date();
   minDate.setMonth(minDate.getMonth() - 3);
 
+  // submits the data to Firebase and returns you to the Calendar
   const submitData = (values: any) => {
     const minutes = duration.getMinutes() + duration.getHours() * 60;
 

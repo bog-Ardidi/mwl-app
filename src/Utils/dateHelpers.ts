@@ -23,8 +23,10 @@ export const getDatesInRange = (startDate: Date, endDate: Date) => {
 
 /**
  * Returns object of objects that that represent the marked dates on the calendar
- * during the comparison mode! Takes a list of dates as an input.
- * @range - decides if we will have the styling for a date range or for a single
+ * during the comparison mode! (e.g marking the dates pink)
+ *
+ * @param dates - List of dates
+ * @param range - decides if we will have the styling for a date range or for a single
  * date selection
  */
 export const calculateRangeObject = (dates: Date[], range = false) => {
@@ -65,10 +67,19 @@ export const dateDiffInDays = (a: Date, b: Date) => {
   return Math.floor((utc2 - utc1) / _MS_PER_DAY);
 };
 
+/**
+ * Resets a date passed to 00:00:000 time that day.
+ */
 export const resetDateTime = (date: Date) => {
   const newDate = new Date(date.setHours(0, 0, 0, 0));
   return newDate;
 };
 
+/**
+ * Formats a time period depending on if it is in hours our in minutes.
+ * Usually used for UI.
+ *
+ * @param time - the time period
+ */
 export const getTimeExt = (time: number) =>
   time < 60 ? `${time} min` : `${roundToDecimal(time / 60, 1)} hrs`;

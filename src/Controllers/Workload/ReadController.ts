@@ -2,6 +2,10 @@ import { auth, db } from "../../Config/firebase";
 
 const MWL_COLLECTION = "mentalworkload";
 
+/**
+ * Get all tasks for passed date
+ * @param currentDate - date passed
+ */
 export const firebaseGetMWLDay = async (currentDate: string) => {
   const startOfDay = new Date(currentDate);
   const endOfDay = new Date(currentDate);
@@ -16,6 +20,10 @@ export const firebaseGetMWLDay = async (currentDate: string) => {
     .get();
 };
 
+/**
+ * Get all tasks for passed month
+ * @param currentDate - month passed
+ */
 export const firebaseGetMWLMonth = async (currentDate: string) => {
   const date = new Date(currentDate),
     y = date.getFullYear(),
@@ -32,6 +40,9 @@ export const firebaseGetMWLMonth = async (currentDate: string) => {
     .get();
 };
 
+/**
+ * Get all tasks for the logged account.
+ */
 export const firebaseGetMWLAll = async () => {
   return db
     .collection(MWL_COLLECTION)

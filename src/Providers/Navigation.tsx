@@ -5,6 +5,7 @@ import AuthNavigator from "./Navigators/AuthNavigator";
 import Loading from "../Components/Base/Loading";
 import MainStackNavigator from "./Navigators/StackNavigator";
 
+// Controls all navigation in app
 export default () => {
   const auth = useContext(AuthContext);
   const user = auth.user;

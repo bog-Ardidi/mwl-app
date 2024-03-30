@@ -9,6 +9,9 @@ export interface workloadProps {
 
 const MWL_COLLECTION = "mentalworkload";
 
+/**
+ * Add new task to Firebase.
+ */
 export const SubmitWorkload = async (props: workloadProps) => {
   const docData = {
     name: props.name,

@@ -7,6 +7,9 @@ import SettingsScreen from "../../Screens/SettingsScreen";
 
 const MainStack = createNativeStackNavigator();
 
+/**
+ * Navigator that holds all non-authentication screens.
+ */
 const MainStackNavigator = () => {
   return (
     <MainStack.Navigator
