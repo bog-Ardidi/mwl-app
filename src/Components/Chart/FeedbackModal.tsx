@@ -4,19 +4,13 @@ import Modal from "../Base/Modal";
 import { View, StyleSheet, Text } from "react-native";
 import { MWLdata } from "../../Types/mwl";
 import { getTimeExt } from "../../Utils/dateHelpers";
+import { dateOptionsLong } from "../../Utils/dateHelpers";
 
 interface FeedbackModalProps {
   open: boolean;
   onClose: () => void;
   data: MWLdata;
 }
-
-const dateOptions = {
-  weekday: "long",
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-};
 
 /**
  *
@@ -35,7 +29,7 @@ const FeedbackModal = ({ open, onClose, data }: FeedbackModalProps) => {
           {data?.data?.timestamp
             ? new Date(data.data.timestamp).toLocaleDateString(
                 "en-gb",
-                dateOptions
+                dateOptionsLong
               )
             : "No date provided"}
         </Text>

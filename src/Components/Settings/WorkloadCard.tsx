@@ -4,19 +4,13 @@ import { fontSize } from "../../Config/typography";
 import Icon from "../Base/Icon";
 import { DeleteWorkload } from "../../Controllers/Workload/DeleteController";
 import { MWLdata } from "../../Types/mwl";
+import { dateOptionsLong, getTimeExt } from "../../Utils/dateHelpers";
 
 interface WorkloadCardProps {
   data: MWLdata;
   showDelete?: boolean;
   removeItem: () => void;
 }
-
-const dateOptions = {
-  weekday: "long",
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-};
 
 /**
  * Deletes the selected task from Firebase and removes it from the react state list.
@@ -62,7 +56,7 @@ const WorkloadCard = ({
           {data.data.timestamp
             ? new Date(data.data.timestamp).toLocaleDateString(
                 "en-gb",
-                dateOptions
+                dateOptionsLong
               )
             : "No date provided"}
         </Text>
@@ -70,7 +64,8 @@ const WorkloadCard = ({
           Mental Workload Rating: {data.data.rating ?? "No rating provided"}
         </Text>
         <Text style={styles.cardText}>
-          Duration: {data.data.duration ?? "No rating provided"}
+          Duration:{" "}
+          {getTimeExt(Number(data.data.duration)) ?? "No rating provided"}
         </Text>
       </View>
       {showDelete && (

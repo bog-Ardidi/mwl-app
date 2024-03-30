@@ -23,8 +23,8 @@ const logOut = () => {
   ]);
 };
 
-const SettingsScreen = ({ weekView = false }) => {
-  const navigation = useNavigation();
+const SettingsScreen = () => {
+  const navigation = useNavigation<any>();
 
   return (
     <>

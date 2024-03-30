@@ -83,3 +83,24 @@ export const resetDateTime = (date: Date) => {
  */
 export const getTimeExt = (time: number) =>
   time < 60 ? `${time} min` : `${roundToDecimal(time / 60, 1)} hrs`;
+
+/**
+ * Time format
+ * day/month/year
+ */
+export const dateOptionsShort: Intl.DateTimeFormatOptions = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+
+/**
+ * Time format
+ * day of week, day/month/year
+ */
+export const dateOptionsLong: Intl.DateTimeFormatOptions = {
+  weekday: "long",
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+};

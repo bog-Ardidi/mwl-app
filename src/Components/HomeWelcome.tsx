@@ -18,7 +18,7 @@ import TutorialModal from "./Tutorial/TutorialModal";
  * @param setCompare - Function that toggles the compare boolean.
  */
 const HomeWelcome = ({ compare, setCompare }: any) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const [openTutorial, setOpenTutorial] = useState<boolean>(false);
 
   return (

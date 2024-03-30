@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import FeedbackModal from "./FeedbackModal";
 import GraphStatistics from "./GraphStatistics";
 import { getWorkloadForDay } from "../../Utils/workloadHelper";
-import { checkSameDay } from "../../Utils/dateHelpers";
+import { checkSameDay, dateOptionsShort } from "../../Utils/dateHelpers";
 import { CalendarUtils } from "react-native-calendars";
 import { Text, View, StyleSheet } from "react-native";
 import colors from "../../Config/colors";
@@ -22,13 +22,6 @@ interface BubbleChartProps {
   data: any;
   compare: boolean;
 }
-
-// Format of the dates displayed in the component
-const dateOptions = {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-};
 
 /**
  * Bubble chart that represents the tasks.
@@ -128,7 +121,7 @@ const BubbleChart = ({
                 <Text style={styles.selectedDate}>
                   {new Date(selectedDate).toLocaleDateString(
                     "en-gb",
-                    dateOptions
+                    dateOptionsShort
                   ) ?? "-"}
                 </Text>
               </>
@@ -144,7 +137,7 @@ const BubbleChart = ({
                   <Text style={styles.selectedText}>Start date:</Text>
                   <Text style={styles.selectedDate}>
                     {range
-                      ? range[0]?.toLocaleDateString("en-gb", dateOptions)
+                      ? range[0]?.toLocaleDateString("en-gb", dateOptionsShort)
                       : "-"}
                   </Text>
                 </View>
@@ -154,7 +147,7 @@ const BubbleChart = ({
                     {range
                       ? range[range.length - 1]?.toLocaleDateString(
                           "en-gb",
-                          dateOptions
+                          dateOptionsShort
                         )
                       : "-"}
                   </Text>

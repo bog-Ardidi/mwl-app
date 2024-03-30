@@ -1,17 +1,10 @@
 import { StyleSheet, Text, View, Dimensions, Image } from "react-native";
 import colors from "../../Config/colors";
 import { fontSize } from "../../Config/typography";
-import { useState } from "react";
-
+import { dateOptionsShort } from "../../Utils/dateHelpers";
 interface NoDataProps {
   date?: string;
 }
-
-const dateOptions = {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-};
 
 /**
  * Component that is displayed when no date is selected on the Calendar
@@ -27,7 +20,7 @@ const NoDataComponent = ({ date }: NoDataProps) => {
           <>
             <Text style={styles.text}>The selected date</Text>
             <Text style={styles.dateText}>
-              {new Date(date).toLocaleDateString("en-gb", dateOptions)}
+              {new Date(date).toLocaleDateString("en-gb", dateOptionsShort)}
             </Text>
             <Text style={styles.text}>has no ratings recorded.</Text>
           </>

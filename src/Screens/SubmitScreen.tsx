@@ -6,7 +6,7 @@ import {
   SubmitWorkload,
   workloadProps,
 } from "../Controllers/Workload/WriteController";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import { fontSize } from "../Config/typography";
 import routes from "../Config/routes";
@@ -24,7 +24,7 @@ interface SubmitScreenProps {
 }
 
 const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const [date, setDate] = useState<Date>(new Date());
   const [duration, setDuration] = useState<Date>(resetDateTime(new Date()));
   // labels in the rating select dropdown

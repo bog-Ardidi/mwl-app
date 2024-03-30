@@ -12,7 +12,7 @@ import { validationSchemaLogin } from "../../Config/validationSchema";
 import ValidatedButton from "../../Components/Validation/ValidatedButton";
 
 export default function () {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   return (
     <AuthScreenOverlay>
