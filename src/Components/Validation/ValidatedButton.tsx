@@ -12,7 +12,7 @@ function ValidatedButton({ title, onPress = empty, style }: any) {
     <Button
       title={title}
       style={style}
-      onPress={(e) => {
+      onPress={(e: any) => {
         handleSubmit(e);
         onPress(e);
       }}

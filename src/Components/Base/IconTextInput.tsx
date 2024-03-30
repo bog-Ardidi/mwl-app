@@ -11,12 +11,12 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../../Config/colors";
 
 interface IconProps {
-  icon: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
+  icon?: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
   width?: string;
   style?: StyleProp<ViewProps>;
 }
 
-type IconTextInputProps = IconProps & TextInputProps;
+export type IconTextInputProps = IconProps & TextInputProps;
 
 /**
  * Base Text Input with and icon on the left.

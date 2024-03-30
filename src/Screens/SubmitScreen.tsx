@@ -19,11 +19,7 @@ import { resetDateTime } from "../Utils/dateHelpers";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Header, StatusBar } from "../Components/Base/Header";
 
-interface SubmitScreenProps {
-  currentDate: Date;
-}
-
-const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
+const SubmitScreen = ({ currentDate = new Date() }) => {
   const navigation = useNavigation<any>();
   const [date, setDate] = useState<Date>(new Date());
   const [duration, setDuration] = useState<Date>(resetDateTime(new Date()));
@@ -92,7 +88,6 @@ const SubmitScreen = ({ currentDate = new Date() }: SubmitScreenProps) => {
             <View style={styles.input}>
               <FormField
                 placeholder="Name"
-                autoCompleteType="off"
                 autoCapitalize="none"
                 autoCorrect={false}
                 name="Name"

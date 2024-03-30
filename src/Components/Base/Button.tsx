@@ -4,7 +4,7 @@ import colors from "../../Config/colors";
 
 interface ButtonProps {
   title: string;
-  onPress: () => void;
+  onPress: (e?: any) => void;
   style?: StyleProp<any>;
 }
 
