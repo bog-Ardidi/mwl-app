@@ -1,10 +1,12 @@
 # Mental Workload Tracker
 
 Author: <i>Georgi Petkov</i>
+
 Student ID: 20188688
+
 Email: psygp2@nottingham.ac.uk
 
-For COMP-4029 MSci Individual Prog project
+For COMP-4029 MSci Individual Programming Project
 
 The purpose of this app is accessible tracking and visual representation of Mental Workload data.
 
