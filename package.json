@@ -16,6 +16,7 @@
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "@types/react-native": "~0.70.6",
+    "docdash": "^2.0.2",
     "expo": "~47.0.13",
     "expo-asset": "~8.7.0",
     "expo-font": "~11.0.1",

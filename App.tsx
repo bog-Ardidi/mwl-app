@@ -4,6 +4,10 @@ import { LogBox } from "react-native";
 
 LogBox.ignoreAllLogs();
 
+/**
+ * Root of application.
+ * @author Georgi Petkov
+ */
 export default function App() {
   return (
     <AuthProvider>
