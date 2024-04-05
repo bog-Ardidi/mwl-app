@@ -156,13 +156,16 @@ const BubbleChart = ({
             )}
 
             <VictoryChart
-              domain={{ x: [0, 24], y: [0, 5] }}
+              domain={{ x: [0, 12], y: [0, 5] }}
               animate={{
                 duration: 4000,
                 easing: "bounce",
               }}
             >
-              <VictoryAxis label="Duration" />
+              <VictoryAxis
+                label="Duration"
+                tickFormat={(rating) => String(Math.round(rating))}
+              />
               <VictoryAxis
                 dependentAxis
                 label="Rating"
@@ -182,7 +185,6 @@ const BubbleChart = ({
                         ? color[0][datum.date]
                         : bubbleColors[0];
                     },
-                    //opacity: 0.9,
                   },
                 }}
                 events={[
