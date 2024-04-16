@@ -41,21 +41,21 @@ export default {
   mustard: "#E1883B",
   purple_haze: "#C8B4D080",
 
-  // palette 1
+  // palette
   palette1: "#3333cc",
   palette2: "#9999ff",
   palette3: "#c0dfff",
   palette4: "#60b0c0",
   palette5: "#008080",
 
-  // pallette 2
+  // pallette 1
   // https://www.canva.com/colors/color-palettes/pastel-dreams/
   yellow_p: "#FBE7C6",
   mint: "#B4F8C8",
   tiffanyBlue: "#A0E7E5",
   hotPink: "#FFAEBC",
 
-  // palette 3
+  // palette 2
   // https://www.canva.com/colors/color-palettes/padlocked-doors/
   mauve: "#B99095",
   salmon: "#FCB5AC",

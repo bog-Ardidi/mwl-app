@@ -5,9 +5,13 @@ import Icon from "../Components/Base/Icon";
 import colors from "../Config/colors";
 import routes from "../Config/routes";
 import { fontSize } from "../Config/typography";
-import { FirebaseSignOut } from "../Controllers/AuthenticationController";
+import {
+  FirebaseForgottenPassword,
+  FirebaseSignOut,
+} from "../Controllers/AuthenticationController";
 import SettingsListItem from "../Components/Settings/SettingsListItem";
 import { Header, StatusBar } from "../Components/Base/Header";
+import { auth } from "../Config/firebase";
 
 const logOut = () => {
   Alert.alert("Logout", "Are you sure you want to Log Out?", [
@@ -21,6 +25,24 @@ const logOut = () => {
       text: "No",
     },
   ]);
+};
+
+const changePassword = () => {
+  Alert.alert(
+    "Reset Password",
+    "Are you sure you want to Reset your Password?",
+    [
+      {
+        text: "Yes",
+        onPress: () => {
+          FirebaseForgottenPassword(auth.currentUser?.email);
+        },
+      },
+      {
+        text: "No",
+      },
+    ]
+  );
 };
 
 const SettingsScreen = () => {
@@ -50,7 +72,7 @@ const SettingsScreen = () => {
           <SettingsListItem
             name="Change password"
             iconName={"account-key-outline"}
-            onPress={() => console.log(":)")}
+            onPress={changePassword}
           />
           <SettingsListItem
             name="Log out"
