@@ -74,7 +74,7 @@ const calculateOrder = (mwl: MWL) => {
  * @param mwl - The type of MWL for the selected statistic
  */
 const MWLmessage = ({ mwl }: MWLmessageProps) => {
-  if (mwl < 3)
+  if (mwl < 2)
     return <Text style={styles.tooltipText}>{mwlMessages[mwl]}</Text>;
 
   const order = calculateOrder(mwl);
